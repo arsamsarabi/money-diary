@@ -3,6 +3,7 @@
     <div class="logo">
       <router-link to="/">
         <img alt="Vue logo" src="@/assets/logo.svg" />
+        <span>Expense Tracker</span>
       </router-link>
     </div>
     <nav>
@@ -20,14 +21,14 @@ export default {
 
 <style lang="scss" scoped>
 .navbar {
-  background-color: var(--color-primary);
-  width: 72px;
+  width: 288px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding-top: 16px;
+  padding: var(--padding-desktop);
 }
+
 .logo {
   margin-bottom: 16px;
   img {
@@ -35,6 +36,7 @@ export default {
     height: auto;
   }
 }
+
 nav {
   display: flex;
   flex-direction: column;

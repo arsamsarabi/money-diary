@@ -24,4 +24,8 @@ export default {
   overflow: hidden;
   display: flex;
 }
+main.content {
+  flex: 1;
+  padding: var(--padding-desktop);
+}
 </style>

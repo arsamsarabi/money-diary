@@ -11,6 +11,8 @@
   --color-accent: #cdc09b;
   --color-black: #2f2f2f;
   --color-white: #f9f9f9;
+
+  --padding-desktop: 48px 36px;
 }
 
 html,
