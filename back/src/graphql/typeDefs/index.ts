@@ -40,6 +40,7 @@ const typeDefs = gql`
     amount: Float
     startDate: String
     endDate: String
+    categories: [String]
     accountId: String
     userId: String
   }
