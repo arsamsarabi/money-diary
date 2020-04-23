@@ -15,5 +15,9 @@ export default {
 <style lang="scss" scoped>
 a {
   text-decoration: none;
+  color: var(--color-grey-dark);
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
 }
 </style>

@@ -1,8 +1,8 @@
-@import url("https://fonts.googleapis.com/css2?family=Cantarell:wght@400;700&family=Quicksand:wght@400;600&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Cantarell:wght@400;700&family=Quicksand:wght@400;600&display=swap');
 
 :root {
-  --font-primary: "Quicksand", Arial, sans-serif;
-  --font-secondary: "Cantarell", cursive;
+  --font-primary: 'Quicksand', Arial, sans-serif;
+  --font-secondary: 'Cantarell', cursive;
 
   --color-primary: #2c3a47;
   --color-secondary: #00b894;
@@ -15,6 +15,10 @@
   --color-grey-dark: #636e72;
 
   --padding-desktop: 48px 32px;
+
+  --border-r-s: 5px;
+  --border-r-m: 15px;
+  --border-r-l: 25px;
 }
 
 html,
@@ -133,7 +137,7 @@ blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: "";
+  content: '';
   content: none;
 }
 table {

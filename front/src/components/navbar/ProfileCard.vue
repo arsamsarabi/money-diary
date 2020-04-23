@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <img :src="userImage" />
-    <h1>Hello, Arsam!</h1>
+    <h1>Hello, Arsam! 👋🏻</h1>
     <NavLinkIcon text="Profile" icon="pencil-alt" path="/profile" />
     <NavLinkIcon text="Settings" icon="cog" path="/settings" />
     <NavLinkIcon text="Wallet" icon="wallet" path="/wallet" />
@@ -33,10 +33,15 @@ export default {
 <style lang="scss" scoped>
 .card {
   width: 100%;
-  height: 300px;
   background-color: #fff;
-  margin-top: 40px;
+  margin-top: 48px;
   box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.125);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  border-radius: 10px;
 
   img {
     width: 75px;
@@ -44,6 +49,18 @@ export default {
     overflow: hidden;
     border: 2px solid var(--color-grey-light);
     border-radius: 50%;
+  }
+
+  h1 {
+    font-family: var(--font-secondary);
+    font-size: 1.25rem;
+    margin: 16px 0;
+  }
+
+  a {
+    &:not(:last-of-type) {
+      margin-bottom: 8px;
+    }
   }
 }
 </style>
