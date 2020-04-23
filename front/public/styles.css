@@ -1,18 +1,20 @@
 @import url("https://fonts.googleapis.com/css2?family=Cantarell:wght@400;700&family=Quicksand:wght@400;600&display=swap");
 
 :root {
-  --font-primary: "Cantarell", Arial, sans-serif;
-  --font-secondary: "Quicksand", cursive;
+  --font-primary: "Quicksand", Arial, sans-serif;
+  --font-secondary: "Cantarell", cursive;
 
   --color-primary: #2c3a47;
-  --color-primary-light: #babbce;
-  --color-secondary: #b58890;
-  --color-secondary-light: #cdb6bc;
-  --color-accent: #cdc09b;
-  --color-black: #2f2f2f;
+  --color-secondary: #00b894;
+  --color-accent: #00cec9;
+  --color-black: #2d3436;
   --color-white: #f9f9f9;
 
-  --padding-desktop: 48px 36px;
+  --color-grey-light: #dfe6e9;
+  --color-grey: #b2bec3;
+  --color-grey-dark: #636e72;
+
+  --padding-desktop: 48px 32px;
 }
 
 html,
