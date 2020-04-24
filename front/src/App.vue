@@ -18,11 +18,12 @@ export default {
     Navbar,
   },
   methods: {
-    ...mapActions(['fetchUserById', 'fetchExpensesByUserId']),
+    ...mapActions(['fetchUserById', 'fetchExpensesByUserId', 'fetchAccountsByUserId']),
   },
   created() {
     this.fetchUserById()
     this.fetchExpensesByUserId()
+    this.fetchAccountsByUserId()
   },
 }
 </script>
