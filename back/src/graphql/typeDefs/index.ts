@@ -29,6 +29,7 @@ const typeDefs = gql`
 
   type Query {
     me(userId: String): User
+    getAccountsByUserId(userId: String): [Account]!
     getExpensesByUserId(userId: String): [Expense]!
   }
 
