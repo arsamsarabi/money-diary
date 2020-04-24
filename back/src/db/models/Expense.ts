@@ -10,6 +10,7 @@ const ExpenseSchema = new Schema(
     categories: [String],
     accountId: String,
     userId: String,
+    isRecurring: Boolean,
   },
   {
     timestamps: true,

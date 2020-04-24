@@ -2,6 +2,8 @@ import { User, Account, Expense } from '../../db'
 
 const queries = {
   me: async (_: any, { userId }: { userId: string }) => await User.findById(userId),
+  getExpensesByUserId: async (_: any, { userId }: { userId: string }) =>
+    await Expense.find({ userId }),
 }
 
 const mutations = {

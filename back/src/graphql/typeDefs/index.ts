@@ -6,10 +6,12 @@ const typeDefs = gql`
     title: String
     description: String
     amount: Float
+    categories: [String]
     startDate: String
     endDate: String
     accountId: String
     userId: String
+    isRecurring: Boolean
   }
 
   type Account {
@@ -27,6 +29,7 @@ const typeDefs = gql`
 
   type Query {
     me(userId: String): User
+    getExpensesByUserId(userId: String): [Expense]!
   }
 
   input NewAccount {
