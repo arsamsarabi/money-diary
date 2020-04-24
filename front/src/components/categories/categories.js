@@ -9,7 +9,7 @@ import 'vue-awesome/icons/universal-access'
 import 'vue-awesome/icons/infinity'
 import 'vue-awesome/icons/gift'
 import 'vue-awesome/icons/cocktail'
-import 'vue-awesome/icons/tags'
+import 'vue-awesome/icons/tag'
 import 'vue-awesome/icons/taxi'
 
 export const defaultCategories = [
@@ -82,7 +82,7 @@ export const defaultCategories = [
   {
     id: '12',
     label: 'Shopping',
-    icon: 'tags',
+    icon: 'tag',
     color: '#0fb9b1',
   },
   {

@@ -1,13 +1,21 @@
 <template>
   <nav>
-    <router-link to="/">Home</router-link>
-    <router-link to="/categories">Categories</router-link>
-    <router-link to="/transactions">Transactions</router-link>
-    <router-link to="/calendar">Calendar</router-link>
+    <router-link to="/">
+      <v-icon name="home" />
+      Home
+    </router-link>
+    <router-link to="/categories"> <v-icon name="tags" />Categories</router-link>
+    <router-link to="/transactions"> <v-icon name="dollar-sign" />Transactions</router-link>
+    <router-link to="/calendar"><v-icon name="calendar-day" />Calendar</router-link>
   </nav>
 </template>
 
 <script>
+import 'vue-awesome/icons/home'
+import 'vue-awesome/icons/tags'
+import 'vue-awesome/icons/dollar-sign'
+import 'vue-awesome/icons/calendar-day'
+
 export default {
   name: 'RouterLinks',
 }
@@ -46,6 +54,10 @@ nav {
       left: -20px;
       transition: 0.2s all ease-out;
       border-radius: 2px;
+    }
+
+    & > svg {
+      margin-right: 8px;
     }
   }
 }
