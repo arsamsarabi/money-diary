@@ -40,7 +40,7 @@ import { lighten } from 'polished'
 import 'vue-awesome/icons/caret-up'
 import 'vue-awesome/icons/caret-down'
 
-import { getOneCategory } from '../categories/categories'
+import { getOneCategory } from '../../utils/categories'
 
 export default {
   name: 'ExpanseCollapse',

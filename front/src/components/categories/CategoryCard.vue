@@ -1,11 +1,11 @@
 <template>
   <div class="wrapper" :style="style">
     <div class="icon">
-      <v-icon :name="icon" scale="1.5" />
+      <v-icon :name="category.icon" scale="1.5" />
     </div>
     <div class="text">
-      <p class="label">{{ label }}</p>
-      <p class="amount">£ {{ sum }}</p>
+      <p class="label">{{ category.label }}</p>
+      <p class="amount">£ {{ category.sum }}</p>
     </div>
   </div>
 </template>
@@ -13,26 +13,10 @@
 <script>
 export default {
   name: 'CategoryCard',
-  props: {
-    id: {
-      type: String,
-    },
-    icon: {
-      type: String,
-    },
-    label: {
-      type: String,
-    },
-    color: {
-      type: String,
-    },
-  },
+  props: ['category'],
   computed: {
     style() {
-      return `background-color: ${this.color}`
-    },
-    sum() {
-      return this.$store.getters.getTotalByCategory(this.id)
+      return `background-color: ${this.category.color}`
     },
   },
 }

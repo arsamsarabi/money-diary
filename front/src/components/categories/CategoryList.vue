@@ -2,14 +2,7 @@
   <div class="categories-list-wrapper">
     <h1>Categories</h1>
     <div class="categories-row">
-      <CategoryCard
-        v-for="category in this.randomCategories"
-        :key="category.id"
-        :id="category.id"
-        :label="category.label"
-        :icon="category.icon"
-        :color="category.color"
-      />
+      <CategoryCard v-for="category in getCategorisedData.slice(0, 4)" :key="category.id" :category="category" />
       <router-link to="/categories" class="view-more-button">
         <v-icon name="plus" />
         <p>View all</p>
@@ -20,8 +13,9 @@
 
 <script>
 import 'vue-awesome/icons/plus'
+import { mapGetters } from 'vuex'
+
 import CategoryCard from './CategoryCard'
-import { defaultCategories } from './categories'
 
 export default {
   name: 'CategoryList',
@@ -29,15 +23,7 @@ export default {
     CategoryCard,
   },
   computed: {
-    randomCategories() {
-      const numberOfCategories = 4
-      const randomIndexes = []
-      while (randomIndexes.length < numberOfCategories) {
-        const random = Math.floor(Math.random() * defaultCategories.length)
-        if (randomIndexes.indexOf(random) === -1) randomIndexes.push(random)
-      }
-      return randomIndexes.map(i => defaultCategories[i])
-    },
+    ...mapGetters(['getCategorisedData']),
   },
 }
 </script>
