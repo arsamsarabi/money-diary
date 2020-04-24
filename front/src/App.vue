@@ -8,11 +8,20 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 import Navbar from '@/components/navbar/Navbar.vue'
+
 export default {
   name: 'App',
   components: {
     Navbar,
+  },
+  methods: {
+    ...mapActions(['fetchUserById']),
+  },
+  created() {
+    this.fetchUserById()
   },
 }
 </script>

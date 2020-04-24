@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <img :src="userImage" />
-    <h1>Hello, Arsam! 👋🏻</h1>
+    <h1>Hello, {{ this.getUserName }}! 👋🏻</h1>
     <NavLinkIcon text="Profile" icon="pencil-alt" path="/profile" />
     <NavLinkIcon text="Settings" icon="cog" path="/settings" />
     <NavLinkIcon text="Wallet" icon="wallet" path="/wallet" />
@@ -16,6 +16,8 @@ import 'vue-awesome/icons/wallet'
 import DefaultImage from '../../assets/avatars/128_13.png'
 import NavLinkIcon from '../NavLinkIcon'
 
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'ProfileCard',
   props: {
@@ -27,6 +29,7 @@ export default {
   components: {
     NavLinkIcon,
   },
+  computed: mapGetters(['getUserName']),
 }
 </script>
 
