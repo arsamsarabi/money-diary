@@ -14,10 +14,11 @@ export default {
 
 <style lang="scss" scoped>
 a {
+  width: 100%;
   text-decoration: none;
   color: var(--color-grey);
   display: flex;
-  width: 100%;
+  align-items: center;
   justify-content: space-between;
 }
 </style>
