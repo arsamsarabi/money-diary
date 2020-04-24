@@ -23,7 +23,7 @@ export default {
 
 <style lang="scss" scoped>
 .navbar {
-  width: 288px;
+  width: var(--navbar-width-desktop);
   display: flex;
   flex-direction: column;
   align-items: center;

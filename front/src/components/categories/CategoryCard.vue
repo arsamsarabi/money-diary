@@ -46,6 +46,7 @@ export default {
   justify-content: flex-start;
   align-items: center;
   width: 175px;
+  min-width: 175px;
   height: 64px;
   padding: 0 16px;
   color: var(--color-white);

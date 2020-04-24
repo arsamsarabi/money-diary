@@ -25,7 +25,7 @@ export default {
   display: flex;
 }
 main.content {
-  flex: 1;
+  width: calc(100vw - var(--navbar-width-desktop));
   padding: var(--padding-desktop);
 }
 </style>
