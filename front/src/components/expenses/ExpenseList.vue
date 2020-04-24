@@ -20,12 +20,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../../scss/mixins.scss';
+
 .expense-list-wrapper {
-  padding-top: 8px;
+  padding-top: 32px;
+
   h1 {
-    font-family: var(--font-secondary);
-    font-size: 1.125rem;
-    margin-bottom: 16px;
+    @include section-header;
+  }
+
+  & > div {
+    &:not(:last-of-type) {
+      margin-bottom: 24px;
+    }
   }
 }
 </style>

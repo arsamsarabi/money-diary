@@ -17,7 +17,7 @@ export const defaultCategories = [
     id: '1',
     label: 'Utilities',
     icon: 'lightbulb',
-    color: '#6c5ce7',
+    color: '#474787',
   },
   {
     id: '2',

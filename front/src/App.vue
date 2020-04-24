@@ -37,5 +37,6 @@ export default {
 main.content {
   width: calc(100vw - var(--navbar-width-desktop));
   padding: var(--padding-desktop);
+  overflow-y: auto;
 }
 </style>

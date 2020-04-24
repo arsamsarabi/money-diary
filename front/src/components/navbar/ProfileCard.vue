@@ -34,17 +34,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../../scss/mixins.scss';
+
 .card {
+  @include card-with-shadow;
   width: 100%;
-  background-color: #fff;
   margin-top: 48px;
-  box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.125);
   padding: 24px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  border-radius: 10px;
 
   img {
     width: 75px;

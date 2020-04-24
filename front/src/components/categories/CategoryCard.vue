@@ -5,7 +5,7 @@
     </div>
     <div class="text">
       <p class="label">{{ label }}</p>
-      <p class="amount">{{ this.formattedAmount }}</p>
+      <p class="amount">£ {{ sum }}</p>
     </div>
   </div>
 </template>
@@ -14,6 +14,9 @@
 export default {
   name: 'CategoryCard',
   props: {
+    id: {
+      type: String,
+    },
     icon: {
       type: String,
     },
@@ -23,25 +26,23 @@ export default {
     color: {
       type: String,
     },
-    amount: {
-      type: String,
-      default: '-',
-    },
   },
   computed: {
     style() {
       return `background-color: ${this.color}`
     },
-    formattedAmount() {
-      return `£ ${this.amount}`
+    sum() {
+      return this.$store.getters.getTotalByCategory(this.id)
     },
   },
 }
 </script>
 
 <style lang="scss" scoped>
+@import '../../scss/mixins.scss';
+
 .wrapper {
-  border-radius: var(--border-r-s);
+  @include card-with-shadow;
   display: flex;
   justify-content: flex-start;
   align-items: center;

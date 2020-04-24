@@ -7,6 +7,17 @@ const state = {
 }
 const getters = {
   getExpenses: state => state.expenses,
+  getTotalByCategory: state => {
+    return category =>
+      parseFloat(
+        state.expenses.reduce((accumulator, current) => {
+          if (current.categories.includes(category)) {
+            return accumulator + current.amount
+          }
+          return accumulator
+        }, 0),
+      ).toFixed(2)
+  },
 }
 const actions = {
   async fetchExpensesByUserId({ commit }) {
