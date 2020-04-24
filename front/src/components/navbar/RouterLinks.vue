@@ -31,7 +31,7 @@ nav {
   a {
     text-decoration: none;
     font-size: 1.125rem;
-    color: var(--color-grey-dark);
+    color: var(--color-grey);
     transition: all 0.2s linear;
     position: relative;
     &.router-link-exact-active {

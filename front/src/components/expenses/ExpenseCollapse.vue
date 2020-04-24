@@ -3,7 +3,7 @@
     <header class="collapse-header">
       <button @click="toggleExpanded">
         <div class="left-col">
-          <div class="icon-wrapper" :style="style">
+          <div class="icon-wrapper" :style="categoryColoresStyle(categories[0])">
             <v-icon :name="categories[0].icon" />
           </div>
         </div>
@@ -23,13 +23,32 @@
       </button>
     </header>
     <main class="collapse-body" :class="collapseClass">
-      <p>account name</p>
-      <p>{{ expense.description }}</p>
-      <div v-for="category in categories" :key="category.id">
-        {{ category.name }}
+      <div class="left-col">
+        <div class="category-pills-wrapper">
+          <div
+            v-for="category in categories"
+            :key="category.id"
+            class="category-pill"
+            :style="categoryColoresStyle(category)"
+          >
+            <p>{{ category.label }}</p>
+          </div>
+        </div>
+
+        <div class="account-name">
+          <span>Account: </span>
+          <p>{{ getAccountName(expense.accountId) }}</p>
+        </div>
+
+        <div class="description">
+          <span>Description: </span>
+          <p>{{ expense.description }}</p>
+        </div>
       </div>
-      <p>is recurring icon {{ expense.isRecurring }}</p>
-      <p>end date?</p>
+      <div class="right-col">
+        <v-icon name="redo-alt" v-if="expense.isRecurring" class="recurring-icon" />
+        <v-icon name="calendar-times" v-if="expense.endDate" class="end-date-icon" />
+      </div>
     </main>
   </div>
 </template>
@@ -39,6 +58,8 @@ import dayjs from 'dayjs'
 import { lighten } from 'polished'
 import 'vue-awesome/icons/caret-up'
 import 'vue-awesome/icons/caret-down'
+import 'vue-awesome/icons/redo-alt'
+import 'vue-awesome/icons/calendar-times'
 
 import { getOneCategory } from '../../utils/categories'
 
@@ -51,12 +72,6 @@ export default {
     }
   },
   computed: {
-    style() {
-      return `
-        color: ${this.categories[0].color};
-        background-color: ${lighten(0.4, this.categories[0].color)};
-      `
-    },
     categories() {
       return this.expense.categories.map(cat => getOneCategory('id', cat))
     },
@@ -68,11 +83,21 @@ export default {
     },
   },
   methods: {
+    categoryColoresStyle(category) {
+      return `
+        color: ${category.color};
+        background-color: ${lighten(0.4, category.color)};
+      `
+    },
     dateBuilder(date) {
       return date ? dayjs(date).format('D MMM') : 'Date: -'
     },
     toggleExpanded() {
       this.isExpanded = !this.isExpanded
+    },
+    getAccountName(id) {
+      const account = this.$store.getters.getAccountNameById(id)
+      return account ? account.name : ''
     },
   },
 }
@@ -80,6 +105,22 @@ export default {
 
 <style lang="scss" scoped>
 @import '../../scss/mixins.scss';
+
+@mixin label-and-text {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-bottom: 8px;
+
+  span {
+    font-family: var(--font-secondary);
+    font-weight: bold;
+    font-size: 0.9rem;
+    color: var(--color-grey);
+    margin-right: 8px;
+    line-height: 1.8;
+  }
+}
 
 .expense-collapse {
   @include card-with-shadow;
@@ -120,7 +161,7 @@ export default {
         }
         p {
           font-size: 0.85rem;
-          color: var(--color-grey-dark);
+          color: var(--color-grey);
         }
       }
       .amount {
@@ -139,6 +180,28 @@ export default {
 .collapse-body {
   overflow: hidden;
   transition: 0.1s height ease-in, 0.2s opacity ease-in;
+  display: flex;
+
+  .left-col {
+    flex: 1;
+  }
+  .right-col {
+    width: 50px;
+    display: flex;
+    & > svg {
+      &:not(:last-of-type) {
+        &:not(:only-child) {
+          margin-right: 8px;
+        }
+      }
+      &.recurring-icon {
+        color: var(--color-success);
+      }
+      &.end-date-icon {
+        color: var(--color-danger);
+      }
+    }
+  }
 
   &.collapsible-close {
     height: 0;
@@ -148,6 +211,30 @@ export default {
     height: initial;
     padding: 16px;
     opacity: 1;
+    border-top: 1px dotted var(--color-grey-light);
+  }
+
+  .account-name {
+    @include label-and-text;
+  }
+
+  .description {
+    @include label-and-text;
+  }
+
+  .category-pills-wrapper {
+    display: flex;
+    margin-bottom: 16px;
+    .category-pill {
+      padding: 4px;
+      border-radius: var(--border-r-s);
+      &:not(:last-of-type) {
+        margin-right: 8px;
+      }
+      p {
+        font-size: 0.8rem;
+      }
+    }
   }
 }
 </style>

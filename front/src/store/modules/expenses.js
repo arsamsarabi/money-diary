@@ -24,6 +24,7 @@ const actions = {
             amount
             startDate
             categories
+            isRecurring
             endDate
             accountId
             userId
