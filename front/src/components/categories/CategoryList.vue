@@ -38,7 +38,6 @@ export default {
 
 <style lang="scss" scoped>
 .categories-list-wrapper {
-  padding-top: 8px;
   h1 {
     font-family: var(--font-secondary);
     font-size: 1.125rem;
