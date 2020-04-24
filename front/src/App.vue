@@ -2,7 +2,9 @@
   <div id="app">
     <Navbar />
     <main class="content">
-      <router-view />
+      <div class="inner-container">
+        <router-view />
+      </div>
     </main>
   </div>
 </template>
@@ -39,5 +41,8 @@ main.content {
   width: calc(100vw - var(--navbar-width-desktop));
   padding: var(--padding-desktop);
   overflow-y: auto;
+  .inner-container {
+    max-width: 904px;
+  }
 }
 </style>

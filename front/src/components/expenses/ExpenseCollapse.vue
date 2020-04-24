@@ -10,7 +10,7 @@
         <div class="right-col">
           <div class="text">
             <h2>{{ expense.title }}</h2>
-            <p>{{ dateBuilder(expense.startDate) }}</p>
+            <p>{{ dateBuilder(expense.date) }}</p>
           </div>
           <p class="amount">
             <span>- £</span>
@@ -23,31 +23,25 @@
       </button>
     </header>
     <main class="collapse-body" :class="collapseClass">
-      <div class="left-col">
-        <div class="category-pills-wrapper">
-          <div
-            v-for="category in categories"
-            :key="category.id"
-            class="category-pill"
-            :style="categoryColoresStyle(category)"
-          >
-            <p>{{ category.label }}</p>
-          </div>
-        </div>
-
-        <div class="account-name">
-          <span>Account: </span>
-          <p>{{ getAccountName(expense.accountId) }}</p>
-        </div>
-
-        <div class="description">
-          <span>Description: </span>
-          <p>{{ expense.description }}</p>
+      <div class="category-pills-wrapper">
+        <div
+          v-for="category in categories"
+          :key="category.id"
+          class="category-pill"
+          :style="categoryColoresStyle(category)"
+        >
+          <p>{{ category.label }}</p>
         </div>
       </div>
-      <div class="right-col">
-        <v-icon name="redo-alt" v-if="expense.isRecurring" class="recurring-icon" />
-        <v-icon name="calendar-times" v-if="expense.endDate" class="end-date-icon" />
+
+      <div class="account-name">
+        <span>Account: </span>
+        <p>{{ getAccountName(expense.accountId) }}</p>
+      </div>
+
+      <div class="description">
+        <span>Description: </span>
+        <p>{{ expense.description }}</p>
       </div>
     </main>
   </div>
@@ -119,6 +113,7 @@ export default {
     color: var(--color-grey);
     margin-right: 8px;
     line-height: 1.8;
+    min-width: 100px;
   }
 }
 
@@ -181,27 +176,7 @@ export default {
   overflow: hidden;
   transition: 0.1s height ease-in, 0.2s opacity ease-in;
   display: flex;
-
-  .left-col {
-    flex: 1;
-  }
-  .right-col {
-    width: 50px;
-    display: flex;
-    & > svg {
-      &:not(:last-of-type) {
-        &:not(:only-child) {
-          margin-right: 8px;
-        }
-      }
-      &.recurring-icon {
-        color: var(--color-success);
-      }
-      &.end-date-icon {
-        color: var(--color-danger);
-      }
-    }
-  }
+  flex-direction: column;
 
   &.collapsible-close {
     height: 0;

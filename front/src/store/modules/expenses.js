@@ -22,10 +22,8 @@ const actions = {
             title
             description
             amount
-            startDate
+            date
             categories
-            isRecurring
-            endDate
             accountId
             userId
           }
