@@ -42,6 +42,7 @@ const typeDefs = gql`
     me(userId: String): User
     getAccountsByUserId(userId: String): [Account]!
     getExpensesByUserId(userId: String): [Expense]!
+    getRecurringsByUserId(userId: String): [Recurrings]!
   }
 
   input NewAccount {

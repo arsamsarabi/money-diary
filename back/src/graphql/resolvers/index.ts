@@ -6,6 +6,8 @@ const queries = {
     await Account.find({ userId }),
   getExpensesByUserId: async (_: any, { userId }: { userId: string }) =>
     await Expense.find({ userId }),
+  getRecurringsByUserId: async (_: any, { userId }: { userId: string }) =>
+    await Recurring.find({ userId }),
 }
 
 const mutations = {
