@@ -13,7 +13,7 @@ import 'vue-awesome/icons/pencil-alt'
 import 'vue-awesome/icons/cog'
 import 'vue-awesome/icons/wallet'
 
-import DefaultImage from '../../assets/avatars/1.svg'
+import DefaultImage from '../../assets/avatars/128_15.png'
 import NavLinkIcon from '../NavLinkIcon'
 
 export default {
