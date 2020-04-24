@@ -1,11 +1,12 @@
 import { Schema, model } from 'mongoose'
 
-const ExpenseSchema = new Schema(
+const RecurringSchema = new Schema(
   {
     title: String,
     description: String,
     amount: Number,
-    date: String,
+    startDate: String,
+    endDate: String,
     categories: [String],
     accountId: String,
     userId: String,
@@ -15,6 +16,6 @@ const ExpenseSchema = new Schema(
   },
 )
 
-const ExpenseModel = model('Expense', ExpenseSchema)
+const RecurringModel = model('Recurring', RecurringSchema)
 
-export { ExpenseModel as Expense }
+export { RecurringModel as Recurring }

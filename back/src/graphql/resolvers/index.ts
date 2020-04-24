@@ -1,4 +1,4 @@
-import { User, Account, Expense } from '../../db'
+import { User, Account, Expense, Recurring } from '../../db'
 
 const queries = {
   me: async (_: any, { userId }: { userId: string }) => await User.findById(userId),
@@ -27,5 +27,6 @@ export const resolvers = {
   },
   Account: {
     expenses: async ({ _id }: any) => await Expense.find({ accountId: _id }),
+    recurrings: async ({ _id }: any) => await Recurring.find({ accountId: _id }),
   },
 }

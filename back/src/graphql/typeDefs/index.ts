@@ -7,11 +7,21 @@ const typeDefs = gql`
     description: String
     amount: Float
     categories: [String]
+    date: String
+    accountId: String
+    userId: String
+  }
+
+  type Recurring {
+    id: String
+    title: String
+    description: String
+    amount: Float
+    categories: [String]
     startDate: String
     endDate: String
     accountId: String
     userId: String
-    isRecurring: Boolean
   }
 
   type Account {
@@ -19,6 +29,7 @@ const typeDefs = gql`
     name: String
     userId: String
     expenses: [Expense]!
+    recurrings: [Recurring]!
   }
 
   type User {
