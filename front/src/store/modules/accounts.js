@@ -17,6 +17,9 @@ const actions = {
           getAccountsByUserId(userId: "${VUE_APP_USER_ID}") {
             id
             name
+            expenditureSumTotal
+            expenditureSumMonth
+            expenditureSum30Days
           }
         }
       `,

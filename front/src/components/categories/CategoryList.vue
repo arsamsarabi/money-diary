@@ -12,7 +12,6 @@
 </template>
 
 <script>
-import 'vue-awesome/icons/plus'
 import { mapGetters } from 'vuex'
 
 import CategoryCard from './CategoryCard'
@@ -47,16 +46,7 @@ export default {
 }
 
 .view-more-button {
-  @include card-with-shadow(var(--color-secondary));
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 0 16px;
-  text-decoration: none;
-  color: var(--color-white);
+  @include add-new-button;
   margin-left: 16px;
-  svg {
-    margin-right: 8px;
-  }
 }
 </style>

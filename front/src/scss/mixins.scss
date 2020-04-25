@@ -9,3 +9,16 @@
   box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.125);
   border-radius: var(--border-r-m);
 }
+
+@mixin add-new-button($bgColor: var(--color-secondary), $textColor: var(--color-white)) {
+  @include card-with-shadow($bgColor);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0 16px;
+  text-decoration: none;
+  color: $textColor;
+  svg {
+    margin-right: 8px;
+  }
+}

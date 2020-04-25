@@ -50,10 +50,6 @@
 <script>
 import dayjs from 'dayjs'
 import { lighten } from 'polished'
-import 'vue-awesome/icons/caret-up'
-import 'vue-awesome/icons/caret-down'
-import 'vue-awesome/icons/redo-alt'
-import 'vue-awesome/icons/calendar-times'
 
 import { getOneCategory } from '../../utils/categories'
 

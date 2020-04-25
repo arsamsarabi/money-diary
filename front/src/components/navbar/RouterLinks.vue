@@ -11,11 +11,6 @@
 </template>
 
 <script>
-import 'vue-awesome/icons/home'
-import 'vue-awesome/icons/tags'
-import 'vue-awesome/icons/dollar-sign'
-import 'vue-awesome/icons/calendar-day'
-
 export default {
   name: 'RouterLinks',
 }

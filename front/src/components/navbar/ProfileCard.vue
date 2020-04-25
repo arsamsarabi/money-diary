@@ -9,10 +9,6 @@
 </template>
 
 <script>
-import 'vue-awesome/icons/user'
-import 'vue-awesome/icons/cog'
-import 'vue-awesome/icons/wallet'
-
 import DefaultImage from '../../assets/avatars/128_13.png'
 import NavLinkIcon from '../NavLinkIcon'
 

@@ -2,8 +2,15 @@
   <div class="profile-wrapper">
     <h1 class="user-name">{{ getUser.name }}'s profile</h1>
 
+    <h2>Accounts overview</h2>
     <div class="accounts">
       <AccountCard v-for="account in getAccounts" :key="account.id" :account="account" />
+      <button class="add-acount-button">
+        <v-icon name="plus" />
+        <p>
+          Create new
+        </p>
+      </button>
     </div>
   </div>
 </template>
@@ -25,8 +32,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../scss/mixins.scss';
+
 .profile-wrapper {
   flex: 1;
+  h2 {
+    @include section-header;
+    margin-top: 16px;
+  }
 }
 
 .user-name {
@@ -39,9 +52,13 @@ export default {
   flex-wrap: wrap;
   margin-top: 16px;
   & > div {
-    &:not(:last-of-type) {
-      margin-right: 24px;
-    }
+    margin-right: 24px;
   }
+}
+
+button.add-acount-button {
+  @include add-new-button;
+  align-self: center;
+  height: 80px;
 }
 </style>
