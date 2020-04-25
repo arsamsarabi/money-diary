@@ -25,6 +25,9 @@ const mutations = {
       new: true,
     })
   },
+  deleteAccount: async (_: unknown, { id }: any) => {
+    return await Account.findOneAndDelete({ _id: id })
+  },
   addExpense: async (_: unknown, { newExpense }: any) => {
     const expense = new Expense(newExpense)
     return await expense.save()

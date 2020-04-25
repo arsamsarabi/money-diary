@@ -68,6 +68,7 @@ const typeDefs = gql`
   type Mutation {
     addAccount(newAccount: AccountInput): Account
     updateAccount(accountToUpdate: AccountInput): Account
+    deleteAccount(id: String): Account
     addExpense(newExpense: NewExpense): Expense
   }
 `
