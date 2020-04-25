@@ -1,5 +1,5 @@
 <template>
-  <nav>
+  <nav v-if="$auth.isAuthenticated">
     <router-link to="/">
       <v-icon name="home" />
       Home
