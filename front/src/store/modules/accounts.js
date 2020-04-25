@@ -28,7 +28,7 @@ const actions = {
   },
   async postAccount({ commit }, accountName) {
     const query = `
-      mutation addAccount($input: NewAccount) {
+      mutation addAccount($input: AccountInput) {
         addAccount(newAccount: $input) {
           id
           name
@@ -49,6 +49,30 @@ const actions = {
     })
     commit('addAccount', data.data.addAccount)
   },
+  async patchAccount({ commit }, { id, name }) {
+    const query = `
+      mutation updateAccount($input: AccountInput) {
+        updateAccount(accountToUpdate: $input) {
+          id
+          name
+          expenditureSumTotal
+          expenditureSumMonth
+          expenditureSum30Days
+        }
+      }
+    `
+    const { data } = await axios.post(VUE_APP_GQL_ENDPOINT, {
+      query,
+      variables: {
+        input: {
+          id: id,
+          name: name,
+        },
+      },
+    })
+
+    commit('updateAccount', data.data.updateAccount)
+  },
 }
 const mutations = {
   setAccounts(state, accounts) {
@@ -56,6 +80,9 @@ const mutations = {
   },
   addAccount(state, account) {
     state.accounts = [...state.accounts, account]
+  },
+  updateAccount(state, account) {
+    state.accounts = state.accounts.map(acc => (acc.id === account.id ? account : acc))
   },
 }
 

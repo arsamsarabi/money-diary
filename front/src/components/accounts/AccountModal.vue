@@ -37,14 +37,21 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['postAccount']),
+    ...mapActions(['postAccount', 'patchAccount']),
     beforeOpen(event) {
       if (event?.params?.id) {
         this.account = { id: event.params.id, name: event.params.name }
       }
     },
     handleSubmit() {
-      this.postAccount(this.account.name)
+      if (this.account.id) {
+        this.patchAccount({
+          id: this.account.id,
+          name: this.account.name,
+        })
+      } else {
+        this.postAccount(this.account.name)
+      }
       this.handleClose()
     },
     handleClose() {
