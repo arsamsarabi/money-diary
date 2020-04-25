@@ -16,7 +16,7 @@ export default {
 .logo {
   a {
     text-decoration: none;
-    color: var(--color-primary);
+    color: var(--color-grey);
     font-family: var(--font-secondary);
     font-size: 1.5rem;
     text-align: center;

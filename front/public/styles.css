@@ -4,12 +4,12 @@
   --font-primary: 'Quicksand', Arial, sans-serif;
   --font-secondary: 'Comfortaa', sans;
 
-  --color-primary: #2c3a47;
-  --color-secondary: #00b894;
-  --color-accent: #00cec9;
-  --color-danger: #c0392b;
+  --color-primary: #2980b9;
+  --color-secondary: #34495e;
+  --color-accent: #f1c40f;
+  --color-danger: #eb3b5a;
   --color-warning: #fa8231;
-  --color-success: #00b894;
+  --color-success: #27ae60;
 
   --color-black: #2d3436;
   --color-white: #f9f9f9;
@@ -194,5 +194,5 @@ body {
   justify-content: center;
   align-items: center;
   background-color: var(--color-white);
-  color: var(--color-primary);
+  color: var(--color-secondary);
 }

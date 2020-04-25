@@ -146,7 +146,6 @@ export default {
       .text {
         flex: 1;
         h2 {
-          color: var(--color-primary);
           font-family: var(--font-secondary);
           font-weight: bold;
         }
@@ -162,7 +161,7 @@ export default {
         font-size: 1.25rem;
       }
       .toggler {
-        color: var(--color-primary);
+        color: var(--color-grey);
       }
     }
   }
