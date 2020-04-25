@@ -7,7 +7,7 @@ const state = {
 }
 const getters = {
   getAccounts: state => state.accounts,
-  getAccountNameById: state => id => state.accounts.find(account => account.id === id),
+  getAccountById: state => id => state.accounts.find(account => account.id === id),
 }
 const actions = {
   async fetchAccountsByUserId({ commit }) {

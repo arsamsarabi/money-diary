@@ -43,6 +43,8 @@ main.content {
   overflow-y: auto;
   .inner-container {
     max-width: 904px;
+    min-height: 100%;
+    display: flex;
   }
 }
 </style>

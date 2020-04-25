@@ -90,7 +90,7 @@ export default {
       this.isExpanded = !this.isExpanded
     },
     getAccountName(id) {
-      const account = this.$store.getters.getAccountNameById(id)
+      const account = this.$store.getters.getAccountById(id)
       return account ? account.name : ''
     },
   },

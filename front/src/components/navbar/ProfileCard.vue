@@ -2,14 +2,14 @@
   <div class="card">
     <img :src="userImage" />
     <h1>Hello, {{ this.getUserName }}! 👋🏻</h1>
-    <NavLinkIcon text="Profile" icon="pencil-alt" path="/profile" />
+    <NavLinkIcon text="Profile" icon="user" path="/profile" />
     <NavLinkIcon text="Settings" icon="cog" path="/settings" />
     <NavLinkIcon text="Wallet" icon="wallet" path="/wallet" />
   </div>
 </template>
 
 <script>
-import 'vue-awesome/icons/pencil-alt'
+import 'vue-awesome/icons/user'
 import 'vue-awesome/icons/cog'
 import 'vue-awesome/icons/wallet'
 
