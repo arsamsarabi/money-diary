@@ -26,10 +26,36 @@ const actions = {
     })
     commit('setAccounts', data.data.getAccountsByUserId)
   },
+  async postAccount({ commit }, accountName) {
+    const query = `
+      mutation addAccount($input: NewAccount) {
+        addAccount(newAccount: $input) {
+          id
+          name
+          expenditureSumTotal
+          expenditureSumMonth
+          expenditureSum30Days
+        }
+      }
+    `
+    const { data } = await axios.post(VUE_APP_GQL_ENDPOINT, {
+      query,
+      variables: {
+        input: {
+          name: accountName,
+          userId: VUE_APP_USER_ID,
+        },
+      },
+    })
+    commit('addAccount', data.data.addAccount)
+  },
 }
 const mutations = {
   setAccounts(state, accounts) {
     state.accounts = accounts
+  },
+  addAccount(state, account) {
+    state.accounts = [...state.accounts, account]
   },
 }
 

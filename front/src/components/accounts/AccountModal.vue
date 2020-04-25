@@ -11,9 +11,11 @@
       </div>
 
       <div class="actions">
-        <button @click="handleSubmit" class="success">Submit</button>
-        <button @click="handleCancel" class="cancel">Cancel</button>
-        <button @click="handleCancel" class="delete">
+        <button @click="handleSubmit" class="success" :disabled="disabled">
+          {{ isEditMode ? 'Save' : 'Submit' }}
+        </button>
+        <button @click="handleClose" class="cancel">Cancel</button>
+        <button @click="handleClose" class="delete">
           <v-icon name="trash-alt" />
         </button>
       </div>
@@ -22,27 +24,43 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: 'AccountModal',
   data() {
     return {
-      account: {},
+      account: {
+        name: '',
+        id: null,
+      },
     }
   },
   methods: {
+    ...mapActions(['postAccount']),
     beforeOpen(event) {
       if (event?.params?.id) {
         this.account = { id: event.params.id, name: event.params.name }
       }
     },
-    handleSubmit() {},
-    handleCancel() {
+    handleSubmit() {
+      this.postAccount(this.account.name)
+      this.handleClose()
+    },
+    handleClose() {
+      this.account = { name: '', id: null }
       this.$emit('close-modal')
     },
   },
   computed: {
+    isEditMode() {
+      return Boolean(this.account.id)
+    },
     modalTitle() {
-      return this.account.id ? `Edit ${this.account.name} Account` : 'New Account'
+      return this.isEditMode ? `Edit ${this.account.name} Account` : 'New Account'
+    },
+    disabled() {
+      return !this.account.name.length
     },
   },
 }

@@ -54,6 +54,11 @@
     letter-spacing: 1px;
   }
 
+  &:disabled {
+    background-color: var(--color-grey-light);
+    box-shadow: none;
+  }
+
   svg {
     &:not(:only-child) {
       margin-right: 8px;
