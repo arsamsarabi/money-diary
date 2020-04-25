@@ -18,7 +18,7 @@
       </button>
     </div>
 
-    <AccountModal />
+    <AccountModal v-on:close-modal="hideModal" />
   </div>
 </template>
 
@@ -40,6 +40,9 @@ export default {
   methods: {
     showModal() {
       this.$modal.show('account-modal')
+    },
+    hideModal() {
+      this.$modal.hide('account-modal')
     },
     editAccount(account) {
       this.$modal.show('account-modal', account)

@@ -124,6 +124,9 @@ export default {
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    background-color: transparent;
+    color: var(--color-secondary);
+    text-transform: initial;
     .left-col {
       width: 75px;
       display: flex;
@@ -145,6 +148,7 @@ export default {
       padding-right: 24px;
       .text {
         flex: 1;
+        text-align: left;
         h2 {
           font-family: var(--font-secondary);
           font-weight: bold;

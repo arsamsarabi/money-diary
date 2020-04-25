@@ -19,9 +19,58 @@
   padding: 0 16px;
   text-decoration: none;
   color: $textColor;
-  text-transform: uppercase;
   font-size: 0.9rem;
+  text-transform: uppercase;
   svg {
     margin-right: 8px;
   }
+}
+
+@mixin button($bgColor: var(--color-secondary), $textColor: var(--color-white)) {
+  min-width: 120px;
+  height: 40px;
+  overflow: hidden;
+  font-family: var(--font-secondary);
+  background-color: $bgColor;
+  color: $textColor;
+  border-radius: var(--border-r-s);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  font-size: 1rem;
+  box-shadow: inset 0 -0.6em 0 -0.35em rgba(0, 0, 0, 0.5);
+  transition: 0.1s all linear;
+  position: relative;
+
+  &:hover,
+  &:focus {
+    cursor: pointer;
+  }
+
+  &:active {
+    top: 0.1rem;
+    box-shadow: none;
+    letter-spacing: 1px;
+  }
+
+  svg {
+    &:not(:only-child) {
+      margin-right: 8px;
+    }
+  }
+}
+
+%button-success {
+  @include button(var(--color-success));
+}
+
+%button-danger {
+  @include button(var(--color-danger));
+}
+
+%button-neutral {
+  @include button(transparent, var(--color-secondary));
+  border: 1px solid var(--color-secondary);
+  box-shadow: none;
 }
