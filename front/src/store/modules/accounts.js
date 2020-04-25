@@ -73,6 +73,23 @@ const actions = {
 
     commit('updateAccount', data.data.updateAccount)
   },
+  async deleteAccount({ commit }, { id }) {
+    const query = `
+      mutation deleteAccount($id: String) {
+        deleteAccount(id: $id) {
+          id
+        }
+      }
+    `
+    const { data } = await axios.post(VUE_APP_GQL_ENDPOINT, {
+      query,
+      variables: {
+        id: id,
+      },
+    })
+
+    commit('deleteAccount', data.data.deleteAccount.id)
+  },
 }
 const mutations = {
   setAccounts(state, accounts) {
@@ -83,6 +100,9 @@ const mutations = {
   },
   updateAccount(state, account) {
     state.accounts = state.accounts.map(acc => (acc.id === account.id ? account : acc))
+  },
+  deleteAccount(state, id) {
+    state.accounts = state.accounts.filter(acc => acc.id !== id)
   },
 }
 

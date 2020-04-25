@@ -10,16 +10,30 @@
         <input type="text" id="account-name" placeholder="Account name..." v-model="account.name" />
       </div>
 
-      <div class="actions">
+      <div class="actions-confirm" v-if="isDeleting">
+        <p>
+          Deleting an account will also delete <strong>all transactions</strong> associated with it. Are you sure? this
+          is <strong>permanent</strong>!
+        </p>
+        <div>
+          <button @click="handleCancelDelete" class="cancel">Cancel</button>
+          <button @click="handleConfirm" class="confirm-delete" v-if="isEditMode">
+            Confirm
+          </button>
+        </div>
+      </div>
+
+      <div class="actions" v-else>
         <button @click="handleSubmit" class="success" :disabled="disabled">
           {{ isEditMode ? 'Save' : 'Submit' }}
         </button>
         <button @click="handleClose" class="cancel">Cancel</button>
-        <button @click="handleClose" class="delete">
+        <button @click="handleDelete" class="delete" v-if="isEditMode">
           <v-icon name="trash-alt" />
         </button>
       </div>
     </div>
+    <v-modal name="confirm-dialog" />
   </v-modal>
 </template>
 
@@ -34,10 +48,11 @@ export default {
         name: '',
         id: null,
       },
+      isDeleting: false,
     }
   },
   methods: {
-    ...mapActions(['postAccount', 'patchAccount']),
+    ...mapActions(['postAccount', 'patchAccount', 'deleteAccount']),
     beforeOpen(event) {
       if (event?.params?.id) {
         this.account = { id: event.params.id, name: event.params.name }
@@ -57,6 +72,16 @@ export default {
     handleClose() {
       this.account = { name: '', id: null }
       this.$emit('close-modal')
+    },
+    handleConfirm() {
+      this.deleteAccount({ id: this.account.id })
+      this.handleClose()
+    },
+    handleDelete() {
+      this.isDeleting = true
+    },
+    handleCancelDelete() {
+      this.isDeleting = false
     },
   },
   computed: {
@@ -118,26 +143,53 @@ export default {
   justify-content: flex-end;
   align-items: center;
   margin-top: auto;
-  button {
-    @include button;
+}
 
-    &:not(:last-of-type) {
-      margin-right: 16px;
+.actions-confirm {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: auto;
+  p {
+    font-size: 0.9rem;
+    color: var(--color-danger);
+    strong {
+      font-weight: bold;
     }
+  }
+  div {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 8px;
+  }
+}
 
-    &.success {
-      @extend %button-success;
-    }
+button {
+  @include button;
 
-    &.cancel {
-      @extend %button-neutral;
-    }
+  &:not(:last-of-type) {
+    margin-right: 16px;
+  }
 
-    &.delete {
-      @extend %button-danger;
-      width: 48px;
-      min-width: 48px;
-    }
+  &.success {
+    @extend %button-success;
+  }
+
+  &.cancel {
+    @extend %button-neutral;
+  }
+
+  &.delete {
+    @extend %button-danger;
+    width: 48px;
+    min-width: 48px;
+  }
+
+  &.confirm-delete {
+    @extend %button-danger;
   }
 }
 </style>

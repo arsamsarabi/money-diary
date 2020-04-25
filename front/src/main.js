@@ -25,7 +25,7 @@ Vue.config.productionTip = false
 
 Vue.component('v-icon', Icon)
 
-Vue.use(VModal, { componentName: 'v-modal' })
+Vue.use(VModal, { componentName: 'v-modal', dialog: true })
 
 new Vue({
   router,
