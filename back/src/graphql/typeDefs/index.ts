@@ -48,7 +48,8 @@ const typeDefs = gql`
     getRecurringsByUserId(userId: String): [Recurring]!
   }
 
-  input NewAccount {
+  input AccountInput {
+    id: String
     name: String
     userId: String
   }
@@ -65,7 +66,8 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    addAccount(newAccount: NewAccount): Account
+    addAccount(newAccount: AccountInput): Account
+    updateAccount(accountToUpdate: AccountInput): Account
     addExpense(newExpense: NewExpense): Expense
   }
 `

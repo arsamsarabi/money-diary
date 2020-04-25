@@ -20,6 +20,11 @@ const mutations = {
     const account = new Account(newAccount)
     return await account.save()
   },
+  updateAccount: async (_: unknown, { accountToUpdate }: any) => {
+    return await Account.findOneAndUpdate({ _id: accountToUpdate.id }, accountToUpdate, {
+      new: true,
+    })
+  },
   addExpense: async (_: unknown, { newExpense }: any) => {
     const expense = new Expense(newExpense)
     return await expense.save()
