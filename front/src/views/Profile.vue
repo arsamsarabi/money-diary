@@ -4,7 +4,12 @@
 
     <h2>Accounts overview</h2>
     <div class="accounts">
-      <AccountCard v-for="account in getAccounts" :key="account.id" :account="account" />
+      <AccountCard
+        v-on:edit-account="editAccount"
+        v-for="account in getAccounts"
+        :key="account.id"
+        :account="account"
+      />
       <button class="add-acount-button" @click="showModal">
         <v-icon name="plus" />
         <p>
@@ -35,6 +40,9 @@ export default {
   methods: {
     showModal() {
       this.$modal.show('account-modal')
+    },
+    editAccount(account) {
+      this.$modal.show('account-modal', account)
     },
   },
 }

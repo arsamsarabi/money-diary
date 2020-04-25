@@ -21,7 +21,7 @@
       </div>
     </div>
     <div class="actions">
-      <v-icon name="pencil-alt" scale="0.8" />
+      <v-icon name="pencil-alt" scale="0.8" @click="$emit('edit-account', account)" />
     </div>
   </div>
 </template>
@@ -113,6 +113,11 @@ export default {
   text-align: right;
   svg {
     color: var(--color-grey-light);
+    transition: 0.2s all ease-in-out;
+    &:hover {
+      cursor: pointer;
+      color: var(--color-grey);
+    }
   }
 }
 </style>
