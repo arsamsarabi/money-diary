@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import VModal from 'vue-js-modal'
 
 import Icon from 'vue-awesome/components/Icon'
 import 'vue-awesome/icons/calendar-day'
@@ -22,6 +23,8 @@ import store from './store'
 Vue.config.productionTip = false
 
 Vue.component('v-icon', Icon)
+
+Vue.use(VModal, { componentName: 'v-modal' })
 
 new Vue({
   router,

@@ -5,13 +5,15 @@
     <h2>Accounts overview</h2>
     <div class="accounts">
       <AccountCard v-for="account in getAccounts" :key="account.id" :account="account" />
-      <button class="add-acount-button">
+      <button class="add-acount-button" @click="showModal">
         <v-icon name="plus" />
         <p>
           Create new
         </p>
       </button>
     </div>
+
+    <AccountModal />
   </div>
 </template>
 
@@ -19,14 +21,21 @@
 import { mapGetters } from 'vuex'
 
 import AccountCard from '@/components/accounts/AccountCard'
+import AccountModal from '@/components/accounts/AccountModal'
 
 export default {
   name: 'Home',
   components: {
     AccountCard,
+    AccountModal,
   },
   computed: {
     ...mapGetters(['getUser', 'getAccounts']),
+  },
+  methods: {
+    showModal() {
+      this.$modal.show('account-modal')
+    },
   },
 }
 </script>
@@ -60,5 +69,8 @@ button.add-acount-button {
   @include add-new-button;
   align-self: center;
   height: 80px;
+  &:hover {
+    cursor: pointer;
+  }
 }
 </style>
