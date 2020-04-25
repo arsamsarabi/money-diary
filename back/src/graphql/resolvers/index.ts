@@ -16,13 +16,13 @@ const queries = {
 }
 
 const mutations = {
-  addAccount: async (newAccount: any) => {
+  addAccount: async (_: unknown, { newAccount }: any) => {
     const account = new Account(newAccount)
-    await account.save()
+    return await account.save()
   },
-  addExpense: async (newExpense: string) => {
+  addExpense: async (_: unknown, { newExpense }: any) => {
     const expense = new Expense(newExpense)
-    await expense.save()
+    return await expense.save()
   },
 }
 
