@@ -30,6 +30,9 @@ const typeDefs = gql`
     userId: String
     expenses: [Expense]!
     recurrings: [Recurring]!
+    expenditureSumTotal: Float
+    expenditureSumMonth: Float
+    expenditureSum30Days: Float
   }
 
   type User {
