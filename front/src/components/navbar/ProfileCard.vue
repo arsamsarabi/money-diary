@@ -5,7 +5,7 @@
     <NavLinkIcon text="Profile" icon="user" path="/profile" />
     <NavLinkIcon text="Settings" icon="cog" path="/settings" />
     <NavLinkIcon text="Wallet" icon="wallet" path="/wallet" />
-    <button>
+    <button @click="handleLogout" class="logout-button">
       Logout
       <v-icon name="sign-out-alt" />
     </button>
@@ -30,6 +30,13 @@ export default {
     NavLinkIcon,
   },
   computed: mapGetters(['getUserName']),
+  methods: {
+    handleLogout() {
+      this.$auth.logout({
+        returnTo: window.location.origin,
+      })
+    },
+  },
 }
 </script>
 
@@ -63,6 +70,22 @@ export default {
   a {
     &:not(:last-of-type) {
       margin-bottom: 8px;
+    }
+  }
+
+  button.logout-button {
+    width: 100%;
+    text-decoration: none;
+    color: var(--color-grey);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 24px;
+    transition: 0.2s all ease-in;
+    &:hover,
+    &:focus {
+      cursor: pointer;
+      color: var(--color-danger);
     }
   }
 }
