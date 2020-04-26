@@ -38,11 +38,12 @@ const typeDefs = gql`
   type User {
     id: String
     name: String
+    email: String
+    sub: String
     accounts: [Account]!
   }
 
   type Query {
-    me(userId: String): User
     getAccountsByUserId(userId: String): [Account]!
     getExpensesByUserId(userId: String): [Expense]!
     getRecurringsByUserId(userId: String): [Recurring]!
@@ -65,7 +66,14 @@ const typeDefs = gql`
     userId: String
   }
 
+  input UserInput {
+    email: String
+    name: String
+    sub: String
+  }
+
   type Mutation {
+    me(user: UserInput): User
     addAccount(newAccount: AccountInput): Account
     updateAccount(accountToUpdate: AccountInput): Account
     deleteAccount(id: String): Account

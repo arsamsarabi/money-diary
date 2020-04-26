@@ -2,8 +2,14 @@ import { Schema, model } from 'mongoose'
 
 const AccountSchema = new Schema(
   {
-    name: String,
-    userId: String,
+    name: {
+      type: String,
+      required: true,
+    },
+    userId: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,

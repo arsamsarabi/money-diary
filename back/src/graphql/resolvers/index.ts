@@ -6,7 +6,6 @@ dayjs.extend(isSameOrAfter)
 import { User, Account, Expense, Recurring } from '../../db'
 
 const queries = {
-  me: async (_: any, { userId }: { userId: string }) => await User.findById(userId),
   getAccountsByUserId: async (_: any, { userId }: { userId: string }) =>
     await Account.find({ userId }),
   getExpensesByUserId: async (_: any, { userId }: { userId: string }) =>
@@ -16,6 +15,12 @@ const queries = {
 }
 
 const mutations = {
+  me: async (_: any, { user }: { user: any }) => {
+    const result = await User.findOne({ sub: user.sub })
+    if (result) return result
+    const newUser = new User(user)
+    return await newUser.save()
+  },
   addAccount: async (_: unknown, { newAccount }: any) => {
     const account = new Account(newAccount)
     return await account.save()
