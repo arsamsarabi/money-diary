@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import DefaultImage from '../../assets/avatars/128_13.png'
+import DefaultImage from '@/assets/avatar-placeholder.svg'
 import NavLinkIcon from '../NavLinkIcon'
 
 import { mapGetters } from 'vuex'
