@@ -1,6 +1,9 @@
 <template>
   <div id="app">
-    <div class="auth-wrapper" v-if="$auth.isAuthenticated">
+    <div class="auth-loading" v-if="$auth.loading">
+      <Loading class="loading" />
+    </div>
+    <div class="auth-wrapper" v-else-if="$auth.isAuthenticated">
       <Navbar />
       <main class="content">
         <div class="inner-container">
@@ -18,12 +21,16 @@
 import { mapActions } from 'vuex'
 
 import Navbar from '@/components/navbar/Navbar.vue'
+import Loading from '@/components/Loading.vue'
+import Logo from '@/components/Logo.vue'
 import Home from '@/views/Home.vue'
 
 export default {
   name: 'App',
   components: {
     Navbar,
+    Logo,
+    Loading,
     Home,
   },
   methods: {
@@ -54,6 +61,18 @@ main.content {
     max-width: 904px;
     min-height: 100%;
     display: flex;
+  }
+}
+.auth-loading {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .loading {
+    width: 100px;
+    height: 100px;
   }
 }
 </style>
