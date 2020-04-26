@@ -27,9 +27,10 @@ export default {
     Home,
   },
   methods: {
-    ...mapActions(['fetchUserById', 'fetchExpensesByUserId', 'fetchAccountsByUserId']),
+    ...mapActions(['fetchUserById', 'fetchExpensesByUserId', 'fetchAccountsByUserId', 'retrieveTokenFromAuthz']),
   },
   created() {
+    this.retrieveTokenFromAuthz()
     this.fetchUserById()
     this.fetchExpensesByUserId()
     this.fetchAccountsByUserId()

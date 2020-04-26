@@ -1,4 +1,4 @@
-import { getInstance } from './index'
+import { getInstance } from '.'
 
 export const authGuard = (to, from, next) => {
   const authService = getInstance()
