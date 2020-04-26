@@ -11,9 +11,7 @@
         </div>
       </main>
     </div>
-    <div v-else>
-      <Home />
-    </div>
+    <Home v-else />
   </div>
 </template>
 
