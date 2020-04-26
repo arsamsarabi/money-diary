@@ -2,7 +2,7 @@ import axios from 'axios'
 
 import { defaultCategories } from '../../utils/categories'
 
-const { VUE_APP_USER_ID, VUE_APP_GQL_ENDPOINT } = process.env
+const { VUE_APP_GQL_ENDPOINT } = process.env
 
 const state = {
   expenses: [],
@@ -13,11 +13,11 @@ const getters = {
   getCategorisedData: state => state.categorised,
 }
 const actions = {
-  async fetchExpensesByUserId({ commit }) {
+  async fetchExpensesByUserId({ commit }, userID) {
     const { data } = await axios.post(VUE_APP_GQL_ENDPOINT, {
       query: `
         query getExpensesByUserId {
-          getExpensesByUserId(userId: "${VUE_APP_USER_ID}") {
+          getExpensesByUserId(userId: "${userID}") {
             id
             title
             description

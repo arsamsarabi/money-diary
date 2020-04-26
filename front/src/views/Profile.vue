@@ -12,7 +12,7 @@
       </button>
     </header>
 
-    <div class="accounts">
+    <div class="accounts" v-if="this.getAccounts.length">
       <AccountCard
         v-on:edit-account="editAccount"
         v-for="account in getAccounts"

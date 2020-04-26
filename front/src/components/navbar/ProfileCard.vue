@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <img :src="userImage" />
-    <h1>Hello, {{ this.getUserName }}! 👋🏻</h1>
+    <h1>Hello, {{ userName }}! 👋🏻</h1>
     <NavLinkIcon text="Profile" icon="user" path="/profile" />
     <NavLinkIcon text="Settings" icon="cog" path="/settings" />
     <NavLinkIcon text="Wallet" icon="wallet" path="/wallet" />
@@ -20,16 +20,18 @@ import { mapGetters } from 'vuex'
 
 export default {
   name: 'ProfileCard',
-  props: {
-    userImage: {
-      type: String,
-      default: DefaultImage,
-    },
-  },
   components: {
     NavLinkIcon,
   },
-  computed: mapGetters(['getUserName']),
+  computed: {
+    ...mapGetters(['getUser']),
+    userImage() {
+      return this.getUser?.image || DefaultImage
+    },
+    userName() {
+      return this.getUser?.name || ''
+    },
+  },
   methods: {
     handleLogout() {
       this.$auth.logout({

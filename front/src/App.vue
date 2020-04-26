@@ -18,29 +18,28 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 import Navbar from '@/components/navbar/Navbar.vue'
 import Loading from '@/components/Loading.vue'
-import Logo from '@/components/Logo.vue'
 import Home from '@/views/Home.vue'
 
 export default {
   name: 'App',
   components: {
     Navbar,
-    Logo,
     Loading,
     Home,
   },
   methods: {
-    ...mapActions(['fetchUserById', 'fetchExpensesByUserId', 'fetchAccountsByUserId', 'retrieveTokenFromAuthz']),
+    ...mapActions(['fetchMe', 'fetchExpensesByUserId', 'fetchAccountsByUserId', 'retrieveTokenFromAuthz']),
+  },
+  computed: {
+    ...mapGetters(['getUser']),
   },
   created() {
     this.retrieveTokenFromAuthz()
-    this.fetchUserById()
-    this.fetchExpensesByUserId()
-    this.fetchAccountsByUserId()
+    this.fetchMe()
   },
 }
 </script>

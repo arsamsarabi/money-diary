@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const { VUE_APP_USER_ID, VUE_APP_GQL_ENDPOINT } = process.env
+const { VUE_APP_GQL_ENDPOINT } = process.env
 
 const state = {
   accounts: [],
@@ -10,11 +10,11 @@ const getters = {
   getAccountById: state => id => state.accounts.find(account => account.id === id),
 }
 const actions = {
-  async fetchAccountsByUserId({ commit }) {
-    const { data } = await axios.post(VUE_APP_GQL_ENDPOINT, {
+  async fetchAccountsByUserId({ commit }, userID) {
+    const { data, errors } = await axios.post(VUE_APP_GQL_ENDPOINT, {
       query: `
         query getAccountsByUserId {
-          getAccountsByUserId(userId: "${VUE_APP_USER_ID}") {
+          getAccountsByUserId(userId: "${userID}") {
             id
             name
             expenditureSumTotal
@@ -24,9 +24,10 @@ const actions = {
         }
       `,
     })
-    commit('setAccounts', data.data.getAccountsByUserId)
+    if (errors) console.error(errors)
+    if (data) commit('setAccounts', data.data.getAccountsByUserId)
   },
-  async postAccount({ commit }, accountName) {
+  async postAccount({ commit, rootGetters }, accountName) {
     const query = `
       mutation addAccount($input: AccountInput) {
         addAccount(newAccount: $input) {
@@ -38,16 +39,17 @@ const actions = {
         }
       }
     `
-    const { data } = await axios.post(VUE_APP_GQL_ENDPOINT, {
+    const { data, errors } = await axios.post(VUE_APP_GQL_ENDPOINT, {
       query,
       variables: {
         input: {
           name: accountName,
-          userId: VUE_APP_USER_ID,
+          userId: rootGetters.getUser.id,
         },
       },
     })
-    commit('addAccount', data.data.addAccount)
+    if (errors) console.error(errors)
+    if (data.data.addAccount) commit('addAccount', data.data.addAccount)
   },
   async patchAccount({ commit }, { id, name }) {
     const query = `

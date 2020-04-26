@@ -1,6 +1,6 @@
 <template>
   <div class="logo">
-    <router-link to="/">
+    <router-link to="/dashboard">
       Expense Tracker
     </router-link>
   </div>

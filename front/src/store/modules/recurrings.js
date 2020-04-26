@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const { VUE_APP_USER_ID, VUE_APP_GQL_ENDPOINT } = process.env
+const { VUE_APP_GQL_ENDPOINT } = process.env
 
 const state = {
   recurrings: [],
@@ -9,11 +9,11 @@ const getters = {
   getRecurrings: state => state.recurrings,
 }
 const actions = {
-  async fetchRecurringsByUserId({ commit }) {
+  async fetchRecurringsByUserId({ commit }, userID) {
     const { data } = await axios.post(VUE_APP_GQL_ENDPOINT, {
       query: `
         query getRecurringsByUserId {
-          getRecurringsByUserId(userId: "${VUE_APP_USER_ID}") {
+          getRecurringsByUserId(userId: "${userID}") {
             id
             title
             description
