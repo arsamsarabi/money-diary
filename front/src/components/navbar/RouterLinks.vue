@@ -1,9 +1,6 @@
 <template>
-  <nav v-if="$auth.isAuthenticated">
-    <router-link to="/">
-      <v-icon name="home" />
-      Home
-    </router-link>
+  <nav>
+    <router-link to="/dashboard"> <v-icon name="home" />Dashboard</router-link>
     <router-link to="/categories"> <v-icon name="tags" />Categories</router-link>
     <router-link to="/transactions"> <v-icon name="dollar-sign" />Transactions</router-link>
     <router-link to="/calendar"><v-icon name="calendar-day" />Calendar</router-link>

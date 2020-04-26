@@ -5,6 +5,10 @@
     <NavLinkIcon text="Profile" icon="user" path="/profile" />
     <NavLinkIcon text="Settings" icon="cog" path="/settings" />
     <NavLinkIcon text="Wallet" icon="wallet" path="/wallet" />
+    <button>
+      Logout
+      <v-icon name="sign-out-alt" />
+    </button>
   </div>
 </template>
 
