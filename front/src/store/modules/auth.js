@@ -48,13 +48,17 @@ const actions = {
           }
         `
 
+        const { given_name, nickname, email, sub } = instance.user
+
+        const name = given_name ? given_name : nickname
+
         const { data } = await axios.post(VUE_APP_GQL_ENDPOINT, {
           query,
           variables: {
             input: {
-              email: instance.user.email,
-              name: instance.user.nickname,
-              sub: instance.user.sub,
+              email,
+              name,
+              sub,
             },
           },
         })
