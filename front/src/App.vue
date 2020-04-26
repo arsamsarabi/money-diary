@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="auth-loading" v-if="$auth.loading">
-      <Loading class="loading" />
+      <Loading />
     </div>
     <div class="auth-wrapper" v-else-if="$auth.isAuthenticated">
       <Navbar />
@@ -68,10 +68,5 @@ main.content {
   display: flex;
   justify-content: center;
   align-items: center;
-
-  .loading {
-    width: 100px;
-    height: 100px;
-  }
 }
 </style>
