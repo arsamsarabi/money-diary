@@ -14,41 +14,43 @@ const getters = {
 }
 
 const actions = {
-  fetchMe: async ({ dispatch, commit }) => {
+  fetchMe: async ({ dispatch, commit }, token) => {
     const instance = getInstance()
-    instance.$watch('loading', async loading => {
-      if (loading === false && instance.isAuthenticated) {
-        const query = `
-          mutation me($input: UserInput) {
-            me(user: $input) {
-              id
-              name
-              email
-            }
-          }
-        `
-
-        const { given_name, nickname, email, sub } = instance.user
-
-        const name = given_name ? given_name : nickname
-
-        const { data } = await axios.post(VUE_APP_GQL_ENDPOINT, {
-          query,
-          variables: {
-            input: {
-              email,
-              name,
-              sub,
-            },
-          },
-        })
-
-        dispatch('fetchAccountsByUserId', data.data.me.id)
-        dispatch('fetchExpensesByUserId', data.data.me.id)
-
-        commit('setUser', { ...data.data.me, image: instance.user.picture })
+    const { given_name, nickname, email, sub } = instance.user
+    const name = given_name ? given_name : nickname
+    const query = `
+      mutation me($input: UserInput) {
+        me(user: $input) {
+          id
+          name
+          email
+        }
       }
-    })
+    `
+
+    const { data } = await axios.post(
+      VUE_APP_GQL_ENDPOINT,
+      {
+        query,
+        variables: {
+          input: {
+            email,
+            name,
+            sub,
+          },
+        },
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    )
+
+    dispatch('fetchAccountsByUserId', data.data.me.id)
+    dispatch('fetchExpensesByUserId', data.data.me.id)
+
+    commit('setUser', { ...data.data.me, image: instance.user.picture })
   },
 }
 

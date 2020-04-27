@@ -71,6 +71,7 @@ export default {
     },
     handleClose() {
       this.account = { name: '', id: null }
+      this.isDeleting = false
       this.$emit('close-modal')
     },
     handleConfirm() {

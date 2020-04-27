@@ -7,16 +7,14 @@ import './utils/icons'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-
-// Import the plugin here
 import { Auth0Plugin } from './auth'
 
-const { VUE_APP_AUTH0_DOMAIN, VUE_APP_AUTH0_CLIENT_ID } = process.env
+const { VUE_APP_AUTH0_DOMAIN, VUE_APP_AUTH0_CLIENT_ID, VUE_APP_AUTH0_AUDIENCE } = process.env
 
-// Install the authentication plugin here
 Vue.use(Auth0Plugin, {
   domain: VUE_APP_AUTH0_DOMAIN,
   clientId: VUE_APP_AUTH0_CLIENT_ID,
+  audience: VUE_APP_AUTH0_AUDIENCE,
   onRedirectCallback: appState => {
     router.push(appState && appState.targetUrl ? appState.targetUrl : window.location.pathname)
   },

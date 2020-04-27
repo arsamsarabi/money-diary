@@ -5,14 +5,18 @@ const { VUE_APP_GQL_ENDPOINT } = process.env
 const state = {
   accounts: [],
 }
+
 const getters = {
   getAccounts: state => state.accounts,
   getAccountById: state => id => state.accounts.find(account => account.id === id),
 }
+
 const actions = {
-  async fetchAccountsByUserId({ commit }, userID) {
-    const { data, errors } = await axios.post(VUE_APP_GQL_ENDPOINT, {
-      query: `
+  async fetchAccountsByUserId({ commit, rootGetters }, userID) {
+    const { data, errors } = await axios.post(
+      VUE_APP_GQL_ENDPOINT,
+      {
+        query: `
         query getAccountsByUserId {
           getAccountsByUserId(userId: "${userID}") {
             id
@@ -23,7 +27,13 @@ const actions = {
           }
         }
       `,
-    })
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${rootGetters.getToken}`,
+        },
+      },
+    )
     if (errors) console.error(errors)
     if (data) commit('setAccounts', data.data.getAccountsByUserId)
   },
@@ -39,15 +49,23 @@ const actions = {
         }
       }
     `
-    const { data, errors } = await axios.post(VUE_APP_GQL_ENDPOINT, {
-      query,
-      variables: {
-        input: {
-          name: accountName,
-          userId: rootGetters.getUser.id,
+    const { data, errors } = await axios.post(
+      VUE_APP_GQL_ENDPOINT,
+      {
+        query,
+        variables: {
+          input: {
+            name: accountName,
+            userId: rootGetters.getUser.id,
+          },
         },
       },
-    })
+      {
+        headers: {
+          Authorization: `Bearer ${rootGetters.getToken}`,
+        },
+      },
+    )
     if (errors) console.error(errors)
     if (data.data.addAccount) commit('addAccount', data.data.addAccount)
   },
@@ -63,20 +81,28 @@ const actions = {
         }
       }
     `
-    const { data } = await axios.post(VUE_APP_GQL_ENDPOINT, {
-      query,
-      variables: {
-        input: {
-          id: id,
-          name: name,
-          userId: rootGetters.getUser.id,
+    const { data } = await axios.post(
+      VUE_APP_GQL_ENDPOINT,
+      {
+        query,
+        variables: {
+          input: {
+            id: id,
+            name: name,
+            userId: rootGetters.getUser.id,
+          },
         },
       },
-    })
+      {
+        headers: {
+          Authorization: `Bearer ${rootGetters.getToken}`,
+        },
+      },
+    )
 
     commit('updateAccount', data.data.updateAccount)
   },
-  async deleteAccount({ commit }, { id }) {
+  async deleteAccount({ commit, rootGetters }, { id }) {
     const query = `
       mutation deleteAccount($id: String) {
         deleteAccount(id: $id) {
@@ -84,12 +110,20 @@ const actions = {
         }
       }
     `
-    const { data } = await axios.post(VUE_APP_GQL_ENDPOINT, {
-      query,
-      variables: {
-        id: id,
+    const { data } = await axios.post(
+      VUE_APP_GQL_ENDPOINT,
+      {
+        query,
+        variables: {
+          id: id,
+        },
       },
-    })
+      {
+        headers: {
+          Authorization: `Bearer ${rootGetters.getToken}`,
+        },
+      },
+    )
 
     commit('deleteAccount', data.data.deleteAccount.id)
   },

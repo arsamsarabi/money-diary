@@ -36,8 +36,9 @@ export default {
     ...mapGetters(['getUser']),
   },
   created() {
-    this.retrieveTokenFromAuthz()
-    this.fetchMe()
+    this.retrieveTokenFromAuthz().then(token => {
+      this.fetchMe(token)
+    })
   },
 }
 </script>

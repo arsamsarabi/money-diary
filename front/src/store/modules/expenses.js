@@ -13,9 +13,11 @@ const getters = {
   getCategorisedData: state => state.categorised,
 }
 const actions = {
-  async fetchExpensesByUserId({ commit }, userID) {
-    const { data } = await axios.post(VUE_APP_GQL_ENDPOINT, {
-      query: `
+  async fetchExpensesByUserId({ commit, rootGetters }, userID) {
+    const { data } = await axios.post(
+      VUE_APP_GQL_ENDPOINT,
+      {
+        query: `
         query getExpensesByUserId {
           getExpensesByUserId(userId: "${userID}") {
             id
@@ -29,7 +31,13 @@ const actions = {
           }
         }
       `,
-    })
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${rootGetters.getToken}`,
+        },
+      },
+    )
     commit('setExpenses', data.data.getExpensesByUserId)
     commit('setCategorised', data.data.getExpensesByUserId)
   },
