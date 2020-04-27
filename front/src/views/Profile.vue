@@ -1,10 +1,10 @@
 <template>
-  <div class="profile-wrapper">
+  <div class="profile-wrapper" v-if="getUser">
     <h1 class="user-name">{{ getUser.name }}'s profile</h1>
 
     <header>
       <h2>Accounts overview</h2>
-      <button class="add-acount-button" @click="showModal">
+      <button class="add-acount-button" @click="showModal('account-modal')">
         <v-icon name="plus" />
         <p>
           Create new
@@ -21,7 +21,28 @@
       />
     </div>
 
-    <AccountModal v-on:close-modal="hideModal" />
+    <AccountModal v-on:close-modal="hideModal('account-modal')" />
+
+    <!-- TEMP LOCATION FOR THIS ACTIONS -->
+
+    <div class="temp-actions">
+      <button class="cta" @click="showModal('expense-modal')">
+        <v-icon name="plus" />
+        <p>Add Expense</p>
+      </button>
+
+      <button class="cta" @click="showModal('recurring-modal')">
+        <v-icon name="plus" />
+        <p>Add Recurring</p>
+      </button>
+
+      <button class="cta" @click="showModal('income-modal')">
+        <v-icon name="plus" />
+        <p>Add Income</p>
+      </button>
+    </div>
+
+    <ExpenseModal v-on:close-modal="hideModal('expense-modal')" />
   </div>
 </template>
 
@@ -30,22 +51,24 @@ import { mapGetters } from 'vuex'
 
 import AccountCard from '@/components/accounts/AccountCard'
 import AccountModal from '@/components/accounts/AccountModal'
+import ExpenseModal from '@/components/expenses/ExpenseModal'
 
 export default {
   name: 'Home',
   components: {
     AccountCard,
     AccountModal,
+    ExpenseModal,
   },
   computed: {
     ...mapGetters(['getUser', 'getAccounts']),
   },
   methods: {
-    showModal() {
-      this.$modal.show('account-modal')
+    showModal(modalName) {
+      this.$modal.show(modalName)
     },
-    hideModal() {
-      this.$modal.hide('account-modal')
+    hideModal(modalName) {
+      this.$modal.hide(modalName)
     },
     editAccount(account) {
       this.$modal.show('account-modal', account)
@@ -93,6 +116,22 @@ export default {
     &:last-child {
       margin-right: auto;
     }
+  }
+}
+
+.temp-actions {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  padding-left: 8px;
+
+  .cta {
+    @extend %button-success;
+    width: 208px;
+    height: 48px;
+    justify-content: space-between;
+    padding: 0 16px;
+    margin-bottom: 16px;
   }
 }
 </style>
