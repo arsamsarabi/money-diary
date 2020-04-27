@@ -3,7 +3,7 @@ import dayjs from 'dayjs'
 const isSameOrAfter = require('dayjs/plugin/isSameOrAfter')
 dayjs.extend(isSameOrAfter)
 
-import { User, Account, Expense, Recurring } from '../../db'
+import { User, Account, Expense, Recurring, Income } from '../../db'
 
 const queries = {
   getAccountsByUserId: async (_: any, { userId }: { userId: string }) =>
@@ -48,6 +48,7 @@ export const resolvers = {
   Account: {
     expenses: async ({ _id }: any) => await Expense.find({ accountId: _id }),
     recurrings: async ({ _id }: any) => await Recurring.find({ accountId: _id }),
+    incomes: async ({ _id }: any) => await Income.find({ accountId: _id }),
     expenditureSumTotal: async ({ _id }: any) => {
       const expenses: any = await Expense.find({ accountId: _id })
       return parseFloat(

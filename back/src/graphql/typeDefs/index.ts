@@ -30,6 +30,7 @@ const typeDefs = gql`
     userId: String
     expenses: [Expense]!
     recurrings: [Recurring]!
+    incomes: [Income]!
     expenditureSumTotal: Float
     expenditureSumMonth: Float
     expenditureSum30Days: Float
@@ -41,6 +42,18 @@ const typeDefs = gql`
     email: String
     sub: String
     accounts: [Account]!
+  }
+
+  type Income {
+    title: String
+    description: String
+    amount: Float
+    date: String
+    recurring: Boolean
+    frequency: String
+    daysPerWeek: Int
+    accountId: String
+    userId: String
   }
 
   type Query {
