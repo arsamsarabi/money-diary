@@ -31,11 +31,6 @@
         <p>Add Expense</p>
       </button>
 
-      <button class="cta" @click="showModal('recurring-modal')">
-        <v-icon name="plus" />
-        <p>Add Recurring</p>
-      </button>
-
       <button class="cta" @click="showModal('income-modal')">
         <v-icon name="plus" />
         <p>Add Income</p>
