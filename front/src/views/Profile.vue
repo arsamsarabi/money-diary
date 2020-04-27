@@ -38,6 +38,7 @@
     </div>
 
     <ExpenseModal v-on:close-modal="hideModal('expense-modal')" />
+    <IncomeModal v-on:close-modal="hideModal('income-modal')" />
   </div>
 </template>
 
@@ -47,6 +48,7 @@ import { mapGetters } from 'vuex'
 import AccountCard from '@/components/accounts/AccountCard'
 import AccountModal from '@/components/accounts/AccountModal'
 import ExpenseModal from '@/components/expenses/ExpenseModal'
+import IncomeModal from '@/components/income/IncomeModal'
 
 export default {
   name: 'Home',
@@ -54,6 +56,7 @@ export default {
     AccountCard,
     AccountModal,
     ExpenseModal,
+    IncomeModal,
   },
   computed: {
     ...mapGetters(['getUser', 'getAccounts']),
