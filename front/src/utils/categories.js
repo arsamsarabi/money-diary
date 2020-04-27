@@ -1,18 +1,10 @@
-import 'vue-awesome/icons/lightbulb'
-import 'vue-awesome/icons/ribbon'
-import 'vue-awesome/icons/wine-glass'
-import 'vue-awesome/icons/mask'
-import 'vue-awesome/icons/dollar-sign'
-import 'vue-awesome/icons/heart'
-import 'vue-awesome/icons/money-bill'
-import 'vue-awesome/icons/universal-access'
-import 'vue-awesome/icons/infinity'
-import 'vue-awesome/icons/gift'
-import 'vue-awesome/icons/cocktail'
-import 'vue-awesome/icons/tag'
-import 'vue-awesome/icons/taxi'
-
 export const defaultCategories = [
+  {
+    id: '0',
+    label: 'General',
+    icon: 'universal-access',
+    color: '#4b6584',
+  },
   {
     id: '1',
     label: 'Utilities',
@@ -57,9 +49,9 @@ export const defaultCategories = [
   },
   {
     id: '8',
-    label: 'General',
-    icon: 'universal-access',
-    color: '#4b6584',
+    label: 'Car',
+    icon: 'car',
+    color: '#f53b57',
   },
   {
     id: '9',
