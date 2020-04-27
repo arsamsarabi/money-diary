@@ -57,9 +57,4 @@ const mutations = {
   },
 }
 
-export default {
-  state,
-  getters,
-  actions,
-  mutations,
-}
+export const Expenses = { state, getters, actions, mutations }

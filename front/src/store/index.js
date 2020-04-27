@@ -1,18 +1,15 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import Auth from './modules/auth'
-import Accounts from './modules/accounts'
-import Expenses from './modules/expenses'
-import Recurrings from './modules/recurrings'
+import { Accounts, Auth, Expenses, User } from './modules'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
-    Auth,
     Accounts,
+    Auth,
     Expenses,
-    Recurrings,
+    User,
   },
 })

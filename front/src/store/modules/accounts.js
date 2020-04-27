@@ -109,9 +109,4 @@ const mutations = {
   },
 }
 
-export default {
-  state,
-  getters,
-  actions,
-  mutations,
-}
+export const Accounts = { state, getters, actions, mutations }
