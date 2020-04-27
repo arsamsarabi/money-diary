@@ -39,3 +39,7 @@ In the backend the `DB_URL` could be something like `mongodb://localhost:27017/e
 For the frontend, You need to have an [Auth0](https://auth0.com/) application registered and grab the application's Domain and Client ID.
 
 With any luck, you should now be able to run `yarn install && yarn dev` in the `back` and `yarn install and yarn serve` in the `front`
+
+## Get involved?
+
+I welcome anyone who is interested in contributing to this project. From feature requests and ideation to bug reporting and submitting PRs. Please read the [CONTRIBUTING.md](./CONTRIBUTING.md) and get involved!
