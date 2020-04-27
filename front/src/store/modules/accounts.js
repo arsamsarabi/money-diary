@@ -51,7 +51,7 @@ const actions = {
     if (errors) console.error(errors)
     if (data.data.addAccount) commit('addAccount', data.data.addAccount)
   },
-  async patchAccount({ commit }, { id, name }) {
+  async patchAccount({ commit, rootGetters }, { id, name }) {
     const query = `
       mutation updateAccount($input: AccountInput) {
         updateAccount(accountToUpdate: $input) {
@@ -69,6 +69,7 @@ const actions = {
         input: {
           id: id,
           name: name,
+          userId: rootGetters.getUser.id,
         },
       },
     })
