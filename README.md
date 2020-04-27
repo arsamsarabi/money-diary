@@ -2,6 +2,8 @@
 
 > Full stack expense tracking and budgeting application
 
+> Can you think of a better name for this app? 😅
+
 🚧⛔️🚧 Under Construction! 🚧⛔️🚧
 
 👨🏻‍💻 Author: [Arsam Sarabi](http://arsam.io)
