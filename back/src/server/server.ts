@@ -2,8 +2,10 @@ import express from 'express'
 import chalk from 'chalk'
 import asciify from 'asciify'
 import { ApolloServer } from 'apollo-server-express'
+
 import { resolvers, typeDefs } from '../graphql'
-import bodyParser from 'body-parser'
+import { checkJwt } from '../middlewares/auth'
+import { corsMiddleware } from '../middlewares/cors'
 
 const { PORT } = process.env
 
@@ -14,13 +16,13 @@ const server = new ApolloServer({
 
 const app = express()
 
-server.applyMiddleware({ app, path: '/gql' })
+app.use(corsMiddleware)
 
-app.use('/gql', bodyParser.json())
-
-app.all('*', (req, res) => {
-  res.status(404).json({ message: 'route not found' })
+app.all('*', checkJwt, (req, res, next) => {
+  next()
 })
+
+server.applyMiddleware({ app, path: '/gql' })
 
 app.listen(PORT, () => {
   asciify('R&M WIKI API', { font: 'linux' }, (err: any, res: any) => {
