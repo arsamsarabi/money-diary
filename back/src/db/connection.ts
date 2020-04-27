@@ -14,6 +14,6 @@ mongoose
   .then(() => {
     console.log(chalk.bgHex('#227093').hex('#f7f1e3')(` 🛠 ${DB_URL} 🛠 `))
     console.log(
-      chalk.bgHex('#6F1E51').hex('#FDA7DF')(` 🛠 Successfully connected to the database! 🛠 `),
+      chalk.bgHex('#6F1E51').hex('#FDA7DF')(' 🛠 Successfully connected to the database! 🛠 '),
     )
   })
