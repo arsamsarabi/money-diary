@@ -1,97 +1,19 @@
 import { gql } from 'apollo-server-express'
 
-const typeDefs = gql`
-  type Expense {
-    id: String
-    title: String
-    description: String
-    amount: Float
-    categories: [String]
-    date: String
-    accountId: String
-    userId: String
-  }
+import { Account } from './Account.typeDef'
+import { Expense } from './Expense.typeDef'
+import { Income } from './Income.typeDef'
+import { User } from './User.typeDef'
 
-  type Recurring {
-    id: String
-    title: String
-    description: String
-    amount: Float
-    categories: [String]
-    startDate: String
-    endDate: String
-    accountId: String
-    userId: String
-  }
-
-  type Account {
-    id: String
-    name: String
-    userId: String
-    expenses: [Expense]!
-    recurrings: [Recurring]!
-    incomes: [Income]!
-    expenditureSumTotal: Float
-    expenditureSumMonth: Float
-    expenditureSum30Days: Float
-  }
-
-  type User {
-    id: String
-    name: String
-    email: String
-    sub: String
-    accounts: [Account]!
-  }
-
-  type Income {
-    title: String
-    description: String
-    amount: Float
-    date: String
-    recurring: Boolean
-    frequency: String
-    daysPerWeek: Int
-    accountId: String
-    userId: String
-  }
-
+const Query = gql`
   type Query {
-    getAccountsByUserId(userId: String): [Account]!
-    getExpensesByUserId(userId: String): [Expense]!
-    getRecurringsByUserId(userId: String): [Recurring]!
+    _empty: String
   }
-
-  input AccountInput {
-    id: String
-    name: String
-    userId: String
-  }
-
-  input NewExpense {
-    title: String
-    description: String
-    amount: Float
-    startDate: String
-    endDate: String
-    categories: [String]
-    accountId: String
-    userId: String
-  }
-
-  input UserInput {
-    email: String
-    name: String
-    sub: String
-  }
-
+`
+const Mutation = gql`
   type Mutation {
-    me(user: UserInput): User
-    addAccount(newAccount: AccountInput): Account
-    updateAccount(accountToUpdate: AccountInput): Account
-    deleteAccount(id: String): Account
-    addExpense(newExpense: NewExpense): Expense
+    _empty: String
   }
 `
 
-export default [typeDefs]
+export default [Query, Mutation, Account, Expense, Income, User]

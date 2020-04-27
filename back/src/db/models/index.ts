@@ -1,5 +1,4 @@
 export * from './Account'
 export * from './User'
 export * from './Expense'
-export * from './Recurring'
 export * from './Income'

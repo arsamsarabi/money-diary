@@ -2,13 +2,46 @@ import { Schema, model } from 'mongoose'
 
 const ExpenseSchema = new Schema(
   {
-    title: String,
-    description: String,
-    amount: Number,
-    date: String,
-    categories: [String],
-    accountId: String,
-    userId: String,
+    title: {
+      type: String,
+      required: true,
+    },
+    description: {
+      type: String,
+    },
+    amount: {
+      type: Number,
+      required: true,
+    },
+    date: {
+      type: String,
+      required: true,
+      default: Date.now,
+    },
+    recurring: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    frequency: {
+      type: String,
+    },
+    endDate: {
+      type: String,
+    },
+    categories: {
+      type: [String],
+      required: true,
+      default: ['0'],
+    },
+    accountId: {
+      type: String,
+      required: true,
+    },
+    userId: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,
