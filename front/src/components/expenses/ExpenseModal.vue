@@ -1,20 +1,57 @@
 <template>
-  <v-modal name="expense-modal" @before-open="beforeOpen">
+  <v-modal name="expense-modal" @before-open="beforeOpen" :width="600" :height="900">
     <div class="container">
       <h1 class="modal-title">
         {{ modalTitle }}
       </h1>
 
       <div class="form">
-        <label for="account-name">Account Name:</label>
-        <input type="text" id="account-name" placeholder="Account name..." v-model="account.name" />
+        <div class="form-group">
+          <label for="expense-title">Expense title:</label>
+          <input type="text" id="expense-title" placeholder="Expense title..." v-model="expense.title" />
+        </div>
+
+        <div class="form-group">
+          <label for="expense-description">Description:</label>
+          <textarea rows="3" id="expense-description" placeholder="Description ..." v-model="expense.description" />
+        </div>
+
+        <div class="form-group">
+          <label for="expense-amount">Amount:</label>
+          <input type="number" id="expense-amount" placeholder="Expense amount..." v-model="expense.amount" />
+        </div>
+
+        <div class="form-group">
+          <label for="expense-date">Date:</label>
+          <input type="date" id="expense-date" v-model="expense.date" />
+        </div>
+
+        <div class="form-group">
+          <label for="expense-categories">Categories:</label>
+
+          <CategoriesSelect v-on:select-category="selectCategory" v-on:remove-category="removeCategory" />
+        </div>
+
+        <div class="form-group inline">
+          <label for="expense-date">Is this a reccuring expense?</label>
+          <input type="checkbox" id="expense-date" v-model="expense.recurring" />
+        </div>
+
+        <div class="form-group inline" v-if="expense.recurring">
+          <label for="expense-recurring">What is the frequency?</label>
+          <select name="expense-recurring" id="expense-recurring" v-model="expense.recurring">
+            <option v-for="v in frequencyArray" :key="v" :value="v">{{ v }}</option>
+          </select>
+        </div>
+
+        <div class="form-group" v-if="expense.recurring">
+          <label for="expense-enddate">Do you know the end date?</label>
+          <input type="date" id="expense-enddate" v-model="expense.endDate" />
+        </div>
       </div>
 
       <div class="actions-confirm" v-if="isDeleting">
-        <p>
-          Deleting an account will also delete <strong>all transactions</strong> associated with it. Are you sure? this
-          is <strong>permanent</strong>!
-        </p>
+        <p>Deleting an expense is <strong>permanent</strong>! Are you sure?</p>
         <div>
           <button @click="handleCancelDelete" class="cancel">Cancel</button>
           <button @click="handleConfirm" class="confirm-delete" v-if="isEditMode">
@@ -38,43 +75,59 @@
 </template>
 
 <script>
+import dayjs from 'dayjs'
 import { mapActions } from 'vuex'
+
+import { frequency } from '@/utils/frequency'
+import CategoriesSelect from '@/components/categories/CategoriesSelect'
+
+const initialState = {
+  expense: {
+    id: null,
+    title: '',
+    description: '',
+    amount: null,
+    date: dayjs(),
+    recurring: false,
+    frequency: null,
+    endDate: null,
+    categories: [],
+  },
+  isDeleting: false,
+}
 
 export default {
   name: 'ExpenceModal',
+  components: {
+    CategoriesSelect,
+  },
   data() {
-    return {
-      account: {
-        name: '',
-        id: null,
-      },
-      isDeleting: false,
-    }
+    return initialState
   },
   methods: {
-    ...mapActions(['postAccount', 'patchAccount', 'deleteAccount']),
+    ...mapActions(['postExpense', 'patchExpense', 'deleteExpense']),
     beforeOpen(event) {
       if (event?.params?.id) {
-        this.account = { id: event.params.id, name: event.params.name }
+        this.expense = {
+          ...event.params,
+        }
       }
     },
     handleSubmit() {
-      if (this.account.id) {
-        this.patchAccount({
-          id: this.account.id,
-          name: this.account.name,
-        })
+      if (this.expense.id) {
+        this.patchExpense(this.getExpenseToPost())
       } else {
-        this.postAccount(this.account.name)
+        this.postExpense(this.getExpenseToPost())
       }
       this.handleClose()
     },
     handleClose() {
-      this.account = { name: '', id: null }
+      this.expense = initialState.expense
+      this.isDeleting = false
       this.$emit('close-modal')
     },
     handleConfirm() {
-      this.deleteAccount({ id: this.account.id })
+      this.deleteAccount({ id: this.expense.id })
       this.handleClose()
     },
     handleDelete() {
@@ -83,16 +136,34 @@ export default {
     handleCancelDelete() {
       this.isDeleting = false
     },
+    getExpenseToPost() {
+      const tempExpense = {}
+      Object.keys(this.expense).forEach(key => {
+        if (this.expense[key] && this.expense[key].length) {
+          tempExpense[key] = this.expense[key]
+        }
+      })
+      return tempExpense
+    },
+    selectCategory(category) {
+      this.expense.categories.push(category)
+    },
+    removeCategory(category) {
+      this.expense.categories.push = this.expense.categories.filter(cat => cat.id !== category.id)
+    },
   },
   computed: {
     isEditMode() {
-      return Boolean(this.account.id)
+      return Boolean(this.expense.id)
     },
     modalTitle() {
-      return this.isEditMode ? `Edit ${this.account.name} Account` : 'New Account'
+      return this.isEditMode ? `Edit ${this.expense.title} Expense` : 'New Expense'
     },
     disabled() {
-      return !this.account.name.length
+      return !this.expense.title.length
+    },
+    frequencyArray() {
+      return frequency
     },
   },
 }
@@ -100,6 +171,11 @@ export default {
 
 <style lang="scss" scoped>
 @import '../../scss/mixins.scss';
+@import '../../scss/forms.scss';
+
+.v--modal-box {
+  height: 80vh;
+}
 
 .container {
   padding: 32px;
@@ -115,25 +191,21 @@ export default {
   display: flex;
   flex-direction: column;
   margin-top: 24px;
-  label {
-    font-family: var(--font-secondary);
-    font-weight: bold;
-    font-size: 0.9rem;
-  }
+  .form-group {
+    @extend %form-group;
+    label {
+      @extend %label;
+    }
 
-  input {
-    width: 100%;
-    margin-top: 8px;
-    height: 48px;
-    padding: 0 8px;
-    border: none;
-    font-size: 1.15rem;
-    border: 1px solid var(--color-grey-light);
-    border-radius: var(--border-r-xs);
-    transition: 0.2s all ease-in-out;
-    &:focus {
-      outline: none;
-      border-color: var(--color-primary);
+    input {
+      @extend %input;
+    }
+
+    textarea {
+      @extend %input;
+      height: initial;
+      resize: none;
+      padding: 8px;
     }
   }
 }
