@@ -1,5 +1,5 @@
 <template>
-  <div class="home-wrapper" v-if="!$auth.loading">
+  <div class="home-wrapper" v-if="!$auth.loading && !$auth.isAuthenticated">
     <header>
       <Logo />
       <h1>Expense Tracker</h1>
@@ -49,6 +49,11 @@ export default {
   name: 'Home',
   components: {
     Logo,
+  },
+  beforeCreate() {
+    if (this.$auth.isAuthenticated) {
+      this.$router.push('dashboard')
+    }
   },
   methods: {
     login() {
