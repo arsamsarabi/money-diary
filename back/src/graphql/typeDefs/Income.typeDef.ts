@@ -10,7 +10,7 @@ const typeDef = gql`
     recurring: Boolean!
     frequency: String
     daysPerWeek: Int
-    receivedFrom: String
+    payer: String
     accountId: String!
     userId: String!
   }
@@ -24,7 +24,7 @@ const typeDef = gql`
     recurring: Boolean
     frequency: String
     daysPerWeek: Int
-    receivedFrom: String
+    payer: String
     accountId: String!
     userId: String!
   }

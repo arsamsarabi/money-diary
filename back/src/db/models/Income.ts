@@ -29,7 +29,7 @@ const IncomeSchema = new Schema(
     daysPerWeek: {
       type: Number,
     },
-    receivedFrom: {
+    payer: {
       type: String,
       required: false,
     },

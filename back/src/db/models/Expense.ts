@@ -34,7 +34,7 @@ const ExpenseSchema = new Schema(
       required: true,
       default: ['0'],
     },
-    payedTo: {
+    payee: {
       type: String,
       required: false,
     },
