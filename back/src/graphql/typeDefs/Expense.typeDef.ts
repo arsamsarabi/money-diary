@@ -5,7 +5,7 @@ const typeDef = gql`
     id: String!
     title: String!
     description: String
-    amount: Float!
+    amount: String!
     date: String!
     recurring: Boolean!
     frequency: String
@@ -20,7 +20,7 @@ const typeDef = gql`
     id: String
     title: String
     description: String
-    amount: Float
+    amount: String
     date: String
     recurring: Boolean
     frequency: String
@@ -36,7 +36,7 @@ const typeDef = gql`
   }
 
   extend type Mutation {
-    addExpense(ExpenseInput: ExpenseInput): Expense!
+    addExpense(newExpense: ExpenseInput): Expense!
     updateExpense(expenseToUpdate: ExpenseInput): Expense
     deleteExpense(id: String): Expense
   }

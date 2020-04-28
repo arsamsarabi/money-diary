@@ -6,8 +6,8 @@ const queries = {
 }
 
 const mutations = {
-  addExpense: async (_: unknown, { ExpenseInput }: any) => {
-    const expense = new Expense(ExpenseInput)
+  addExpense: async (_: unknown, { newExpense }: any) => {
+    const expense = new Expense(newExpense)
     return await expense.save()
   },
   updateExpense: async (_: unknown, { expenseToUpdate }: any) => {
