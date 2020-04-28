@@ -37,6 +37,8 @@ const typeDef = gql`
 
   extend type Mutation {
     addExpense(ExpenseInput: ExpenseInput): Expense!
+    updateExpense(expenseToUpdate: ExpenseInput): Expense
+    deleteExpense(id: String): Expense
   }
 `
 
