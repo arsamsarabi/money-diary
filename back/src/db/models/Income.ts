@@ -29,6 +29,10 @@ const IncomeSchema = new Schema(
     daysPerWeek: {
       type: Number,
     },
+    receivedFrom: {
+      type: String,
+      required: false,
+    },
     accountId: {
       type: String,
       required: true,

@@ -34,6 +34,10 @@ const ExpenseSchema = new Schema(
       required: true,
       default: ['0'],
     },
+    payedTo: {
+      type: String,
+      required: false,
+    },
     accountId: {
       type: String,
       required: true,

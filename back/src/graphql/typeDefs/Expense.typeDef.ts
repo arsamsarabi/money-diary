@@ -11,6 +11,7 @@ const typeDef = gql`
     frequency: String
     endDate: String
     categories: [String!]!
+    payedTo: String
     accountId: String!
     userId: String!
   }
@@ -25,6 +26,7 @@ const typeDef = gql`
     frequency: String
     endDate: String
     categories: [String]
+    payedTo: String
     accountId: String!
     userId: String!
   }
