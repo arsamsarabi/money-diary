@@ -124,7 +124,7 @@ export default {
   padding-left: 8px;
 
   .cta {
-    @extend %button-success;
+    @extend %button-primary;
     width: 208px;
     height: 48px;
     justify-content: space-between;

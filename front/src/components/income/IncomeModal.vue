@@ -175,7 +175,7 @@ button {
   }
 
   &.success {
-    @extend %button-success;
+    @extend %button-primary;
   }
 
   &.cancel {

@@ -25,7 +25,11 @@ const actions = {
             description
             amount
             date
+            recurring
+            frequency
+            endDate
             categories
+            payee
             accountId
             userId
           }
@@ -40,6 +44,45 @@ const actions = {
     )
     commit('setExpenses', data.data.getExpensesByUserId)
     commit('setCategorised', data.data.getExpensesByUserId)
+  },
+  async postExpense({ commit, rootGetters }, expense) {
+    const query = `
+      mutation addExpense($input: ExpenseInput) {
+        addExpense(newExpense: $input) {
+          id
+          title
+          description
+          amount
+          date
+          recurring
+          frequency
+          endDate
+          categories
+          payee
+          accountId
+          userId
+        }
+      }
+    `
+    const { data, errors } = await axios.post(
+      VUE_APP_GQL_ENDPOINT,
+      {
+        query,
+        variables: {
+          input: {
+            ...expense,
+            userId: rootGetters.getUser.id,
+          },
+        },
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${rootGetters.getToken}`,
+        },
+      },
+    )
+    if (errors) console.error(errors)
+    if (data.data.addExpense) commit('addExpense', data.data.addExpense)
   },
 }
 const mutations = {
@@ -62,6 +105,9 @@ const mutations = {
       return categorised
     })
     state.categorised = newCategorisedData.sort((a, b) => b.sum - a.sum)
+  },
+  addExpense(state, expense) {
+    state.expenses = [...state.expenses, expense]
   },
 }
 

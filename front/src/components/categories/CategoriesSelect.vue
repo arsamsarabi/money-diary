@@ -1,12 +1,12 @@
 <template>
   <multiselect
     id="expense-categories"
-    :options="getCategories"
+    :options="categories"
     :multiple="true"
     :clearOnSelect="true"
     :hideSelected="true"
     :closeOnSelect="false"
-    :value="getCategories[0]"
+    :value="categories[0]"
     :taggable="true"
     :searchable="false"
     :max="5"
@@ -16,7 +16,23 @@
     placeholder="Add a category, General will be added by default"
     @select="selectCategory"
     @remove="removeCategory"
-  />
+  >
+    <template slot="tag" slot-scope="props">
+      <span class="multiselect__tag custom-tag" :style="getStyles(props.option.color)">
+        <section>
+          <v-icon scale="0.7" :name="props.option.icon" />
+          <span>{{ props.option.label }}</span>
+        </section>
+        <i
+          aria-hidden="true"
+          tabindex="1"
+          class="multiselect__tag-icon"
+          :data-category-id="props.option.id"
+          @click="removeCategory"
+        />
+      </span>
+    </template>
+  </multiselect>
 </template>
 
 <script>
@@ -33,19 +49,25 @@ export default {
   data() {
     return {
       localCategories: [],
+      categories: defaultCategories,
     }
   },
   methods: {
     selectCategory(category) {
       this.$emit('select-category', category)
     },
-    removeCategory(category) {
-      this.$emit('remove-category', category)
+    removeCategory(event) {
+      const categoryId = event.target.dataset.categoryId
+      this.localCategories = this.localCategories.filter(cat => cat.id !== categoryId)
+      this.$emit('remove-category', categoryId)
     },
-  },
-  computed: {
-    getCategories() {
-      return defaultCategories
+    getColor({ color }) {
+      return color
+    },
+    getStyles(color) {
+      return `
+        background-color: ${color};
+      `
     },
   },
 }
@@ -53,4 +75,26 @@ export default {
 
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 
-<style></style>
+<style lang="scss" scoped>
+.custom-tag {
+  & > section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: min-content;
+    margin: 0;
+
+    svg {
+      margin-right: 4px;
+    }
+  }
+  i {
+    &:hover {
+      background-color: transparent;
+    }
+    &:after {
+      color: var(--color-white);
+    }
+  }
+}
+</style>

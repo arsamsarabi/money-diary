@@ -15,7 +15,8 @@
   --color-white: #f9f9f9;
   --color-blueGrey: #dff9fb;
 
-  --color-grey-light: #b2bec3;
+  --color-grey-xlight: #e8e8e8;
+  --color-grey-light: #adadad;
   --color-grey: #636e72;
   --color-grey-dark: #222f3e;
 
@@ -207,4 +208,21 @@ body {
   align-items: center;
   background-color: var(--color-white);
   color: var(--color-secondary);
+}
+
+::-webkit-input-placeholder {
+  /* Edge */
+  color: var(--color-grey-light);
+  font-size: 14px;
+}
+
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: var(--color-grey-light);
+  font-size: 14px;
+}
+
+::placeholder {
+  color: var(--color-grey-light);
+  font-size: 14px;
 }

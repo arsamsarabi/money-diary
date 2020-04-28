@@ -11,7 +11,7 @@
   border-radius: var(--border-r-m);
 }
 
-@mixin add-new-button($bgColor: var(--color-success), $textColor: var(--color-white)) {
+@mixin add-new-button($bgColor: var(--color-primary), $textColor: var(--color-white)) {
   @include card-with-shadow($bgColor);
   display: flex;
   justify-content: flex-start;
@@ -68,6 +68,10 @@
 
 %button-success {
   @include button(var(--color-success));
+}
+
+%button-primary {
+  @include button(var(--color-primary));
 }
 
 %button-danger {

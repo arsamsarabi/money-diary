@@ -1,50 +1,76 @@
 <template>
-  <v-modal name="expense-modal" @before-open="beforeOpen" :width="600" :height="900">
+  <v-modal name="expense-modal" @before-open="beforeOpen" :width="600" :height="730">
     <div class="container">
       <h1 class="modal-title">
         {{ modalTitle }}
       </h1>
 
       <div class="form">
-        <div class="form-group">
+        <div class="form-group inline">
           <label for="expense-title">Expense title:</label>
           <input type="text" id="expense-title" placeholder="Expense title..." v-model="expense.title" />
         </div>
 
-        <div class="form-group">
+        <div class="form-group inline">
           <label for="expense-description">Description:</label>
           <textarea rows="3" id="expense-description" placeholder="Description ..." v-model="expense.description" />
         </div>
 
-        <div class="form-group">
+        <div class="form-group inline">
           <label for="expense-amount">Amount:</label>
           <input type="number" id="expense-amount" placeholder="Expense amount..." v-model="expense.amount" />
         </div>
 
-        <div class="form-group">
+        <div class="form-group inline">
+          <label for="expense-account">Account</label>
+          <multiselect
+            id="expense-account"
+            v-model="expense.accoundId"
+            :options="getAccounts"
+            :searchable="false"
+            :show-labels="false"
+            track-by="id"
+            label="name"
+            @select="selectAccount"
+          />
+        </div>
+
+        <div class="form-group inline">
+          <label for="expense-payee">Payee:</label>
+          <input type="text" id="expense-payee" placeholder="Payee..." v-model="expense.payee" />
+        </div>
+
+        <div class="form-group inline">
           <label for="expense-date">Date:</label>
           <input type="date" id="expense-date" v-model="expense.date" />
         </div>
 
-        <div class="form-group">
+        <div class="form-group inline">
           <label for="expense-categories">Categories:</label>
-
           <CategoriesSelect v-on:select-category="selectCategory" v-on:remove-category="removeCategory" />
         </div>
 
         <div class="form-group inline">
-          <label for="expense-date">Is this a reccuring expense?</label>
-          <input type="checkbox" id="expense-date" v-model="expense.recurring" />
+          <FancyCheckbox
+            :checked="expense.recurring"
+            label="Is this a reccuring expense?"
+            v-on:on-change="handleRecurring"
+          />
         </div>
 
         <div class="form-group inline" v-if="expense.recurring">
           <label for="expense-recurring">What is the frequency?</label>
-          <select name="expense-recurring" id="expense-recurring" v-model="expense.recurring">
-            <option v-for="v in frequencyArray" :key="v" :value="v">{{ v }}</option>
-          </select>
+          <multiselect
+            id="expense-recurring"
+            v-model="expense.frequency"
+            :options="frequencyArray"
+            :searchable="false"
+            :show-labels="false"
+            :value="frequencyArray[0]"
+          />
         </div>
 
-        <div class="form-group" v-if="expense.recurring">
+        <div class="form-group inline" v-if="expense.recurring">
           <label for="expense-enddate">Do you know the end date?</label>
           <input type="date" id="expense-enddate" v-model="expense.endDate" />
         </div>
@@ -76,33 +102,39 @@
 
 <script>
 import dayjs from 'dayjs'
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 import { frequency } from '@/utils/frequency'
 import CategoriesSelect from '@/components/categories/CategoriesSelect'
+import FancyCheckbox from '@/components/FancyCheckbox'
 
-const initialState = {
-  expense: {
-    id: null,
-    title: '',
-    description: '',
-    amount: null,
-    date: dayjs(),
-    recurring: false,
-    frequency: null,
-    endDate: null,
-    categories: [],
-  },
-  isDeleting: false,
+const emptyExpense = {
+  id: null,
+  title: '',
+  description: null,
+  amount: null,
+  date: dayjs().format('YYYY-MM-DD'),
+  recurring: false,
+  frequency: null,
+  endDate: null,
+  categories: [],
+  payee: null,
+  accountId: null,
 }
 
 export default {
   name: 'ExpenceModal',
   components: {
     CategoriesSelect,
+    FancyCheckbox,
   },
   data() {
-    return initialState
+    return {
+      expense: {
+        ...emptyExpense,
+      },
+      isDeleting: false,
+    }
   },
   methods: {
     ...mapActions(['postExpense', 'patchExpense', 'deleteExpense']),
@@ -122,8 +154,8 @@ export default {
       this.handleClose()
     },
     handleClose() {
-      this.expense = initialState.expense
-      this.isDeleting = false
+      // this.expense = { ...emptyExpense }
+      // this.isDeleting = false
       this.$emit('close-modal')
     },
     handleConfirm() {
@@ -143,16 +175,28 @@ export default {
           tempExpense[key] = this.expense[key]
         }
       })
+      console.log(tempExpense)
       return tempExpense
     },
     selectCategory(category) {
-      this.expense.categories.push(category)
+      this.expense.categories.push(category.id)
     },
-    removeCategory(category) {
-      this.expense.categories.push = this.expense.categories.filter(cat => cat.id !== category.id)
+    removeCategory(categoryId) {
+      this.expense.categories = this.expense.categories.filter(cat => cat !== categoryId)
+    },
+    handleRecurring(checked) {
+      this.expense.recurring = checked
+      if (!checked) {
+        this.expense.frequency = null
+        this.expense.endDate = null
+      }
+    },
+    selectAccount(account) {
+      this.expense.accountId = account.id
     },
   },
   computed: {
+    ...mapGetters(['getAccounts']),
     isEditMode() {
       return Boolean(this.expense.id)
     },
@@ -190,6 +234,7 @@ export default {
 .form {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   margin-top: 24px;
   .form-group {
     @extend %form-group;
@@ -247,7 +292,7 @@ button {
   }
 
   &.success {
-    @extend %button-success;
+    @extend %button-primary;
   }
 
   &.cancel {
