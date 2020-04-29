@@ -1,8 +1,13 @@
-import { Category } from '../../db'
+import { Category, Expense } from '../../db'
+import { getExpenditureSum } from '../../utils/helpers'
 
 const queries = {
-  getMyCategories: async (_: any, { userId }: { userId: string }) =>
-    await Category.find({ userId: userId || 'generic' }),
+  getMyCategories: async (_: any, { userId }: { userId: string }) => {
+    const tempCats = await Category.find({ userId: userId || 'generic' })
+    const expenses = await Expense.find({ userId: userId })
+    const result = getExpenditureSum(expenses, tempCats)
+    return result
+  },
 }
 
 const mutations = {

@@ -7,6 +7,8 @@ const typeDef = gql`
     icon: String!
     color: String!
     userId: String!
+    expensesSum: Float!
+    recurringSum: Float!
   }
 
   input CategoryInput {
