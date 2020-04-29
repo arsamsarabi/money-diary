@@ -3,7 +3,7 @@ import { getExpenditureSum } from '../../utils/helpers'
 
 const queries = {
   getMyCategories: async (_: any, { userId }: { userId: string }) => {
-    const tempCats = await Category.find({ userId: userId || 'generic' })
+    const tempCats = await Category.find({ $or: [{ userId }, { userId: 'generic' }] })
     const expenses = await Expense.find({ userId: userId })
     const result = getExpenditureSum(expenses, tempCats)
     return result
