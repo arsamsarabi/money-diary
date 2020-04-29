@@ -1,6 +1,7 @@
 import { gql } from 'apollo-server-express'
 
 import { Account } from './Account.typeDef'
+import { Category } from './Category.typeDef'
 import { Expense } from './Expense.typeDef'
 import { Income } from './Income.typeDef'
 import { User } from './User.typeDef'
@@ -16,4 +17,4 @@ const Mutation = gql`
   }
 `
 
-export default [Query, Mutation, Account, Expense, Income, User]
+export default [Query, Mutation, Account, Category, Expense, Income, User]
