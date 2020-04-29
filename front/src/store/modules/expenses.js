@@ -1,16 +1,19 @@
 import axios from 'axios'
 
 import { defaultCategories } from '../../utils/categories'
+import { getExpenditureSum } from '../helpers'
 
 const { VUE_APP_GQL_ENDPOINT } = process.env
 
 const state = {
   expenses: [],
-  categorised: defaultCategories,
+  categorisedExpenses: defaultCategories,
+  categorisedRecurring: defaultCategories,
 }
 const getters = {
-  getExpenses: state => state.expenses,
-  getCategorisedData: state => state.categorised,
+  getExpenses: state => state.expenses.filter(expense => !expense.recurring),
+  getRecurring: state => state.expenses.filter(expense => expense.recurring),
+  getCategorisedDataForExpenses: state => state.categorisedExpenses,
 }
 const actions = {
   async fetchExpensesByUserId({ commit, rootGetters }, userID) {
@@ -43,7 +46,7 @@ const actions = {
       },
     )
     commit('setExpenses', data.data.getExpensesByUserId)
-    commit('setCategorised', data.data.getExpensesByUserId)
+    commit('setCategorisedSum', data.data.getExpensesByUserId)
   },
   async postExpense({ commit, rootGetters }, expense) {
     const query = `
@@ -89,22 +92,10 @@ const mutations = {
   setExpenses(state, expenses) {
     state.expenses = expenses
   },
-  setCategorised(state, expenses) {
-    const newCategorisedData = state.categorised.map(category => {
-      const categorised = {
-        ...category,
-        sum: parseFloat(
-          expenses.reduce((accumulator, current) => {
-            if (current.categories.includes(category.id)) {
-              return accumulator + current.amount
-            }
-            return accumulator
-          }, 0),
-        ).toFixed(2),
-      }
-      return categorised
-    })
-    state.categorised = newCategorisedData.sort((a, b) => b.sum - a.sum)
+  setCategorisedSum(state, expenses) {
+    const [categorisedExpenses, categorisedRecurring] = getExpenditureSum(expenses)
+    state.categorisedExpenses = categorisedExpenses
+    state.categorisedRecurring = categorisedRecurring
   },
   addExpense(state, expense) {
     state.expenses = [...state.expenses, expense]

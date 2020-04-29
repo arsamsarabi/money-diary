@@ -1,1 +1,1 @@
-export const frequency = ['Daily', 'Weekly', 'monthly', 'yearly']
+export const frequency = ['Daily', 'Weekly', 'Monthly', 'Yearly']

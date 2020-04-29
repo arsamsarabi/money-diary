@@ -34,6 +34,11 @@
         </div>
       </div>
 
+      <div class="payee">
+        <span>Payee: </span>
+        <p>{{ expense.payee }}</p>
+      </div>
+
       <div class="account-name">
         <span>Account: </span>
         <p>{{ getAccountName(expense.accountId) }}</p>
@@ -42,6 +47,10 @@
       <div class="description">
         <span>Description: </span>
         <p>{{ expense.description }}</p>
+      </div>
+
+      <div class="actions">
+        <v-icon name="pencil-alt" scale="0.8" @click="$emit('edit-expense', expense)" />
       </div>
     </main>
   </div>
@@ -192,6 +201,10 @@ export default {
     @include label-and-text;
   }
 
+  .payee {
+    @include label-and-text;
+  }
+
   .description {
     @include label-and-text;
   }
@@ -208,6 +221,19 @@ export default {
       p {
         font-size: 0.8rem;
       }
+    }
+  }
+}
+
+.actions {
+  width: 100%;
+  text-align: right;
+  svg {
+    color: var(--color-grey-light);
+    transition: 0.2s all ease-in-out;
+    &:hover {
+      cursor: pointer;
+      color: var(--color-grey);
     }
   }
 }

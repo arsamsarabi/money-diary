@@ -26,18 +26,12 @@
     <!-- TEMP LOCATION FOR THIS ACTIONS -->
 
     <div class="temp-actions">
-      <button class="cta" @click="showModal('expense-modal')">
-        <v-icon name="plus" />
-        <p>Add Expense</p>
-      </button>
-
       <button class="cta" @click="showModal('income-modal')">
         <v-icon name="plus" />
         <p>Add Income</p>
       </button>
     </div>
 
-    <ExpenseModal v-on:close-modal="hideModal('expense-modal')" />
     <IncomeModal v-on:close-modal="hideModal('income-modal')" />
   </div>
 </template>
@@ -47,7 +41,6 @@ import { mapGetters } from 'vuex'
 
 import AccountCard from '@/components/accounts/AccountCard'
 import AccountModal from '@/components/accounts/AccountModal'
-import ExpenseModal from '@/components/expenses/ExpenseModal'
 import IncomeModal from '@/components/income/IncomeModal'
 
 export default {
@@ -55,7 +48,6 @@ export default {
   components: {
     AccountCard,
     AccountModal,
-    ExpenseModal,
     IncomeModal,
   },
   computed: {

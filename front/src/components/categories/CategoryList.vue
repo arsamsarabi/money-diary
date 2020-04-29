@@ -2,7 +2,11 @@
   <div class="categories-list-wrapper">
     <h1>Categories</h1>
     <div class="categories-row">
-      <CategoryCard v-for="category in getCategorisedData.slice(0, 4)" :key="category.id" :category="category" />
+      <CategoryCard
+        v-for="category in getCategorisedDataForExpenses.slice(0, 4)"
+        :key="category.id"
+        :category="category"
+      />
       <router-link to="/categories" class="view-more-button">
         <v-icon name="plus" />
         <p>View all</p>
@@ -22,7 +26,7 @@ export default {
     CategoryCard,
   },
   computed: {
-    ...mapGetters(['getCategorisedData']),
+    ...mapGetters(['getCategorisedDataForExpenses']),
   },
 }
 </script>
@@ -33,6 +37,7 @@ export default {
 .categories-list-wrapper {
   h1 {
     @include section-header;
+    margin-bottom: 16px;
   }
 }
 

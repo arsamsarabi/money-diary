@@ -6,13 +6,12 @@
     :clearOnSelect="true"
     :hideSelected="true"
     :closeOnSelect="false"
-    :value="categories[0]"
+    :value="returnCategoryTags"
     :taggable="true"
     :searchable="false"
     :max="5"
     track-by="id"
     label="label"
-    v-model="localCategories"
     placeholder="Add a category, General will be added by default"
     @select="selectCategory"
     @remove="removeCategory"
@@ -52,6 +51,7 @@ export default {
       categories: defaultCategories,
     }
   },
+  props: ['selectedCategories'],
   methods: {
     selectCategory(category) {
       this.$emit('select-category', category)
@@ -68,6 +68,11 @@ export default {
       return `
         background-color: ${color};
       `
+    },
+  },
+  computed: {
+    returnCategoryTags() {
+      return this.selectedCategories.map(catId => defaultCategories.find(cat => cat.id === catId))
     },
   },
 }

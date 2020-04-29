@@ -1,5 +1,5 @@
 <template>
-  <v-modal name="expense-modal" @before-open="beforeOpen" :width="600" :height="730">
+  <v-modal name="expense-modal" @before-open="beforeOpen" :width="600" :height="775">
     <div class="container">
       <h1 class="modal-title">
         {{ modalTitle }}
@@ -25,14 +25,20 @@
           <label for="expense-account">Account</label>
           <multiselect
             id="expense-account"
-            v-model="expense.accoundId"
+            :value="selectedAccount"
             :options="getAccounts"
             :searchable="false"
             :show-labels="false"
             track-by="id"
             label="name"
             @select="selectAccount"
-          />
+          >
+            <template slot="singleLabel" slot-scope="{ option }">
+              <span class="custom-account-style">
+                {{ option.name }}
+              </span>
+            </template>
+          </multiselect>
         </div>
 
         <div class="form-group inline">
@@ -47,7 +53,11 @@
 
         <div class="form-group inline">
           <label for="expense-categories">Categories:</label>
-          <CategoriesSelect v-on:select-category="selectCategory" v-on:remove-category="removeCategory" />
+          <CategoriesSelect
+            v-on:select-category="selectCategory"
+            v-on:remove-category="removeCategory"
+            :selectedCategories="expense.categories"
+          />
         </div>
 
         <div class="form-group inline">
@@ -140,9 +150,9 @@ export default {
     ...mapActions(['postExpense', 'patchExpense', 'deleteExpense']),
     beforeOpen(event) {
       if (event?.params?.id) {
-        this.expense = {
-          ...event.params,
-        }
+        Object.keys(emptyExpense).forEach(key => {
+          this.expense[key] = event.params[key]
+        })
       }
     },
     handleSubmit() {
@@ -154,8 +164,8 @@ export default {
       this.handleClose()
     },
     handleClose() {
-      // this.expense = { ...emptyExpense }
-      // this.isDeleting = false
+      this.expense = { ...emptyExpense }
+      this.isDeleting = false
       this.$emit('close-modal')
     },
     handleConfirm() {
@@ -171,11 +181,10 @@ export default {
     getExpenseToPost() {
       const tempExpense = {}
       Object.keys(this.expense).forEach(key => {
-        if (this.expense[key] && this.expense[key].length) {
+        if (typeof this.expense[key] === 'boolean' || (this.expense[key] && this.expense[key].length)) {
           tempExpense[key] = this.expense[key]
         }
       })
-      console.log(tempExpense)
       return tempExpense
     },
     selectCategory(category) {
@@ -185,7 +194,10 @@ export default {
       this.expense.categories = this.expense.categories.filter(cat => cat !== categoryId)
     },
     handleRecurring(checked) {
+      console.log(checked)
+      console.log({ 'recurring before:': this.expense.recurring })
       this.expense.recurring = checked
+      console.log({ 'recurring after:': this.expense.recurring })
       if (!checked) {
         this.expense.frequency = null
         this.expense.endDate = null
@@ -208,6 +220,9 @@ export default {
     },
     frequencyArray() {
       return frequency
+    },
+    selectedAccount() {
+      return this.getAccounts.find(acc => acc.id === this.expense.accountId)
     },
   },
 }
@@ -308,5 +323,12 @@ button {
   &.confirm-delete {
     @extend %button-danger;
   }
+}
+
+.custom-account-style {
+  font-size: 1.125rem;
+  color: var(--color-black);
+  margin: 0;
+  padding: 0;
 }
 </style>
