@@ -102,7 +102,7 @@ const actions = {
 
     commit('updateAccount', data.data.updateAccount)
   },
-  async deleteAccount({ commit, rootGetters }, { id }) {
+  async deleteAccount({ commit, rootGetters, dispatch }, { id }) {
     const query = `
       mutation deleteAccount($id: String) {
         deleteAccount(id: $id) {
@@ -110,7 +110,7 @@ const actions = {
         }
       }
     `
-    const { data } = await axios.post(
+    const { data, errors } = await axios.post(
       VUE_APP_GQL_ENDPOINT,
       {
         query,
@@ -125,7 +125,12 @@ const actions = {
       },
     )
 
-    commit('deleteAccount', data.data.deleteAccount.id)
+    if (errors) console.log(errors)
+    if (data.data.deleteAccount) {
+      dispatch('fetchExpensesByUserId', rootGetters.getUser.id)
+      dispatch('getMyCategories', rootGetters.getUser.id)
+      commit('deleteAccount', data.data.deleteAccount.id)
+    }
   },
 }
 const mutations = {
