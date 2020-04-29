@@ -1,4 +1,4 @@
-# 💵Money Diary📒
+# 💵💵💵 Money Diary 💵💵💵
 
 > Full stack expense tracking and budgeting application
 
