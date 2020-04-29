@@ -2,7 +2,7 @@
   <div>
     <header>
       <h2>Expenses</h2>
-      <button class="add-acount-button" @click="showModal('expense-modal')">
+      <button class="add-acount-button" @click="showModal('expense-modal')" disabled="!getAccounts.length">
         <v-icon name="plus" />
         <p>
           Add new
@@ -38,7 +38,7 @@ export default {
     ExpenseModal,
   },
   computed: {
-    ...mapGetters(['getExpenses']),
+    ...mapGetters(['getExpenses', 'getAccounts']),
     showExpenseList() {
       return this.getExpenses && this.getExpenses.length > 0
     },

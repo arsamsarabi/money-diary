@@ -20,6 +20,12 @@
   color: $textColor;
   font-size: 0.9rem;
   text-transform: uppercase;
+
+  &:disabled {
+    background-color: var(--color-grey-light);
+    pointer-events: none;
+  }
+
   svg {
     margin-right: 8px;
   }
