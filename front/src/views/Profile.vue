@@ -1,6 +1,9 @@
 <template>
   <div class="profile-wrapper" v-if="getUser">
-    <h1 class="user-name">{{ getUser.name }}'s profile</h1>
+    <h1 class="user-name">
+      <span>{{ getUser.name }}</span
+      >'s profile
+    </h1>
 
     <header>
       <h2>Accounts overview</h2>
@@ -95,6 +98,9 @@ export default {
 .user-name {
   font-family: var(--font-secondary);
   font-size: 3rem;
+  span {
+    text-transform: capitalize;
+  }
 }
 
 .accounts {

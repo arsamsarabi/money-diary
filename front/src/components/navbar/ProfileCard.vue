@@ -1,7 +1,10 @@
 <template>
   <div class="card">
     <img :src="userImage" />
-    <h1>Hello, {{ userName }}! 👋🏻</h1>
+    <h1>
+      Hello, <span>{{ userName }}</span
+      >! 👋🏻
+    </h1>
     <NavLinkIcon text="Profile" icon="user" path="/profile" />
     <NavLinkIcon text="Settings" icon="cog" path="/settings" />
     <NavLinkIcon text="Wallet" icon="wallet" path="/wallet" />
@@ -67,6 +70,9 @@ export default {
     font-family: var(--font-secondary);
     font-size: 1.25rem;
     margin: 16px 0;
+    span {
+      text-transform: capitalize;
+    }
   }
 
   a {
