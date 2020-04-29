@@ -1,12 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import { getInstance } from '../auth'
 import { authGuard } from '../auth/authGuard'
 
 Vue.use(VueRouter)
-
-const instance = getInstance()
 
 const routes = [
   {

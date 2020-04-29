@@ -1,4 +1,5 @@
 export { Accounts } from './accounts'
 export { Auth } from './auth'
+export { Categories } from './categories'
 export { Expenses } from './expenses'
 export { User } from './user'

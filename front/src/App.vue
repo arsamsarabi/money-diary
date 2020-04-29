@@ -30,7 +30,7 @@ export default {
     Home,
   },
   methods: {
-    ...mapActions(['fetchMe', 'fetchExpensesByUserId', 'fetchAccountsByUserId', 'retrieveTokenFromAuthz']),
+    ...mapActions(['fetchMe', 'retrieveTokenFromAuthz']),
   },
   computed: {
     ...mapGetters(['getUser']),

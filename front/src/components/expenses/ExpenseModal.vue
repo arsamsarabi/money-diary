@@ -114,7 +114,6 @@
 import dayjs from 'dayjs'
 import { mapActions, mapGetters } from 'vuex'
 
-import { frequency } from '@/utils/frequency'
 import CategoriesSelect from '@/components/categories/CategoriesSelect'
 import FancyCheckbox from '@/components/FancyCheckbox'
 
@@ -219,7 +218,7 @@ export default {
       return !this.expense.title.length
     },
     frequencyArray() {
-      return frequency
+      return ['Daily', 'Weekly', 'Monthly', 'Yearly']
     },
     selectedAccount() {
       return this.getAccounts.find(acc => acc.id === this.expense.accountId)

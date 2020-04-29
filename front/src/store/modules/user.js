@@ -49,6 +49,7 @@ const actions = {
 
     dispatch('fetchAccountsByUserId', data.data.me.id)
     dispatch('fetchExpensesByUserId', data.data.me.id)
+    dispatch('getMyCategories', data.data.me.id)
 
     commit('setUser', { ...data.data.me, image: instance.user.picture })
   },

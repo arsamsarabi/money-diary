@@ -59,8 +59,7 @@
 <script>
 import dayjs from 'dayjs'
 import { lighten } from 'polished'
-
-import { getOneCategory } from '../../utils/categories'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'ExpanseCollapse',
@@ -71,8 +70,9 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(['getOneCategory']),
     categories() {
-      return this.expense.categories.map(cat => getOneCategory('id', cat))
+      return this.expense.categories.map(cat => this.getOneCategory('id', cat))
     },
     togglerName() {
       return this.isExpanded ? 'caret-up' : 'caret-down'

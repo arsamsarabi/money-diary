@@ -37,8 +37,7 @@
 <script>
 import Vue from 'vue'
 import Multiselect from 'vue-multiselect'
-
-import { defaultCategories } from '@/utils/categories'
+import { mapGetters } from 'vuex'
 
 Vue.component('multiselect', Multiselect)
 
@@ -48,7 +47,7 @@ export default {
   data() {
     return {
       localCategories: [],
-      categories: defaultCategories,
+      categories: this.getCategories,
     }
   },
   props: ['selectedCategories'],
@@ -71,8 +70,9 @@ export default {
     },
   },
   computed: {
+    ...mapGetters(['getCategories', 'getOneCategory']),
     returnCategoryTags() {
-      return this.selectedCategories.map(catId => defaultCategories.find(cat => cat.id === catId))
+      return this.selectedCategories.map(catId => this.getOneCategory('id', catId))
     },
   },
 }
