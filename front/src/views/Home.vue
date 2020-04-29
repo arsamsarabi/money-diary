@@ -2,7 +2,7 @@
   <div class="home-wrapper" v-if="!$auth.loading && !$auth.isAuthenticated">
     <header>
       <Logo />
-      <h1>Expense Tracker</h1>
+      <h1>Money Diary</h1>
       <a @click="login">Login/ Signup</a>
     </header>
     <main>

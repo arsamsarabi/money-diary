@@ -1,4 +1,4 @@
-# Expense Tracker Backend
+# Money Diary Backend
 
 ## Setting up and running local database
 
@@ -10,7 +10,7 @@ Pull mongo image from docker
 Run the docker mongo image
 
 > on a Mac
-> `docker run -p 27017:27017 -v ~/data:/data --name expense-tracker -d mongo`
+> `docker run -p 27017:27017 -v ~/data:/data --name money-diary -d mongo`
 
 > on Windows
-> `docker run -p 27017:27017 -v /c/Users/<user>/data:/data --name expense-tracker -d mongo`
+> `docker run -p 27017:27017 -v /c/Users/<user>/data:/data --name money-diary -d mongo`

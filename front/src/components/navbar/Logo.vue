@@ -1,7 +1,7 @@
 <template>
   <div class="logo">
     <router-link to="/dashboard">
-      Expense Tracker
+      Money Diary
     </router-link>
   </div>
 </template>
