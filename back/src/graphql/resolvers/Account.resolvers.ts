@@ -21,7 +21,9 @@ const mutations = {
     })
   },
   deleteAccount: async (_: unknown, { id }: any) => {
-    return await Account.findOneAndDelete({ _id: id })
+    const deletedAccount = await Account.findOneAndDelete({ _id: id })
+    await Expense.deleteMany({ accountId: id })
+    return deletedAccount
   },
 }
 
