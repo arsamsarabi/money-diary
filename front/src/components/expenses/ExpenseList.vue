@@ -18,7 +18,11 @@
       />
     </div>
     <div class="nothing-to-see" v-else>
-      No Expenses recorded yet!
+      <p>No Expenses recorded yet!</p>
+      <p class="hint">
+        You need to have at least one account registered to add expenses. Add an Account from the
+        <router-link to="/profile">profile page</router-link>
+      </p>
     </div>
     <ExpenseModal v-on:close-modal="hideModal('expense-modal')" />
   </div>
@@ -87,6 +91,23 @@ header {
   & > div {
     &:not(:last-of-type) {
       margin-bottom: 24px;
+    }
+  }
+}
+
+.nothing-to-see {
+  p {
+    &.hint {
+      float: right;
+      text-align: right;
+      width: 355px;
+      font-size: 0.9rem;
+      color: var(--color-danger);
+      margin-top: -16px;
+      a {
+        color: var(--color-danger);
+        font-weight: bold;
+      }
     }
   }
 }
