@@ -2,11 +2,7 @@
   <div class="categories-list-wrapper">
     <h1>Categories</h1>
     <div class="categories-row">
-      <CategoryCard
-        v-for="category in getCategorisedDataForExpenses.slice(0, 4)"
-        :key="category.id"
-        :category="category"
-      />
+      <CategoryCard v-for="category in getTopCategories" :key="category.id" :category="category" />
       <router-link to="/categories" class="view-more-button">
         <v-icon name="plus" />
         <p>View all</p>
@@ -26,7 +22,10 @@ export default {
     CategoryCard,
   },
   computed: {
-    ...mapGetters(['getCategorisedDataForExpenses']),
+    ...mapGetters(['getCategories']),
+    getTopCategories() {
+      return [...this.getCategories].sort((a, b) => b.expensesSum - a.expensesSum).slice(0, 4)
+    },
   },
 }
 </script>

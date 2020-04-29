@@ -11,7 +11,7 @@
     </header>
     <div class="expense-list-wrapper" v-if="showExpenseList">
       <ExpenseCollapse
-        v-for="expense in this.getExpenses"
+        v-for="expense in this.sortedExpenses"
         :key="expense.id"
         :expense="expense"
         v-on:edit-expense="editExpense"
@@ -26,6 +26,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import dayjs from 'dayjs'
 
 import ExpenseModal from '@/components/expenses/ExpenseModal'
 import ExpenseCollapse from './ExpenseCollapse'
@@ -40,6 +41,9 @@ export default {
     ...mapGetters(['getExpenses']),
     showExpenseList() {
       return this.getExpenses && this.getExpenses.length > 0
+    },
+    sortedExpenses() {
+      return [...this.getExpenses].sort((a, b) => dayjs(b.date) - dayjs(a.date))
     },
   },
   methods: {

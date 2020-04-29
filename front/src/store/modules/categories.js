@@ -8,7 +8,6 @@ const state = {
 
 const getters = {
   getCategories: state => state.categories,
-  getOneCategory: (state, { key, value }) => state.categories.find(cat => cat[key] === value),
 }
 
 const actions = {

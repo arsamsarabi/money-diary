@@ -5,7 +5,7 @@
     </div>
     <div class="text">
       <p class="label">{{ category.label }}</p>
-      <p class="amount">£ {{ category.sum }}</p>
+      <p class="amount">£ {{ parseFloat(category.expensesSum).toFixed(2) }}</p>
     </div>
   </div>
 </template>

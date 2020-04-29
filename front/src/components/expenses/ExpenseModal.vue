@@ -168,7 +168,7 @@ export default {
       this.$emit('close-modal')
     },
     handleConfirm() {
-      this.deleteAccount({ id: this.expense.id })
+      this.deleteExpense({ id: this.expense.id })
       this.handleClose()
     },
     handleDelete() {

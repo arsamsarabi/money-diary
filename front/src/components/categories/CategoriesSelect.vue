@@ -1,7 +1,7 @@
 <template>
   <multiselect
     id="expense-categories"
-    :options="categories"
+    :options="getCategories"
     :multiple="true"
     :clearOnSelect="true"
     :hideSelected="true"
@@ -47,7 +47,6 @@ export default {
   data() {
     return {
       localCategories: [],
-      categories: this.getCategories,
     }
   },
   props: ['selectedCategories'],
@@ -60,9 +59,6 @@ export default {
       this.localCategories = this.localCategories.filter(cat => cat.id !== categoryId)
       this.$emit('remove-category', categoryId)
     },
-    getColor({ color }) {
-      return color
-    },
     getStyles(color) {
       return `
         background-color: ${color};
@@ -70,9 +66,9 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['getCategories', 'getOneCategory']),
+    ...mapGetters(['getCategories']),
     returnCategoryTags() {
-      return this.selectedCategories.map(catId => this.getOneCategory('id', catId))
+      return this.selectedCategories.map(catId => this.getCategories.find(cat => cat.id === catId))
     },
   },
 }

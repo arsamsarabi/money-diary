@@ -1,10 +1,10 @@
 <template>
-  <div class="expense-collapse">
+  <div class="expense-collapse" v-if="getSomeCategories.length">
     <header class="collapse-header">
       <button @click="toggleExpanded">
         <div class="left-col">
-          <div class="icon-wrapper" :style="categoryColoresStyle(categories[0])">
-            <v-icon :name="categories[0].icon" />
+          <div class="icon-wrapper" :style="categoryColoresStyle(getSomeCategories[0])">
+            <v-icon :name="getSomeCategories[0].icon" />
           </div>
         </div>
         <div class="right-col">
@@ -25,7 +25,7 @@
     <main class="collapse-body" :class="collapseClass">
       <div class="category-pills-wrapper">
         <div
-          v-for="category in categories"
+          v-for="category in getSomeCategories"
           :key="category.id"
           class="category-pill"
           :style="categoryColoresStyle(category)"
@@ -70,15 +70,18 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getOneCategory']),
-    categories() {
-      return this.expense.categories.map(cat => this.getOneCategory('id', cat))
-    },
+    ...mapGetters(['getCategories']),
     togglerName() {
       return this.isExpanded ? 'caret-up' : 'caret-down'
     },
     collapseClass() {
       return this.isExpanded ? 'collapsible-open' : 'collapsible-close'
+    },
+    getSomeCategories() {
+      const expenseCategories = this.expense.categories
+      const result = this.getCategories.filter(cat => expenseCategories.includes(cat.id))
+
+      return result
     },
   },
   methods: {
