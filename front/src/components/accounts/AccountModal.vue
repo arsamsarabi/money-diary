@@ -101,49 +101,17 @@ export default {
 
 <style lang="scss" scoped>
 @import '../../scss/mixins.scss';
+@import '../../scss/modals.scss';
 
 .container {
-  padding: 32px;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  h1.modal-title {
-    font-family: var(--font-secondary);
-    font-size: 1.25rem;
-  }
+  @extend %modal-container;
 }
 .form {
-  display: flex;
-  flex-direction: column;
-  margin-top: 24px;
-  label {
-    font-family: var(--font-secondary);
-    font-weight: bold;
-    font-size: 0.9rem;
-  }
-
-  input {
-    width: 100%;
-    margin-top: 8px;
-    height: 48px;
-    padding: 0 8px;
-    border: none;
-    font-size: 1.15rem;
-    border: 1px solid var(--color-grey-light);
-    border-radius: var(--border-r-xs);
-    transition: 0.2s all ease-in-out;
-    &:focus {
-      outline: none;
-      border-color: var(--color-primary);
-    }
-  }
+  @extend %modal-form;
 }
 
 .actions {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  margin-top: auto;
+  @extend %modal-actions;
 }
 
 .actions-confirm {
@@ -165,32 +133,6 @@ export default {
     justify-content: flex-end;
     align-items: center;
     margin-top: 8px;
-  }
-}
-
-button {
-  @include button;
-
-  &:not(:last-of-type) {
-    margin-right: 16px;
-  }
-
-  &.success {
-    @extend %button-primary;
-  }
-
-  &.cancel {
-    @extend %button-neutral;
-  }
-
-  &.delete {
-    @extend %button-danger;
-    width: 48px;
-    min-width: 48px;
-  }
-
-  &.confirm-delete {
-    @extend %button-danger;
   }
 }
 </style>

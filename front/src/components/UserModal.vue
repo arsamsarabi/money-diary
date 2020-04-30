@@ -1,7 +1,7 @@
 <template>
   <v-modal name="user-modal">
     <div class="container">
-      <h1 class="modal-title">{{ username }}</h1>
+      <h1 class="modal-title">{{ username.length ? username : 'Please enter a name' }}</h1>
 
       <div class="form">
         <label for="username">Edit Name:</label>
@@ -58,10 +58,10 @@ export default {
 }
 
 .form {
-  @extend %form;
+  @extend %modal-form;
 }
 
 .actions {
-  @extend %actions;
+  @extend %modal-actions;
 }
 </style>
