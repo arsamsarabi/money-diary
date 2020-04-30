@@ -2,7 +2,7 @@
   <div>
     <header>
       <h2>Expenses</h2>
-      <button class="add-acount-button" @click="showModal('expense-modal')" disabled="!getAccounts.length">
+      <button class="add-acount-button" @click="showModal('expense-modal')" :disabled="!canAddExpense">
         <v-icon name="plus" />
         <p>
           Add new
@@ -19,7 +19,7 @@
     </div>
     <div class="nothing-to-see" v-else>
       <p>No Expenses recorded yet!</p>
-      <p class="hint">
+      <p class="hint" v-if="!canAddExpense">
         You need to have at least one account registered to add expenses. Add an Account from the
         <router-link to="/profile">profile page</router-link>
       </p>
@@ -48,6 +48,9 @@ export default {
     },
     sortedExpenses() {
       return [...this.getExpenses].sort((a, b) => dayjs(b.date) - dayjs(a.date))
+    },
+    canAddExpense() {
+      return this.getAccounts.length > 0
     },
   },
   methods: {

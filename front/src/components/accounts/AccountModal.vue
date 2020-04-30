@@ -115,11 +115,7 @@ export default {
 }
 
 .actions-confirm {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: center;
-  margin-top: auto;
+  @extend %modal-actions;
   p {
     font-size: 0.9rem;
     color: var(--color-danger);

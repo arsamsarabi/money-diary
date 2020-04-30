@@ -117,20 +117,6 @@ import { mapActions, mapGetters } from 'vuex'
 import CategoriesSelect from '@/components/categories/CategoriesSelect'
 import FancyCheckbox from '@/components/FancyCheckbox'
 
-const emptyExpense = {
-  id: null,
-  title: '',
-  description: null,
-  amount: null,
-  date: dayjs().format('YYYY-MM-DD'),
-  recurring: false,
-  frequency: null,
-  endDate: null,
-  categories: [],
-  payee: null,
-  accountId: null,
-}
-
 export default {
   name: 'ExpenceModal',
   components: {
@@ -140,7 +126,17 @@ export default {
   data() {
     return {
       expense: {
-        ...emptyExpense,
+        id: null,
+        title: '',
+        description: null,
+        amount: null,
+        date: dayjs().format('YYYY-MM-DD'),
+        recurring: false,
+        frequency: null,
+        endDate: null,
+        categories: [],
+        payee: null,
+        accountId: null,
       },
       isDeleting: false,
     }
@@ -149,7 +145,7 @@ export default {
     ...mapActions(['postExpense', 'patchExpense', 'deleteExpense']),
     beforeOpen(event) {
       if (event?.params?.id) {
-        Object.keys(emptyExpense).forEach(key => {
+        Object.keys(this.expense).forEach(key => {
           this.expense[key] = event.params[key]
         })
       }
@@ -163,7 +159,19 @@ export default {
       this.handleClose()
     },
     handleClose() {
-      this.expense = { ...emptyExpense }
+      this.expense = {
+        id: null,
+        title: '',
+        description: null,
+        amount: null,
+        date: dayjs().format('YYYY-MM-DD'),
+        recurring: false,
+        frequency: null,
+        endDate: null,
+        categories: [],
+        payee: null,
+        accountId: null,
+      }
       this.isDeleting = false
       this.$emit('close-modal')
     },
@@ -193,10 +201,7 @@ export default {
       this.expense.categories = this.expense.categories.filter(cat => cat !== categoryId)
     },
     handleRecurring(checked) {
-      console.log(checked)
-      console.log({ 'recurring before:': this.expense.recurring })
       this.expense.recurring = checked
-      console.log({ 'recurring after:': this.expense.recurring })
       if (!checked) {
         this.expense.frequency = null
         this.expense.endDate = null
