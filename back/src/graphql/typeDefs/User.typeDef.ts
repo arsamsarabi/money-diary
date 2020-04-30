@@ -18,7 +18,8 @@ const typeDef = gql`
   }
 
   extend type Mutation {
-    me(user: UserInput): User
+    me(user: UserInput): User!
+    updateUser(user: UserInput!): User!
   }
 `
 

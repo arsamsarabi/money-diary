@@ -3,11 +3,16 @@ import { Account, User } from '../../db'
 const queries = {}
 
 const mutations = {
-  me: async (_: any, { user }: { user: any }) => {
+  me: async (_: unknown, { user }: any) => {
     const result = await User.findOne({ sub: user.sub })
     if (result) return result
     const newUser = new User(user)
     return await newUser.save()
+  },
+  updateUser: async (_: unknown, { user }: any) => {
+    return await User.findOneAndUpdate({ sub: user.sub }, user, {
+      new: true,
+    })
   },
 }
 
