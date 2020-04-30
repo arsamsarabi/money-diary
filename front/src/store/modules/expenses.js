@@ -8,6 +8,22 @@ const state = {
 const getters = {
   getExpenses: state => state.expenses.filter(expense => !expense.recurring),
   getRecurring: state => state.expenses.filter(expense => expense.recurring),
+  getRecurringForCalendar: state => categories => {
+    const recurring = state.expenses.filter(expense => expense.recurring)
+    return recurring.map(rec => {
+      const category = categories.find(cat => cat.id === rec.categories[0])
+      return {
+        id: rec.id,
+        startDate: rec.date,
+        title: `${rec.title} - £${rec.amount}`,
+        classes: 'recurring-expense',
+        style: `
+          background-color: ${category.color};
+          color: var(--color-white);
+        `,
+      }
+    })
+  },
 }
 const actions = {
   async fetchExpensesByUserId({ commit, rootGetters }, userID) {
@@ -16,7 +32,7 @@ const actions = {
       {
         query: `
         query getExpensesByUserId {
-          getExpensesByUserId(userId: "${userID}") {
+          getExpensesByUserId(userId: "${userID || rootGetters.getUser.id}") {
             id
             title
             description
