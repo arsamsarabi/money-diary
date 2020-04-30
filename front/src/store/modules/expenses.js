@@ -40,7 +40,12 @@ const actions = {
             recurring
             frequency
             endDate
-            categories
+            categories {
+              id
+              label
+              icon
+              color
+            }
             payee
             accountId
             userId
@@ -68,7 +73,12 @@ const actions = {
           recurring
           frequency
           endDate
-          categories
+          categories {
+            id
+            label
+            icon
+            color
+          }
           payee
           accountId
           userId
@@ -110,7 +120,12 @@ const actions = {
           recurring
           frequency
           endDate
-          categories
+          categories {
+            id
+            label
+            icon
+            color
+          }
           payee
           accountId
           userId

@@ -1,4 +1,4 @@
-import { Expense } from '../../db'
+import { Expense, Category } from '../../db'
 
 const queries = {
   getExpensesByUserId: async (_: any, { userId }: { userId: string }) =>
@@ -23,6 +23,15 @@ const mutations = {
 const resolvers = {
   Query: queries,
   Mutation: mutations,
+  Expense: {
+    categories: async ({ categories }: any) => {
+      const allCategories = await Category.find()
+      const result = categories.map((catId: string) =>
+        allCategories.find((cat) => cat.id === catId),
+      )
+      return result
+    },
+  },
 }
 
 export { resolvers as ExpenseResolvers }

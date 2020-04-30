@@ -10,7 +10,7 @@ const typeDef = gql`
     recurring: Boolean!
     frequency: String
     endDate: String
-    categories: [String!]!
+    categories: [Category!]!
     payee: String
     accountId: String!
     userId: String!
