@@ -28,6 +28,17 @@ const typeDef = gql`
     accountId: String!
     userId: String!
   }
+
+  extend type Query {
+    getIncomesForUser(userId: String!): [Income]!
+    getIncomesForAccount(accountId: String!): [Income]!
+  }
+
+  extend type Mutation {
+    addIncome(income: IncomeInput): Income
+    updateIncome(income: IncomeInput): Income
+    deleteIncome(incomeId: String, userId: String): Income
+  }
 `
 
 export { typeDef as Income }
