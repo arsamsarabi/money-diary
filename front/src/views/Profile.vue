@@ -1,12 +1,12 @@
 <template>
   <div class="profile-wrapper" v-if="getUser">
-    <h1 class="user-name">
+    <div class="user-name">
       <span>{{ getUser.name }}</span
       >'s profile
       <button @click="showModal('user-modal')">
-        <v-icon name="pencil-alt" />
+        <v-icon name="pencil-alt" scale="0.8" />
       </button>
-    </h1>
+    </div>
 
     <header>
       <h2>Accounts overview</h2>
@@ -106,6 +106,16 @@ export default {
   font-size: 3rem;
   span {
     text-transform: capitalize;
+  }
+  button {
+    color: var(--color-grey);
+    transition: 0.2s all ease-in-out;
+
+    &:hover,
+    &:focus {
+      cursor: pointer;
+      color: var(--color-primary);
+    }
   }
 }
 

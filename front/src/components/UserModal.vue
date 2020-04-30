@@ -51,16 +51,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../scss/mixins.scss';
+@import '../scss/modals.scss';
 
 .container {
-  padding: 32px;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  h1.modal-title {
-    font-family: var(--font-secondary);
-    font-size: 1.25rem;
-  }
+  @extend %modal-container;
+}
+
+.form {
+  @extend %form;
+}
+
+.actions {
+  @extend %actions;
 }
 </style>
