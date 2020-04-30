@@ -1,16 +1,16 @@
 <template>
-  <v-modal name="account-modal" @before-open="beforeOpen">
+  <v-modal name="user-modal">
     <div class="container">
       <h1 class="modal-title">{{ username }}</h1>
 
       <div class="form">
-        <label for="account-name">Edit Name:</label>
-        <input type="text" id="account-name" placeholder="Account name..." v-model="account.name" />
+        <label for="username">Edit Name:</label>
+        <input type="text" id="username" placeholder="Your username..." v-model="username" />
       </div>
 
       <div class="actions">
         <button @click="handleSubmit" class="success" :disabled="disabled">
-          {{ isEditMode ? 'Save' : 'Submit' }}
+          Save
         </button>
         <button @click="handleClose" class="cancel">Cancel</button>
       </div>
@@ -22,20 +22,36 @@
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
-  name: 'AccountModal',
+  name: 'UserModal',
   data() {
     return {
-      username: this.getUser.name,
+      username: '',
     }
+  },
+  created() {
+    this.username = this.getUser.name
   },
   computed: {
     ...mapGetters(['getUser']),
+    disabled() {
+      return !this.username.length
+    },
+  },
+  methods: {
+    ...mapActions(['patchUser']),
+    handleSubmit() {
+      this.patchUser(this.username)
+      this.handleClose()
+    },
+    handleClose() {
+      this.$emit('close-modal')
+    },
   },
 }
 </script>
 
 <style lang="scss" scoped>
-@import '../../scss/mixins.scss';
+@import '../scss/mixins.scss';
 
 .container {
   padding: 32px;

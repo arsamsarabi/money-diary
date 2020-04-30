@@ -24,6 +24,7 @@ const actions = {
           id
           name
           email
+          sub
         }
       }
     `
@@ -53,11 +54,45 @@ const actions = {
 
     commit('setUser', { ...data.data.me, image: instance.user.picture })
   },
+  patchUser: async ({ commit, rootGetters, state }, username) => {
+    const query = `
+      mutation updateUser($input: UserInput) {
+        updateUser(user: $input) {
+          id
+          name
+          email
+        }
+      }
+    `
+
+    const { data } = await axios.post(
+      VUE_APP_GQL_ENDPOINT,
+      {
+        query,
+        variables: {
+          input: {
+            sub: state.user.sub,
+            name: username,
+          },
+        },
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${rootGetters.getToken}`,
+        },
+      },
+    )
+
+    commit('updateUser', { ...data.data.updateUser })
+  },
 }
 
 const mutations = {
   setUser(state, user) {
     state.user = user
+  },
+  updateUser(state, user) {
+    state.user = { ...state.user, ...user }
   },
 }
 

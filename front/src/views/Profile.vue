@@ -3,6 +3,9 @@
     <h1 class="user-name">
       <span>{{ getUser.name }}</span
       >'s profile
+      <button @click="showModal('user-modal')">
+        <v-icon name="pencil-alt" />
+      </button>
     </h1>
 
     <header>
@@ -25,6 +28,7 @@
     </div>
 
     <AccountModal v-on:close-modal="hideModal('account-modal')" />
+    <UserModal v-on:close-modal="hideModal('user-modal')" />
 
     <!-- TEMP LOCATION FOR THIS ACTIONS -->
 
@@ -45,6 +49,7 @@ import { mapGetters } from 'vuex'
 import AccountCard from '@/components/accounts/AccountCard'
 import AccountModal from '@/components/accounts/AccountModal'
 import IncomeModal from '@/components/income/IncomeModal'
+import UserModal from '@/components/UserModal'
 
 export default {
   name: 'Home',
@@ -52,6 +57,7 @@ export default {
     AccountCard,
     AccountModal,
     IncomeModal,
+    UserModal,
   },
   computed: {
     ...mapGetters(['getUser', 'getAccounts']),
