@@ -30,8 +30,7 @@ const typeDef = gql`
   }
 
   extend type Query {
-    getIncomesForUser(userId: String!): [Income]!
-    getIncomesForAccount(accountId: String!): [Income]!
+    getMyIncomes(userId: String!): [Income]!
   }
 
   extend type Mutation {

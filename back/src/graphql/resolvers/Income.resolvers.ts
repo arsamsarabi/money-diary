@@ -1,10 +1,7 @@
 import { Income } from '../../db'
 
 const queries = {
-  getIncomesForUser: async (_: any, { userId }: { userId: string }) =>
-    await Income.find({ userId }),
-  getIncomesForAccount: async (_: any, { accountId }: { accountId: string }) =>
-    await Income.find({ accountId }),
+  getMyIncomes: async (_: any, { userId }: { userId: string }) => await Income.find({ userId }),
 }
 
 const mutations = {
