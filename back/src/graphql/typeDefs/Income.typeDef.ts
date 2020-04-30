@@ -35,9 +35,9 @@ const typeDef = gql`
   }
 
   extend type Mutation {
-    addIncome(income: IncomeInput): Income
-    updateIncome(income: IncomeInput): Income
-    deleteIncome(incomeId: String, userId: String): Income
+    addIncome(newIncome: IncomeInput): Income
+    updateIncome(incomeToUpdate: IncomeInput): Income
+    deleteIncome(id: String, userId: String): Income
   }
 `
 
