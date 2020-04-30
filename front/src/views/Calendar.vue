@@ -1,9 +1,6 @@
 <template>
   <div class="calendar-page">
-    <p>Recurring expenses</p>
-    <!-- prettier-ignore -->
     <calendar-view
-      :show-date="showDate"
       class="theme-default"
       :disablePast="true"
       :disableFuture="true"
@@ -11,14 +8,15 @@
       :events="events"
     >
       <div slot="header" slot-scope="{ headerProps }" class="calendar-header">
-        <h1>{{headerProps.periodLabel}}</h1>
+        <p>Recurring expenses</p>
+        <h1>{{ headerProps.periodLabel }}</h1>
       </div>
     </calendar-view>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 import { CalendarView } from 'vue-simple-calendar'
 import dayjs from 'dayjs'
 require('vue-simple-calendar/static/css/default.css')
@@ -28,28 +26,13 @@ export default {
   components: {
     CalendarView,
   },
-  data() {
-    return {
-      showDate: new Date(),
-      events: [],
-    }
-  },
-  created() {
-    if (this.getExpenses.length === 0) {
-      this.fetchExpensesByUserId()
-    } else {
-      const events = this.getRecurringForCalendar(this.getCategories)
-      this.events = events
-    }
-  },
   computed: {
-    ...mapGetters(['getRecurringForCalendar', 'getCategories', 'getExpenses']),
+    ...mapGetters(['getRecurringForCalendar', 'getCategories']),
+    events() {
+      return this.getRecurringForCalendar(this.getCategories)
+    },
   },
   methods: {
-    ...mapActions(['fetchExpensesByUserId']),
-    setShowDate(d) {
-      this.showDate = d
-    },
     monthName(date) {
       return dayjs(date).format('MMMM')
     },
@@ -63,16 +46,22 @@ export default {
 }
 
 .calendar-header {
-  height: 48px;
   border: 1px solid var(--color-grey-xlight);
   border-bottom: 0;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 16px;
   h1 {
     font-family: var(--font-secondary);
-    font-size: 1.25rem;
-    color: var(--color-black);
+    font-size: 1.5rem;
+    color: var(--color-grey);
+  }
+  p {
+    margin-right: auto;
+    font-size: 0.9rem;
+    color: var(--color-grey);
   }
 }
 </style>

@@ -11,14 +11,13 @@ const getters = {
   getRecurringForCalendar: state => categories => {
     const recurring = state.expenses.filter(expense => expense.recurring)
     return recurring.map(rec => {
-      const category = categories.find(cat => cat.id === rec.categories[0])
       return {
         id: rec.id,
         startDate: rec.date,
         title: `${rec.title} - £${rec.amount}`,
         classes: 'recurring-expense',
         style: `
-          background-color: ${category.color};
+          background-color: ${rec.categories[0].color};
           color: var(--color-white);
         `,
       }
@@ -32,7 +31,7 @@ const actions = {
       {
         query: `
         query getExpensesByUserId {
-          getExpensesByUserId(userId: "${userID || rootGetters.getUser.id}") {
+          getExpensesByUserId(userId: "${userID}") {
             id
             title
             description
