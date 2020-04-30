@@ -1,6 +1,6 @@
 # 💵💵💵 Money Diary 💵💵💵
 
-> Full stack expense tracking and budgeting application
+> Open Source expense tracking and budgeting application
 
 🚧⛔️🚧 Under Construction! 🚧⛔️🚧
 
