@@ -1,4 +1,6 @@
-import { Category } from '../../../back/src/db'
+import faker from 'faker'
+
+import { Category } from '../models'
 
 const genericCategories = [
   {
@@ -87,11 +89,28 @@ const genericCategories = [
   },
 ]
 
+let categoryIds: string[] = []
+
 export const populateCategories = () => {
-  for (let i = 0; i < genericCategories.length; i++) {
-    const newCategory = new Category(genericCategories[i])
-    newCategory.save().then((res: any) => {
-      console.log(res)
-    })
+  return new Promise((resolve) => {
+    for (let i = 0; i < genericCategories.length; i++) {
+      const newCategory = new Category(genericCategories[i])
+      newCategory.save().then((result) => {
+        categoryIds.push(result.id)
+      })
+      resolve('Categories Created!')
+    }
+  })
+}
+
+export const getRandomCatIds = () => {
+  const result: string[] = []
+  const randomQuantity = Math.ceil(Math.random() * 3)
+  while (result.length < randomQuantity) {
+    const catId = faker.random.arrayElement(categoryIds)
+    if (!result.includes(catId)) {
+      result.push(catId)
+    }
   }
+  return result
 }
