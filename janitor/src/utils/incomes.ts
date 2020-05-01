@@ -2,8 +2,8 @@ import faker from 'faker'
 
 import { Income } from '../models'
 
-const NUMBER_OF_ONE_OFF_INCOMES = 2
-const NUMBER_OF_RECURRING_INCOMES = 7
+const NUMBER_OF_ONE_OFF_INCOMES = 7
+const NUMBER_OF_RECURRING_INCOMES = 2
 
 export const fakeIncomes = async (userId: string, fakeAccountIds: string[]) => {
   console.log(await fakeOneOffIncomes(userId, fakeAccountIds))
