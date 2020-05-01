@@ -3,7 +3,7 @@
     <h1>Categories</h1>
     <div class="categories-row">
       <CategoryCard v-for="category in getTopCategories" :key="category.id" :category="category" />
-      <router-link to="/categories" class="view-more-button">
+      <router-link to="/expenses" class="view-more-button">
         <v-icon name="plus" />
         <p>View all</p>
       </router-link>

@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VModal from 'vue-js-modal'
-import Calendar from 'vue-simple-calendar'
 import Icon from 'vue-awesome/components/Icon'
 import './utils/icons'
 
@@ -23,9 +22,8 @@ Vue.use(Auth0Plugin, {
 Vue.config.productionTip = false
 
 Vue.component('v-icon', Icon)
-Vue.component('v-calendar', Calendar)
 
-Vue.use(VModal, { componentName: 'v-modal', dialog: true })
+Vue.use(VModal, { componentName: 'v-modal', dialog: false })
 
 new Vue({
   router,
