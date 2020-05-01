@@ -40,6 +40,12 @@ For the frontend, You need to have an [Auth0](https://auth0.com/) application re
 
 With any luck, you should now be able to run `yarn install && yarn dev` in the `back` and `yarn install && yarn serve` in the `front`
 
+## Janitor
+
+Populates the database with generic `categories` and test data.
+
+![ᕙ(⇀‸↼‶)ᕗ](https://media.giphy.com/media/DZu3mnCcmsJKE/giphy.gif)
+
 ## Get involved?
 
 I welcome anyone who is interested in contributing to this project. From feature requests and ideation to bug reporting and submitting PRs. Please read the [CONTRIBUTING.md](./CONTRIBUTING.md) and get involved!
