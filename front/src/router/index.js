@@ -18,39 +18,21 @@ const routes = [
     beforeEnter: authGuard,
   },
   {
-    path: '/categories',
-    name: 'Categories',
-    component: () => import('../views/Categories.vue'),
-    beforeEnter: authGuard,
-  },
-  {
-    path: '/transactions',
-    name: 'Transactions',
-    component: () => import('../views/Transactions.vue'),
-    beforeEnter: authGuard,
-  },
-  {
-    path: '/calendar',
-    name: 'Calendar',
-    component: () => import('../views/Calendar.vue'),
-    beforeEnter: authGuard,
-  },
-  {
-    path: '/settings',
-    name: 'Settings',
-    component: () => import('../views/Settings.vue'),
-    beforeEnter: authGuard,
-  },
-  {
     path: '/profile',
     name: 'Profile',
     component: () => import('../views/Profile.vue'),
     beforeEnter: authGuard,
   },
   {
-    path: '/wallet',
-    name: 'Wallet',
-    component: () => import('../views/Wallet.vue'),
+    path: '/incomes',
+    name: 'Incomes',
+    component: () => import('../views/Incomes.vue'),
+    beforeEnter: authGuard,
+  },
+  {
+    path: '/expenses',
+    name: 'Expenses',
+    component: () => import('../views/Expenses.vue'),
     beforeEnter: authGuard,
   },
 ]

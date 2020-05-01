@@ -6,8 +6,8 @@
       >! 👋🏻
     </h1>
     <NavLinkIcon text="Profile" icon="user" path="/profile" />
-    <NavLinkIcon text="Settings" icon="cog" path="/settings" />
-    <NavLinkIcon text="Wallet" icon="wallet" path="/wallet" />
+    <!-- <NavLinkIcon text="Settings" icon="cog" path="/settings" />
+    <NavLinkIcon text="Wallet" icon="wallet" path="/wallet" /> -->
     <button @click="handleLogout" class="logout-button">
       Logout
       <v-icon name="sign-out-alt" />

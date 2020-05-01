@@ -1,9 +1,13 @@
 <template>
   <nav>
     <router-link to="/dashboard"> <v-icon name="home" />Dashboard</router-link>
-    <router-link to="/categories"> <v-icon name="tags" />Categories</router-link>
+
+    <router-link to="/incomes"> <v-icon name="tags" />Incomes</router-link>
+    <router-link to="/expenses"> <v-icon name="tags" />Expenses</router-link>
+
+    <!-- <router-link to="/categories"> <v-icon name="tags" />Categories</router-link>
     <router-link to="/transactions"> <v-icon name="dollar-sign" />Transactions</router-link>
-    <router-link to="/calendar"><v-icon name="calendar-day" />Calendar</router-link>
+    <router-link to="/calendar"><v-icon name="calendar-day" />Calendar</router-link> -->
   </nav>
 </template>
 
@@ -34,7 +38,7 @@ nav {
       }
     }
     &:not(:last-of-type) {
-      margin-bottom: 24px;
+      margin-bottom: 16px;
     }
 
     &:before {
