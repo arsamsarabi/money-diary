@@ -2,33 +2,50 @@ import axios from 'axios'
 
 const { VUE_APP_GQL_ENDPOINT } = process.env
 
+const incomeFields = `
+  id
+  title
+  description
+  amount
+  date
+  recurring
+  frequency
+  daysPerWeek
+  payer
+  account {
+    id
+    name
+    description
+  }
+  user {
+    id
+    sub
+    name
+    email
+  }
+`
+
 const state = {
   incomes: [],
 }
+
 const getters = {
   getIncomes: state => state.incomes,
-  getOneOffIncomes: state => state.incomes.filter(expense => !expense.recurring),
-  getRecurringIncomes: state => state.incomes.filter(expense => expense.recurring),
+  getOneOffIncomes: state => state.incomes.filter(income => !income.recurring),
+  getRecurringIncomes: state => state.incomes.filter(income => income.recurring),
 }
+
 const actions = {
   async fetchMyIncomes({ commit, rootGetters }, userId) {
-    const { data } = await axios.post(
+    const {
+      data: { data, errors },
+    } = await axios.post(
       VUE_APP_GQL_ENDPOINT,
       {
         query: `
         query getMyIncomes {
-          getMyIncomes(userId: "${userId}") {
-            id
-            title
-            description
-            amount
-            date
-            recurring
-            frequency
-            daysPerWeek
-            payer
-            accountId
-            userId
+          getMyIncomes(user: "${userId}") {
+            ${incomeFields}
           }
         }
       `,
@@ -39,23 +56,17 @@ const actions = {
         },
       },
     )
-    commit('setIncomes', data.data.getMyIncomes)
+
+    if (errors) console.error(errors)
+    if (data.getMyIncomes) {
+      commit('setIncomes', data.getMyIncomes)
+    }
   },
   async postIncome({ commit, rootGetters }, income) {
     const query = `
       mutation addIncome($input: IncomeInput) {
         addIncome(newIncome: $input) {
-          id
-          title
-          description
-          amount
-          date
-          recurring
-          frequency
-          daysPerWeek
-          payer
-          accountId
-          userId
+          ${incomeFields}
         }
       }
     `
@@ -85,17 +96,7 @@ const actions = {
     const query = `
       mutation updateIncome($input: IncomeInput) {
         updateIncome(incomeToUpdate: $input) {
-          id
-          title
-          description
-          amount
-          date
-          recurring
-          frequency
-          daysPerWeek
-          payer
-          accountId
-          userId
+          ${incomeFields}
         }
       }
     `
