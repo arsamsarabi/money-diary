@@ -15,7 +15,7 @@ const fakeOneOffExpenses = async (userId: string, fakeAccountIds: string[]) => {
     const fakeExpense = new Expense({
       title: faker.commerce.productName(),
       description: faker.commerce.product(),
-      amount: faker.commerce.price(0.5, 1000, 2),
+      amount: faker.commerce.price(0.5, 300, 2),
       date: faker.date.past(1),
       recurring: false,
       categories: getRandomCatIds(),
@@ -33,7 +33,7 @@ const fakeRecurringExpenses = async (userId: string, fakeAccountIds: string[]) =
     const fakeExpense = new Expense({
       title: faker.commerce.productName(),
       description: faker.commerce.product(),
-      amount: faker.commerce.price(0.5, 1000, 2),
+      amount: faker.commerce.price(0.5, 800, 2),
       date: faker.date.past(1),
       recurring: true,
       frequency: faker.random.arrayElement(['Daily', 'Weekly', 'Monthly', 'Yearly']),

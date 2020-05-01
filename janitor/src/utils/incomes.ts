@@ -15,7 +15,7 @@ const fakeOneOffIncomes = async (userId: string, fakeAccountIds: string[]) => {
     const fakeIncome = new Income({
       title: faker.commerce.productName(),
       description: faker.commerce.product(),
-      amount: faker.commerce.price(0.5, 1000, 2),
+      amount: faker.commerce.price(50, 200, 2),
       date: faker.date.past(1),
       recurring: false,
       payer: faker.company.companyName(),
@@ -31,7 +31,7 @@ const fakeRecurringIncomes = async (userId: string, fakeAccountIds: string[]) =>
     const fakeIncome = new Income({
       title: faker.commerce.productName(),
       description: faker.commerce.product(),
-      amount: faker.commerce.price(0.5, 1000, 2),
+      amount: faker.commerce.price(500, 3000, 2),
       date: faker.date.past(1),
       recurring: true,
       frequency: faker.random.arrayElement(['Daily', 'Weekly', 'Monthly', 'Yearly']),
