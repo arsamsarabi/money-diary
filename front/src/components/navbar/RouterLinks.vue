@@ -1,8 +1,9 @@
 <template>
   <nav>
-    <router-link to="/dashboard"> <v-icon name="home" />Dashboard</router-link>
+    <router-link to="/dashboard"> <v-icon name="table" />Dashboard</router-link>
 
-    <router-link to="/incomes"> <v-icon name="dollar-sign" />Incomes</router-link>
+    <router-link to="/accounts"> <v-icon name="file-invoice-dollar" />Accounts</router-link>
+    <router-link to="/incomes"> <v-icon name="hand-holding-usd" />Incomes</router-link>
     <router-link to="/expenses"> <v-icon name="regular/credit-card" />Expenses</router-link>
   </nav>
 </template>

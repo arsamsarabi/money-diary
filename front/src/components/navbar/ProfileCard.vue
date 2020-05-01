@@ -1,37 +1,44 @@
 <template>
   <div class="card">
-    <img :src="userImage" />
+    <img :src="userImage" :alt="username" />
     <h1>
-      Hello, <span>{{ userName }}</span
-      >! 👋🏻
+      Hello,
+      <span>{{ username }}</span>
+      ! 👋🏻
     </h1>
-    <NavLinkIcon text="Profile" icon="user" path="/profile" />
-    <!-- <NavLinkIcon text="Settings" icon="cog" path="/settings" />
-    <NavLinkIcon text="Wallet" icon="wallet" path="/wallet" /> -->
-    <button @click="handleLogout" class="logout-button">
-      Logout
-      <v-icon name="sign-out-alt" />
-    </button>
+
+    <div class="actions">
+      <button @click="$modal.show('user-modal', username)" class="standard">
+        <p>Edit profile</p>
+        <v-icon name="pencil-alt" />
+      </button>
+      <button @click="handleLogout" class="danger">
+        <p>Logout</p>
+        <v-icon name="sign-out-alt" />
+      </button>
+    </div>
+
+    <UserModal v-on:close-modal="$modal.hide('user-modal')" />
   </div>
 </template>
 
 <script>
+import UserModal from '@/components/UserModal'
 import DefaultImage from '@/assets/avatar-placeholder.svg'
-import NavLinkIcon from '../NavLinkIcon'
 
 import { mapGetters } from 'vuex'
 
 export default {
   name: 'ProfileCard',
   components: {
-    NavLinkIcon,
+    UserModal,
   },
   computed: {
     ...mapGetters(['getUser']),
     userImage() {
       return this.getUser?.image || DefaultImage
     },
-    userName() {
+    username() {
       return this.getUser?.name || ''
     },
   },
@@ -74,26 +81,40 @@ export default {
       text-transform: capitalize;
     }
   }
+}
 
-  a {
-    &:not(:last-of-type) {
-      margin-bottom: 8px;
-    }
-  }
-
-  button.logout-button {
+.actions {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  & > button {
     width: 100%;
     text-decoration: none;
     color: var(--color-grey);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 24px;
     transition: 0.2s all ease-in;
     &:hover,
     &:focus {
       cursor: pointer;
-      color: var(--color-danger);
+    }
+    &:not(:last-of-type) {
+      margin-bottom: 8px;
+    }
+
+    &.standard {
+      &:hover,
+      &:focus {
+        color: var(--color-primary);
+      }
+    }
+
+    &.danger {
+      &:hover,
+      &:focus {
+        color: var(--color-danger);
+      }
     }
   }
 }

@@ -1,11 +1,11 @@
 <template>
-  <v-modal name="user-modal">
+  <v-modal name="user-modal" @before-open="beforeOpen">
     <div class="container">
       <h1 class="modal-title">{{ username.length ? username : 'Please enter a name' }}</h1>
 
       <div class="form">
         <label for="username">Edit Name:</label>
-        <input type="text" id="username" placeholder="Your username..." v-model="username" />
+        <input autocomplete="off" type="text" id="username" placeholder="Your username..." v-model="username" />
       </div>
 
       <div class="actions">
@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'UserModal',
@@ -28,17 +28,18 @@ export default {
       username: '',
     }
   },
-  created() {
-    this.username = this.getUser.name
-  },
   computed: {
-    ...mapGetters(['getUser']),
     disabled() {
       return !this.username.length
     },
   },
   methods: {
     ...mapActions(['patchUser']),
+    beforeOpen(event) {
+      if (event?.params) {
+        this.username = event.params
+      }
+    },
     handleSubmit() {
       this.patchUser(this.username)
       this.handleClose()

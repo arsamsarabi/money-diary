@@ -18,9 +18,9 @@ const routes = [
     beforeEnter: authGuard,
   },
   {
-    path: '/profile',
-    name: 'Profile',
-    component: () => import('../views/Profile.vue'),
+    path: '/accounts',
+    name: 'Accounts',
+    component: () => import('../views/Accounts.vue'),
     beforeEnter: authGuard,
   },
   {
@@ -32,7 +32,7 @@ const routes = [
   {
     path: '/expenses',
     name: 'Expenses',
-    component: () => import('../views/Expenses.vue'),
+    component: () => import('../views/expenses/Expenses.vue'),
     beforeEnter: authGuard,
   },
 ]

@@ -6,7 +6,7 @@
       </h1>
 
       <div class="form">
-        <label for="account-name">Account Name:</label>
+        <label for="account-name">Title:</label>
         <input type="text" id="account-name" placeholder="Account name..." v-model="account.name" />
       </div>
 
@@ -89,7 +89,7 @@ export default {
       return Boolean(this.account.id)
     },
     modalTitle() {
-      return this.isEditMode ? `Edit ${this.account.name} Account` : 'New Account'
+      return this.isEditMode ? `Edit ${this.account.name} Income` : 'New Income'
     },
     disabled() {
       return !this.account.name.length
