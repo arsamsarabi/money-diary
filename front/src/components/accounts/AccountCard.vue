@@ -69,6 +69,9 @@ export default {
     text-align: center;
     font-size: 1.25rem;
     border-bottom: 1px dotted var(--color-grey-light);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 }
 

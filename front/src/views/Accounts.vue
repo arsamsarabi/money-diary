@@ -1,11 +1,11 @@
 <template>
   <div class="accounts-page">
-    <header>
-      <h2>Accounts overview</h2>
-      <button class="add-acount-button" @click="showModal('account-modal')">
+    <header class="accounts-header">
+      <h2 class="page-title">Accounts overview</h2>
+      <button class="page-action" @click="showModal('account-modal')">
         <v-icon name="plus" />
         <p>
-          Create new
+          New Account
         </p>
       </button>
     </header>
@@ -51,25 +51,16 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '../scss/mixins.scss';
+@import '../scss/pages.scss';
 
 .accounts-page {
-  display: flex;
-  flex-direction: column;
+  @extend %page-container;
 }
 
 .accounts-header {
-  h2 {
-  }
-  button {
-    @extend %button-primary;
-    width: 208px;
-    height: 48px;
-    justify-content: space-between;
-    padding: 0 16px;
-    margin-bottom: 16px;
-  }
+  @extend %page-header;
 }
+
 .accounts-cards {
   display: flex;
   flex-wrap: wrap;
