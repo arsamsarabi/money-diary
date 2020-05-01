@@ -2,6 +2,14 @@ import axios from 'axios'
 
 const { VUE_APP_GQL_ENDPOINT } = process.env
 
+const accountFields = `
+  id
+  name
+  expenditureSumTotal
+  expenditureSumMonth
+  expenditureSum30Days
+`
+
 const state = {
   accounts: [],
 }
@@ -13,17 +21,18 @@ const getters = {
 
 const actions = {
   async fetchAccountsByUserId({ commit, rootGetters }, userID) {
-    const { data, errors } = await axios.post(
+    const {
+      data: {
+        data: { getAccountsByUserId },
+        errors,
+      },
+    } = await axios.post(
       VUE_APP_GQL_ENDPOINT,
       {
         query: `
         query getAccountsByUserId {
           getAccountsByUserId(userId: "${userID}") {
-            id
-            name
-            expenditureSumTotal
-            expenditureSumMonth
-            expenditureSum30Days
+            ${accountFields}
           }
         }
       `,
@@ -35,21 +44,22 @@ const actions = {
       },
     )
     if (errors) console.error(errors)
-    if (data) commit('setAccounts', data.data.getAccountsByUserId)
+    if (getAccountsByUserId) commit('setAccounts', getAccountsByUserId)
   },
   async postAccount({ commit, rootGetters }, accountName) {
     const query = `
       mutation addAccount($input: AccountInput) {
         addAccount(newAccount: $input) {
-          id
-          name
-          expenditureSumTotal
-          expenditureSumMonth
-          expenditureSum30Days
+          ${accountFields}
         }
       }
     `
-    const { data, errors } = await axios.post(
+    const {
+      data: {
+        data: { addAccount },
+        errors,
+      },
+    } = await axios.post(
       VUE_APP_GQL_ENDPOINT,
       {
         query,
@@ -67,21 +77,22 @@ const actions = {
       },
     )
     if (errors) console.error(errors)
-    if (data.data.addAccount) commit('addAccount', data.data.addAccount)
+    if (addAccount) commit('addAccount', addAccount)
   },
   async patchAccount({ commit, rootGetters }, { id, name }) {
     const query = `
       mutation updateAccount($input: AccountInput) {
         updateAccount(accountToUpdate: $input) {
-          id
-          name
-          expenditureSumTotal
-          expenditureSumMonth
-          expenditureSum30Days
+          ${accountFields}
         }
       }
     `
-    const { data } = await axios.post(
+    const {
+      data: {
+        data: { updateAccount },
+        errors,
+      },
+    } = await axios.post(
       VUE_APP_GQL_ENDPOINT,
       {
         query,
@@ -100,7 +111,8 @@ const actions = {
       },
     )
 
-    commit('updateAccount', data.data.updateAccount)
+    if (errors) console.error(errors)
+    if (updateAccount) commit('updateAccount', updateAccount)
   },
   async deleteAccount({ commit, rootGetters, dispatch }, { id }) {
     const query = `
@@ -110,7 +122,12 @@ const actions = {
         }
       }
     `
-    const { data, errors } = await axios.post(
+    const {
+      data: {
+        data: { deleteAccount },
+        errors,
+      },
+    } = await axios.post(
       VUE_APP_GQL_ENDPOINT,
       {
         query,
@@ -126,13 +143,14 @@ const actions = {
     )
 
     if (errors) console.log(errors)
-    if (data.data.deleteAccount) {
+    if (deleteAccount) {
       dispatch('fetchExpensesByUserId', rootGetters.getUser.id)
       dispatch('getMyCategories', rootGetters.getUser.id)
-      commit('deleteAccount', data.data.deleteAccount.id)
+      commit('deleteAccount', deleteAccount.id)
     }
   },
 }
+
 const mutations = {
   setAccounts(state, accounts) {
     state.accounts = accounts

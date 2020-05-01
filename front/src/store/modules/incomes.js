@@ -38,7 +38,10 @@ const getters = {
 const actions = {
   async fetchMyIncomes({ commit, rootGetters }, userId) {
     const {
-      data: { data, errors },
+      data: {
+        data: { getMyIncomes },
+        errors,
+      },
     } = await axios.post(
       VUE_APP_GQL_ENDPOINT,
       {
@@ -58,9 +61,7 @@ const actions = {
     )
 
     if (errors) console.error(errors)
-    if (data.getMyIncomes) {
-      commit('setIncomes', data.getMyIncomes)
-    }
+    if (getMyIncomes) commit('setIncomes', getMyIncomes)
   },
   async postIncome({ commit, rootGetters }, income) {
     const query = `
@@ -70,7 +71,12 @@ const actions = {
         }
       }
     `
-    const { data, errors } = await axios.post(
+    const {
+      data: {
+        data: { addIncome },
+        errors,
+      },
+    } = await axios.post(
       VUE_APP_GQL_ENDPOINT,
       {
         query,
@@ -88,9 +94,7 @@ const actions = {
       },
     )
     if (errors) console.error(errors)
-    if (data.data.addIncome) {
-      commit('addIncome', data.data.addIncome)
-    }
+    if (addIncome) commit('addIncome', addIncome)
   },
   async patchIncome({ commit, rootGetters }, income) {
     const query = `
@@ -100,7 +104,12 @@ const actions = {
         }
       }
     `
-    const { data, errors } = await axios.post(
+    const {
+      data: {
+        data: { updateIncome },
+        errors,
+      },
+    } = await axios.post(
       VUE_APP_GQL_ENDPOINT,
       {
         query,
@@ -118,9 +127,7 @@ const actions = {
       },
     )
     if (errors) console.error(errors)
-    if (data.data.updateIncome) {
-      commit('updateIncome', data.data.updateIncome)
-    }
+    if (updateIncome) commit('updateIncome', updateIncome)
   },
   async deleteIncome({ commit, rootGetters }, { id }) {
     const query = `
@@ -130,7 +137,12 @@ const actions = {
         }
       }
     `
-    const { data, errors } = await axios.post(
+    const {
+      data: {
+        data: { deleteIncome },
+        errors,
+      },
+    } = await axios.post(
       VUE_APP_GQL_ENDPOINT,
       {
         query,
@@ -146,11 +158,10 @@ const actions = {
       },
     )
     if (errors) console.error(errors)
-    if (data.data.deleteIncome) {
-      commit('deleteIncome', data.data.deleteIncome.id)
-    }
+    if (deleteIncome) commit('deleteIncome', deleteIncome.id)
   },
 }
+
 const mutations = {
   setIncomes(state, incomes) {
     state.incomes = incomes

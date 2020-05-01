@@ -12,7 +12,12 @@ const getters = {
 
 const actions = {
   async getMyCategories({ commit, rootGetters }, userID) {
-    const { data, errors } = await axios.post(
+    const {
+      data: {
+        data: { getMyCategories },
+        errors,
+      },
+    } = await axios.post(
       VUE_APP_GQL_ENDPOINT,
       {
         query: `
@@ -36,9 +41,10 @@ const actions = {
       },
     )
     if (errors) console.error(errors)
-    if (data) commit('setCategories', data.data.getMyCategories)
+    if (getMyCategories) commit('setCategories', getMyCategories)
   },
 }
+
 const mutations = {
   setCategories(state, categories) {
     state.categories = categories

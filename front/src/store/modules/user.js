@@ -29,7 +29,12 @@ const actions = {
       }
     `
 
-    const { data } = await axios.post(
+    const {
+      data: {
+        data: { me },
+        errors,
+      },
+    } = await axios.post(
       VUE_APP_GQL_ENDPOINT,
       {
         query,
@@ -48,12 +53,15 @@ const actions = {
       },
     )
 
-    dispatch('fetchAccountsByUserId', data.data.me.id)
-    dispatch('fetchExpensesByUserId', data.data.me.id)
-    dispatch('fetchMyIncomes', data.data.me.id)
-    dispatch('getMyCategories', data.data.me.id)
+    if (errors) console.error(errors)
+    if (me) {
+      dispatch('fetchAccountsByUserId', me.id)
+      dispatch('fetchExpensesByUserId', me.id)
+      dispatch('fetchMyIncomes', me.id)
+      dispatch('getMyCategories', me.id)
 
-    commit('setUser', { ...data.data.me, image: instance.user.picture })
+      commit('setUser', { ...me, image: instance.user.picture })
+    }
   },
   patchUser: async ({ commit, rootGetters, state }, username) => {
     const query = `
@@ -66,7 +74,12 @@ const actions = {
       }
     `
 
-    const { data } = await axios.post(
+    const {
+      data: {
+        data: { updateUser },
+        errors,
+      },
+    } = await axios.post(
       VUE_APP_GQL_ENDPOINT,
       {
         query,
@@ -84,7 +97,8 @@ const actions = {
       },
     )
 
-    commit('updateUser', { ...data.data.updateUser })
+    if (errors) console.error(errors)
+    if (updateUser) commit('updateUser', { ...updateUser })
   },
 }
 

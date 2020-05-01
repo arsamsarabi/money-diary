@@ -2,38 +2,49 @@ import axios from 'axios'
 
 const { VUE_APP_GQL_ENDPOINT } = process.env
 
+const expenseFields = `
+  id
+  title
+  description
+  amount
+  date
+  recurring
+  frequency
+  endDate
+  categories {
+    id
+    label
+    icon
+    color
+  }
+  payee
+  accountId
+  userId
+`
+
 const state = {
   expenses: [],
 }
+
 const getters = {
   getExpenses: state => state.expenses.filter(expense => !expense.recurring),
   getRecurring: state => state.expenses.filter(expense => expense.recurring),
 }
+
 const actions = {
   async fetchExpensesByUserId({ commit, rootGetters }, userID) {
-    const { data } = await axios.post(
+    const {
+      data: {
+        data: { getExpensesByUserId },
+        errors,
+      },
+    } = await axios.post(
       VUE_APP_GQL_ENDPOINT,
       {
         query: `
         query getExpensesByUserId {
           getExpensesByUserId(userId: "${userID}") {
-            id
-            title
-            description
-            amount
-            date
-            recurring
-            frequency
-            endDate
-            categories {
-              id
-              label
-              icon
-              color
-            }
-            payee
-            accountId
-            userId
+            ${expenseFields}
           }
         }
       `,
@@ -44,33 +55,24 @@ const actions = {
         },
       },
     )
-    commit('setExpenses', data.data.getExpensesByUserId)
+
+    if (errors) console.error(errors)
+    if (getExpensesByUserId) commit('setExpenses', getExpensesByUserId)
   },
   async postExpense({ commit, rootGetters, dispatch }, expense) {
     const query = `
       mutation addExpense($input: ExpenseInput) {
         addExpense(newExpense: $input) {
-          id
-          title
-          description
-          amount
-          date
-          recurring
-          frequency
-          endDate
-          categories {
-            id
-            label
-            icon
-            color
-          }
-          payee
-          accountId
-          userId
+          ${expenseFields}
         }
       }
     `
-    const { data, errors } = await axios.post(
+    const {
+      data: {
+        data: { addExpense },
+        errors,
+      },
+    } = await axios.post(
       VUE_APP_GQL_ENDPOINT,
       {
         query,
@@ -88,36 +90,25 @@ const actions = {
       },
     )
     if (errors) console.error(errors)
-    if (data.data.addExpense) {
+    if (addExpense) {
       dispatch('getMyCategories', rootGetters.getUser.id)
-      commit('addExpense', data.data.addExpense)
+      commit('addExpense', addExpense)
     }
   },
   async patchExpense({ commit, rootGetters, dispatch }, expense) {
     const query = `
       mutation updateExpense($input: ExpenseInput) {
         updateExpense(expenseToUpdate: $input) {
-          id
-          title
-          description
-          amount
-          date
-          recurring
-          frequency
-          endDate
-          categories {
-            id
-            label
-            icon
-            color
-          }
-          payee
-          accountId
-          userId
+          ${expenseFields}
         }
       }
     `
-    const { data, errors } = await axios.post(
+    const {
+      data: {
+        data: { updateExpense },
+        errors,
+      },
+    } = await axios.post(
       VUE_APP_GQL_ENDPOINT,
       {
         query,
@@ -136,9 +127,9 @@ const actions = {
       },
     )
     if (errors) console.error(errors)
-    if (data.data.updateExpense) {
+    if (updateExpense) {
       dispatch('getMyCategories', rootGetters.getUser.id)
-      commit('updateExpense', data.data.updateExpense)
+      commit('updateExpense', updateExpense)
     }
   },
   async deleteExpense({ commit, rootGetters, dispatch }, { id }) {
@@ -149,7 +140,12 @@ const actions = {
         }
       }
     `
-    const { data, errors } = await axios.post(
+    const {
+      data: {
+        data: { deleteExpense },
+        errors,
+      },
+    } = await axios.post(
       VUE_APP_GQL_ENDPOINT,
       {
         query,
@@ -164,12 +160,13 @@ const actions = {
       },
     )
     if (errors) console.error(errors)
-    if (data.data.deleteExpense) {
+    if (deleteExpense) {
       dispatch('getMyCategories', rootGetters.getUser.id)
-      commit('deleteExpense', data.data.deleteExpense.id)
+      commit('deleteExpense', deleteExpense.id)
     }
   },
 }
+
 const mutations = {
   setExpenses(state, expenses) {
     state.expenses = expenses
