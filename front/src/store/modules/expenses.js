@@ -8,7 +8,7 @@ const state = {
 const getters = {
   getExpenses: state => state.expenses.filter(expense => !expense.recurring),
   getRecurring: state => state.expenses.filter(expense => expense.recurring),
-  getRecurringForCalendar: state => categories => {
+  getRecurringForCalendar: state => {
     const recurring = state.expenses.filter(expense => expense.recurring)
     return recurring.map(rec => {
       return {
@@ -139,6 +139,7 @@ const actions = {
         variables: {
           input: {
             ...expense,
+            categories: expense.categories?.map(cat => cat.id) || [],
             userId: rootGetters.getUser.id,
           },
         },

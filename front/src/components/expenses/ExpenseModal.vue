@@ -195,10 +195,10 @@ export default {
       return tempExpense
     },
     selectCategory(category) {
-      this.expense.categories.push(category.id)
+      this.expense.categories.push(category)
     },
     removeCategory(categoryId) {
-      this.expense.categories = this.expense.categories.filter(cat => cat !== categoryId)
+      this.expense.categories = this.expense.categories.filter(cat => cat.id !== categoryId)
     },
     handleRecurring(checked) {
       this.expense.recurring = checked

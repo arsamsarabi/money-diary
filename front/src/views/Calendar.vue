@@ -5,7 +5,7 @@
       :disablePast="true"
       :disableFuture="true"
       :startingDayOfWeek="1"
-      :events="events"
+      :events="this.getRecurringForCalendar"
     >
       <div slot="header" slot-scope="{ headerProps }" class="calendar-header">
         <p>Recurring expenses</p>
@@ -18,7 +18,6 @@
 <script>
 import { mapGetters } from 'vuex'
 import { CalendarView } from 'vue-simple-calendar'
-import dayjs from 'dayjs'
 require('vue-simple-calendar/static/css/default.css')
 
 export default {
@@ -27,15 +26,7 @@ export default {
     CalendarView,
   },
   computed: {
-    ...mapGetters(['getRecurringForCalendar', 'getCategories']),
-    events() {
-      return this.getRecurringForCalendar(this.getCategories)
-    },
-  },
-  methods: {
-    monthName(date) {
-      return dayjs(date).format('MMMM')
-    },
+    ...mapGetters(['getRecurringForCalendar']),
   },
 }
 </script>

@@ -6,7 +6,7 @@
     :clearOnSelect="true"
     :hideSelected="true"
     :closeOnSelect="false"
-    :value="returnCategoryTags"
+    :value="selectedCategories"
     :taggable="true"
     :searchable="false"
     :max="5"
@@ -52,9 +52,11 @@ export default {
   props: ['selectedCategories'],
   methods: {
     selectCategory(category) {
+      console.log({ category })
       this.$emit('select-category', category)
     },
     removeCategory(event) {
+      console.log(this.localCategories)
       const categoryId = event.target.dataset.categoryId
       this.localCategories = this.localCategories.filter(cat => cat.id !== categoryId)
       this.$emit('remove-category', categoryId)
@@ -67,9 +69,6 @@ export default {
   },
   computed: {
     ...mapGetters(['getCategories']),
-    returnCategoryTags() {
-      return this.selectedCategories.map(catId => this.getCategories.find(cat => cat.id === catId))
-    },
   },
 }
 </script>
