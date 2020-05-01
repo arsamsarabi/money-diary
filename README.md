@@ -44,7 +44,7 @@ With any luck, you should now be able to run `yarn install && yarn dev` in the `
 
 Populates the database with generic `categories` and test data.
 
-![ᕙ(⇀‸↼‶)ᕗ](https://media.giphy.com/media/DZu3mnCcmsJKE/giphy.gif)
+<img src="https://media.giphy.com/media/DZu3mnCcmsJKE/giphy.gif" style="width:250px">
 
 ## Get involved?
 
