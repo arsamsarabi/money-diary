@@ -4,7 +4,7 @@ const genericCategories = [
   {
     userId: 'generic',
     label: 'General',
-    icon: 'universal-access',
+    icon: 'question',
     color: '#4b6584',
   },
   {
@@ -58,7 +58,7 @@ const genericCategories = [
   {
     userId: 'generic',
     label: 'Groceries',
-    icon: 'infinity',
+    icon: 'shopping-basket',
     color: '#fa8231',
   },
   {
@@ -76,7 +76,7 @@ const genericCategories = [
   {
     userId: 'generic',
     label: 'Shopping',
-    icon: 'tag',
+    icon: 'tags',
     color: '#0fb9b1',
   },
   {
