@@ -1,26 +1,34 @@
 <template>
   <div class="incomes-page">
-    <h1>This is the incomes page</h1>
-
-    <div class="temp-actions">
-      <button class="cta" @click="showModal('income-modal')">
+    <header class="incomes-header">
+      <h2 class="page-title">Incomes overview</h2>
+      <button class="page-action" @click="showModal('income-modal')">
         <v-icon name="plus" />
-        <p>Add Income</p>
+        <p>
+          New Income
+        </p>
       </button>
-    </div>
+    </header>
+
+    <RecurringIncomes />
 
     <IncomeModal v-on:close-modal="hideModal('income-modal')" />
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
+
 import IncomeModal from '@/components/incomes/IncomeModal'
+import RecurringIncomes from '@/components/incomes/RecurringIncomes'
 
 export default {
   name: 'IncomessPage',
   components: {
+    RecurringIncomes,
     IncomeModal,
   },
   methods: {
+    ...mapGetters(['getOneOffIncomes']),
     showModal(modalName) {
       this.$modal.show(modalName)
     },
@@ -30,3 +38,14 @@ export default {
   },
 }
 </script>
+<style lang="scss" scoped>
+@import '../scss/pages.scss';
+
+.incomes-page {
+  @extend %page-container;
+}
+
+.incomes-header {
+  @extend %page-header;
+}
+</style>

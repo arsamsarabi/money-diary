@@ -11,13 +11,13 @@ const getters = {
   getRecurringIncomes: state => state.incomes.filter(expense => expense.recurring),
 }
 const actions = {
-  async fetchMyIncomes({ commit, rootGetters }) {
+  async fetchMyIncomes({ commit, rootGetters }, userId) {
     const { data } = await axios.post(
       VUE_APP_GQL_ENDPOINT,
       {
         query: `
         query getMyIncomes {
-          getMyIncomes(userId: "${rootGetters.getUser.id}") {
+          getMyIncomes(userId: "${userId}") {
             id
             title
             description
