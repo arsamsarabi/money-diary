@@ -1,7 +1,7 @@
-import { Income } from '../../db'
+import { Income, Account, User } from '../../db'
 
 const queries = {
-  getMyIncomes: async (_: any, { userId }: { userId: string }) => await Income.find({ userId }),
+  getMyIncomes: async (_: any, { user }: { user: string }) => await Income.find({ user }),
 }
 
 const mutations = {
@@ -15,13 +15,17 @@ const mutations = {
     })
   },
   deleteIncome: async (_: unknown, { id, userId }: any) => {
-    return await Income.findOneAndDelete({ _id: id, userId })
+    return await Income.findOneAndDelete({ _id: id, user: userId })
   },
 }
 
 const resolvers = {
   Query: queries,
   Mutation: mutations,
+  Income: {
+    account: async ({ account }: any) => await Account.findOne({ _id: account }),
+    user: async ({ user }: any) => await User.findOne({ _id: user }),
+  },
 }
 
 export { resolvers as IncomeResolvers }

@@ -11,8 +11,8 @@ const typeDef = gql`
     frequency: String
     daysPerWeek: Int
     payer: String
-    accountId: String!
-    userId: String!
+    account: Account!
+    user: User!
   }
 
   input IncomeInput {
@@ -25,12 +25,12 @@ const typeDef = gql`
     frequency: String
     daysPerWeek: Int
     payer: String
-    accountId: String!
-    userId: String!
+    account: String!
+    user: String!
   }
 
   extend type Query {
-    getMyIncomes(userId: String!): [Income]!
+    getMyIncomes(user: String!): [Income]!
   }
 
   extend type Mutation {

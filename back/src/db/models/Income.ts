@@ -33,11 +33,11 @@ const IncomeSchema = new Schema(
       type: String,
       required: false,
     },
-    accountId: {
+    account: {
       type: String,
       required: true,
     },
-    userId: {
+    user: {
       type: String,
       required: true,
     },
