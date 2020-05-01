@@ -1,5 +1,14 @@
 import { Expense, Category } from '../../db'
 
+const addGeneralCategory = async (exp: any) => {
+  const expense = { ...exp }
+  if (!expense.categories || !expense.categories.length) {
+    const generalCategory = await Category.findOne({ label: 'General' })
+    expense.categories = [generalCategory?.id]
+  }
+  return expense
+}
+
 const queries = {
   getExpensesByUserId: async (_: any, { userId }: { userId: string }) =>
     await Expense.find({ userId }),
@@ -7,11 +16,13 @@ const queries = {
 
 const mutations = {
   addExpense: async (_: unknown, { newExpense }: any) => {
-    const expense = new Expense(newExpense)
+    const expenseToAdd = await addGeneralCategory(newExpense)
+    const expense = new Expense(expenseToAdd)
     return await expense.save()
   },
   updateExpense: async (_: unknown, { expenseToUpdate }: any) => {
-    return await Expense.findOneAndUpdate({ _id: expenseToUpdate.id }, expenseToUpdate, {
+    const exp = await addGeneralCategory(expenseToUpdate)
+    return await Expense.findOneAndUpdate({ _id: exp.id }, exp, {
       new: true,
     })
   },
