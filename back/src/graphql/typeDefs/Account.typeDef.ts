@@ -11,6 +11,9 @@ const typeDef = gql`
     expenditureSumTotal: Float
     expenditureSumMonth: Float
     expenditureSum30Days: Float
+    incomeSumTotal: Float
+    incomeSumMonth: Float
+    incomeSum30Days: Float
   }
 
   input AccountInput {
