@@ -6,6 +6,7 @@
     <router-link to="/incomes"> <v-icon name="hand-holding-usd" />Incomes</router-link>
     <router-link to="/expenses"> <v-icon name="regular/credit-card" />Expenses</router-link>
 
+    <router-link class="disabled" to="/categories"> <v-icon name="tags" />Categories</router-link>
     <router-link class="disabled" to="/wallet"> <v-icon name="wallet" />Wallet</router-link>
     <router-link class="disabled" to="/savings"> <v-icon name="piggy-bank" />Savings</router-link>
     <router-link class="disabled" to="/budget"> <v-icon name="percentage" />Budget</router-link>
