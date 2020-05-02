@@ -10,6 +10,10 @@
       </button>
     </header>
 
+    <div class="accounts-overview" v-if="this.getAccounts.length">
+      <AccountCard :account="getAccountsOverview" />
+    </div>
+
     <div class="accounts-cards" v-if="this.getAccounts.length">
       <AccountCard
         v-on:edit-account="editAccount"
@@ -35,7 +39,7 @@ export default {
     AccountModal,
   },
   computed: {
-    ...mapGetters(['getAccounts']),
+    ...mapGetters(['getAccounts', 'getAccountsOverview']),
   },
   methods: {
     showModal(modalName) {
@@ -67,6 +71,7 @@ export default {
   margin-top: 8px;
   & > div {
     margin: 8px;
+    width: calc(50% - 16px);
     &:last-child {
       margin-right: auto;
     }

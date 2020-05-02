@@ -8,6 +8,9 @@ const accountFields = `
   expenditureSumTotal
   expenditureSumMonth
   expenditureSum30Days
+  incomeSumTotal
+  incomeSumMonth
+  incomeSum30Days
 `
 
 const state = {
@@ -15,8 +18,28 @@ const state = {
 }
 
 const getters = {
-  getAccounts: state => state.accounts,
-  getAccountById: state => id => state.accounts.find(account => account.id === id),
+  getAccounts: ({ accounts }) => accounts,
+  getAccountById: ({ accounts }) => id => accounts.find(account => account.id === id),
+  getAccountsOverview: ({ accounts }) => {
+    const result = {
+      name: 'Accounts Overview',
+      expenditureSumTotal: 0,
+      expenditureSumMonth: 0,
+      expenditureSum30Days: 0,
+      incomeSumTotal: 0,
+      incomeSumMonth: 0,
+      incomeSum30Days: 0,
+    }
+    return accounts.reduce((acc, account) => {
+      acc.expenditureSumTotal += account.expenditureSumTotal
+      acc.expenditureSumMonth += account.expenditureSumMonth
+      acc.expenditureSum30Days += account.expenditureSum30Days
+      acc.incomeSumTotal += account.incomeSumTotal
+      acc.incomeSumMonth += account.incomeSumMonth
+      acc.incomeSum30Days += account.incomeSum30Days
+      return acc
+    }, result)
+  },
 }
 
 const actions = {

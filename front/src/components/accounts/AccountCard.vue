@@ -2,8 +2,19 @@
   <div class="wrapper">
     <h2>{{ account.name }}</h2>
     <div class="income">
-      <p>Income:</p>
-      <span>£ 5,000</span>
+      <h3>Income:</h3>
+      <div>
+        <p>Last Month:</p>
+        <span>£ {{ account.incomeSumMonth }}</span>
+      </div>
+      <div>
+        <p>Last 30 Days:</p>
+        <span>£ {{ account.incomeSum30Days }}</span>
+      </div>
+      <div>
+        <p>All time:</p>
+        <span>£ {{ account.incomeSumTotal }}</span>
+      </div>
     </div>
     <div class="expenditures">
       <h3>Expenditure:</h3>
@@ -42,11 +53,11 @@ export default {
   justify-content: space-between;
   align-items: center;
   p {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
   }
 
   span {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     font-weight: bold;
     color: var(--color-danger);
   }
@@ -58,8 +69,6 @@ export default {
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
-  width: 200px;
-  height: 250px;
   padding: 16px 16px 8px;
 
   h2 {
@@ -75,23 +84,7 @@ export default {
   }
 }
 
-.income {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 16px;
-  p {
-    color: var(--color-grey);
-    font-size: 0.9rem;
-  }
-  span {
-    color: var(--color-success);
-    font-weight: bold;
-    font-size: 0.9rem;
-  }
-}
-
+.income,
 .expenditures {
   margin-top: 16px;
   flex: 1;
@@ -100,7 +93,7 @@ export default {
   h3 {
     color: var(--color-grey);
     margin-bottom: 8px;
-    font-size: 0.9rem;
+    font-size: 1.125rem;
   }
 
   & > div {
@@ -111,9 +104,18 @@ export default {
   }
 }
 
+.income {
+  & > div {
+    span {
+      color: var(--color-success);
+    }
+  }
+}
+
 .actions {
   width: 100%;
   text-align: right;
+  margin-top: 16px;
   svg {
     color: var(--color-grey-light);
     transition: 0.2s all ease-in-out;
