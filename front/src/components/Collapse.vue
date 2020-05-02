@@ -45,13 +45,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../scss/mixins.scss';
+@import '../scss/mixins.scss';
 
 .collapse-container {
   @include card-with-shadow;
 }
 
 .collapse-header {
+  width: 100%;
   button {
     width: 100%;
     height: 64px;
@@ -61,9 +62,13 @@ export default {
     background-color: transparent;
     color: var(--color-secondary);
     text-transform: initial;
+    overflow: hidden;
     .left-col {
+      flex: 1;
+      display: flex;
     }
     .right-col {
+      width: 30px;
       .toggler {
         color: var(--color-grey);
       }
