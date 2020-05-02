@@ -101,23 +101,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '../../scss/mixins.scss';
-
-@mixin label-and-text {
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  margin-bottom: 8px;
-
-  span {
-    font-family: var(--font-secondary);
-    font-weight: bold;
-    font-size: 0.9rem;
-    color: var(--color-grey);
-    margin-right: 8px;
-    line-height: 1.8;
-    min-width: 100px;
-  }
-}
+@import '../../scss/collapse.scss';
 
 .expense-collapse {
   @include card-with-shadow;
@@ -156,12 +140,10 @@ export default {
         flex: 1;
         text-align: left;
         h2 {
-          font-family: var(--font-secondary);
-          font-weight: bold;
+          @extend %collapse-title;
         }
         p {
-          font-size: 0.85rem;
-          color: var(--color-grey);
+          @extend %collapse-subtitle;
         }
       }
       .amount {

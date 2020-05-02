@@ -12,6 +12,8 @@
 
     <RecurringIncomes />
 
+    <IncomesList />
+
     <IncomeModal v-on:close-modal="hideModal('income-modal')" />
   </div>
 </template>
@@ -20,11 +22,13 @@ import { mapGetters } from 'vuex'
 
 import IncomeModal from '@/components/incomes/IncomeModal'
 import RecurringIncomes from '@/components/incomes/RecurringIncomes'
+import IncomesList from '@/components/incomes/IncomesList'
 
 export default {
   name: 'IncomessPage',
   components: {
     RecurringIncomes,
+    IncomesList,
     IncomeModal,
   },
   methods: {

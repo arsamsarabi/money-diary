@@ -1,17 +1,14 @@
 <template>
   <div class="container">
-    <h1>Recurring incomes</h1>
-    <Collapse
-      v-for="{ id, amount, title, date, frequency, description, daysPerWeek, payer, account } in getRecurringIncomes"
-      :key="id"
-    >
+    <h1>Incomes</h1>
+    <Collapse v-for="{ id, amount, title, date, description, payer, account } in getOneOffIncomes" :key="id">
       <div slot="header" class="recurring-collapse-header">
         <section class="recurring-amount">
           <p>£{{ amount }}</p>
         </section>
         <section class="recurring-detail">
           <h2>{{ title }}</h2>
-          <p>{{ frequencyText(date, frequency, daysPerWeek) }}</p>
+          <p>{{ dateBuilder(date) }}</p>
         </section>
       </div>
       <div slot="body" class="recurring-collapse-body">
@@ -44,29 +41,14 @@ import Collapse from '@/components/Collapse.vue'
 dayjs.extend(advancedFormat)
 
 export default {
-  name: 'RecurringIncomes',
+  name: 'IncomesList',
   components: { Collapse },
   computed: {
-    ...mapGetters(['getRecurringIncomes']),
+    ...mapGetters(['getOneOffIncomes']),
   },
   methods: {
-    date(d, format = 'long') {
-      if (format == 'short') {
-        return dayjs(d).format('Do')
-      }
-      return dayjs(d).format('Do of MMMM')
-    },
-    frequencyText(date, frequency, daysPerWeek) {
-      switch (frequency) {
-        case 'Daily':
-          return `per day / ${daysPerWeek} day(s) a week`
-        case 'Weekly':
-          return `per week`
-        case 'Monthly':
-          return `${this.date(date, 'short')} of every month`
-        case 'Yearly':
-          return `per year on ${this.date(date)}`
-      }
+    dateBuilder(d) {
+      return dayjs(d).format('Do of MMMM YYYY')
     },
   },
 }
