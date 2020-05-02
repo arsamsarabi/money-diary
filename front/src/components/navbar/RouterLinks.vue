@@ -5,6 +5,12 @@
     <router-link to="/accounts"> <v-icon name="file-invoice-dollar" />Accounts</router-link>
     <router-link to="/incomes"> <v-icon name="hand-holding-usd" />Incomes</router-link>
     <router-link to="/expenses"> <v-icon name="regular/credit-card" />Expenses</router-link>
+
+    <router-link class="disabled" to="/wallet"> <v-icon name="wallet" />Wallet</router-link>
+    <router-link class="disabled" to="/savings"> <v-icon name="piggy-bank" />Savings</router-link>
+    <router-link class="disabled" to="/budget"> <v-icon name="percentage" />Budget</router-link>
+    <router-link class="disabled" to="/calendar"> <v-icon name="calendar-alt" />Calendar</router-link>
+    <router-link class="disabled" to="/charts"> <v-icon name="chart-bar" />Charts</router-link>
   </nav>
 </template>
 
@@ -36,6 +42,10 @@ nav {
     }
     &:not(:last-of-type) {
       margin-bottom: 16px;
+    }
+    &.disabled {
+      pointer-events: none;
+      color: var(--color-grey-light);
     }
 
     &:before {
