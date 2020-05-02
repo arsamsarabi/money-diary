@@ -1,4 +1,4 @@
-import faker from 'faker'
+import { finance, company } from 'faker'
 
 import { Account } from '../models'
 
@@ -9,8 +9,8 @@ export const fakeAccounts = async (userId: string) => {
 
   for (let i = 0; i < NUMBER_OF_FAKE_ACCOUNTS; i++) {
     const fakeAccount = new Account({
-      name: faker.company.companyName(),
-      description: faker.company.catchPhrase(),
+      name: finance.accountName(),
+      description: company.companyName(),
       userId,
     })
     const res = await fakeAccount.save()
