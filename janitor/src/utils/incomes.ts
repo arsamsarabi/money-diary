@@ -36,7 +36,7 @@ const fakeRecurringIncomes = async (userId: string, fakeAccountIds: string[]) =>
       date: dateGenerator(),
       recurring: true,
       frequency: random.arrayElement(['Daily', 'Weekly', 'Monthly', 'Yearly']),
-      daysPerWeek: random.number(5),
+      daysPerWeek: random.number({ min: 1, max: 5 }),
       payer: company.companyName(),
       account: random.arrayElement(fakeAccountIds),
       user: userId,
